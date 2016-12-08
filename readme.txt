@@ -26,3 +26,5 @@ more:
 https://schoudari.wordpress.com/2012/07/23/purpose-of-contextloaderlistener-spring-mvc/
 
 add basic controller,view(helloworld.jsp)
+===================================================================================
+also can be deployed by mvn tomcat7:run
