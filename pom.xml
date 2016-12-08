@@ -2,17 +2,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId></groupId><!-- REQUIRED ex: com.myname -->
-	<artifactId></artifactId><!-- REQUIRED ex: nameOfProject -->
+	<groupId>com.ratata</groupId>
+	<artifactId>demoSpringMvc4</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name></name><!-- name to show on Tomcat server ex: demoMvc Maven Webapp -->
+	<name>Spring 4 MVC demo</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
-		<spring.version></spring.version><!-- REQUIRED ex: 4.0.1.RELEASE -->
-		<jdk.version></jdk.version><!-- REQUIRED ex: 1.8 -->
-		<junit.version></junit.version><!-- REQUIRED ex: 3.8.1 -->
+		<spring.version>4.0.1.RELEASE</spring.version>
+		<jdk.version>1.8</jdk.version>
+		<junit.version>3.8.1</junit.version>
 	</properties>
 
 	<dependencies>
@@ -78,7 +78,7 @@
 				<artifactId>tomcat7-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<path></path><!-- REQUIRED ex:/pathToDeploy -->
+					<path>/Spring4MvcDemo</path>
 				</configuration>
 			</plugin>
 
