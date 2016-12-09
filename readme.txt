@@ -42,3 +42,5 @@ GET
 http://localhost:8080/demoSpringMvc4/user/
 DELETE
 http://localhost:8080/demoSpringMvc4/user/delete/1
+===================================================================================
+add log4j pom,log4j.properties,<mvc:resources mapping="/resources/**" location="/resources/" />
