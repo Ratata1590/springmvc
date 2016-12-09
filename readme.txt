@@ -28,3 +28,8 @@ https://schoudari.wordpress.com/2012/07/23/purpose-of-contextloaderlistener-spri
 add basic controller,view(helloworld.jsp)
 ===================================================================================
 also can be deployed by mvn tomcat7:run
+===================================================================================
+web.xml <--> WebAppInit
+DispatcherServlet <--> DemoConfig
+[javax.servlet-api,javax.servlet.jsp,javax.servlet] to pom for servlet 3.1
+maven-war-plugin to pom for ignore web.xml missing
