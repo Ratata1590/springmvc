@@ -29,3 +29,16 @@ https://schoudari.wordpress.com/2012/07/23/purpose-of-contextloaderlistener-spri
 add basic controller,view(helloworld.jsp)
 ===================================================================================
 also can be deployed by mvn tomcat7:run
+===================================================================================
+convert to rest service
+POST
+http://localhost:8080/demoSpringMvc4/user/add
+Content-Type application/json
+{
+    "username": "ratata",
+    "version": 0
+}
+GET
+http://localhost:8080/demoSpringMvc4/user/
+DELETE
+http://localhost:8080/demoSpringMvc4/user/delete/1
