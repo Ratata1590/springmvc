@@ -1,7 +1,6 @@
 package com.ratata.asyncEngine;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public abstract class AbstractAsyncService {
 
 	@Autowired
-	private ThreadPoolTaskExecutor taskExecutor;
+	protected ThreadPoolTaskExecutor taskExecutor;
 
 	protected static List<AsyncThread> threadPool = new ArrayList<AsyncThread>();
 
@@ -24,14 +23,20 @@ public abstract class AbstractAsyncService {
 
 	public void initPool() {
 		while (threadPool.size() < AsyncThreadConfig.poolsize) {
-			AsyncThread asyncThread = createThread();
-			taskExecutor.execute(asyncThread);
-			threadPool.add(asyncThread);
+			createSingleThread();
 		}
 	}
 
 	public AsyncThread createThread() {
 		return null;
+	}
+
+	public void createSingleThread() {
+		if (threadPool.size() < AsyncThreadConfig.poolsize) {
+			AsyncThread asyncThread = createThread();
+			taskExecutor.execute(asyncThread);
+			threadPool.add(asyncThread);
+		}
 	}
 
 	public void startService(int id) {

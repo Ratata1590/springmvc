@@ -50,9 +50,17 @@ public class DemoController {
 	private MyThreadService asyncService;
 
 	@RequestMapping(value = "/threadSetData", method = RequestMethod.GET)
-	public Object threadController(@RequestParam String data, @RequestParam int id) {
-		asyncService.setData(data, id);
+	public Object threadController(@RequestParam int id, @RequestParam String dataUrl, @RequestParam int startId,
+			@RequestParam int stopId) {
+		asyncService.setData(id, dataUrl, null, startId, stopId);
 		return asyncService.getstatus(id);
+	}
+
+	@RequestMapping(value = "/threadCreate", method = RequestMethod.GET)
+	public Object threadCreateController(@RequestParam String dataUrl, @RequestParam int startId,
+			@RequestParam int stopId) {
+		asyncService.createSingleThread(dataUrl, null, startId, stopId);
+		return asyncService.getstatusAll();
 	}
 
 	@RequestMapping(value = "/threadStart", method = RequestMethod.GET)

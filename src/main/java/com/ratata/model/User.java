@@ -12,19 +12,19 @@ import javax.persistence.Version;
 @Entity
 @Table
 public class User implements Serializable {
-	
+
 	private static final long serialVersionUID = 6541162783907686900L;
 
 	@Id
-    @GeneratedValue
-    private int id;
-	
+	@GeneratedValue
+	private int id;
+
 	@Column
 	private String username;
-	
+
 	@Version
 	private long version;
-	
+
 	public User() {
 		super();
 	}
@@ -57,6 +57,5 @@ public class User implements Serializable {
 	public void setVersion(long version) {
 		this.version = version;
 	}
-	
-	
+
 }

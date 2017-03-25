@@ -16,19 +16,18 @@ public class UserDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	public List<User> getAllUsers() {
-        TypedQuery<User> query = em.createQuery(
-        		"SELECT u FROM User u ORDER BY u.id", User.class);
-        return query.getResultList();
-    }
-	
+		TypedQuery<User> query = em.createQuery("SELECT u FROM User u ORDER BY u.id", User.class);
+		return query.getResultList();
+	}
+
 	@Transactional
 	public void delete(int userId) {
 		User user = em.getReference(User.class, userId);
 		em.remove(user);
 	}
-	
+
 	@Transactional
 	public void save(User aUser) {
 		em.persist(aUser);
