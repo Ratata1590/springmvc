@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
+import com.ratata.async.AsyncThread;
+
 @Service
 public class AsyncService {
 
@@ -23,8 +25,9 @@ public class AsyncService {
 
 	public int startService() {
 		System.out.println(asyncThread.getStatus());
-		if (asyncThread.getStatus().equals("START")) {
+		if (asyncThread.getStatus().equals("INIT")) {
 			taskExecutor.execute(asyncThread);
+			asyncThread.start();
 		}
 		if (asyncThread.getStatus().equals("STOP")) {
 			asyncThread.start();
