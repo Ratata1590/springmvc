@@ -3,16 +3,16 @@ package com.ratata.asyncImpl;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.ratata.asyncEngine.AsyncThread;
 
-public class MyThread extends AsyncThread {
+public abstract class InsertThread extends AsyncThread {
 
 	public String dataUrl = "None";
 	public JsonNode data;
-	public String currentItemName = "";
-	public int currentItemId = 10;
+	public String currentItemName;
+	public int currentItemId;
 	public int startId;
 	public int stopId;
 
-	public MyThread(String dataUrl, JsonNode data, int startId, int stopId) {
+	public InsertThread(String dataUrl, JsonNode data, int startId, int stopId) {
 		this.dataUrl = dataUrl;
 		this.data = data;
 		this.startId = startId;
@@ -21,7 +21,5 @@ public class MyThread extends AsyncThread {
 
 	@Override
 	public void job() throws Exception {
-		Thread.sleep(1000);
-		System.out.println(dataUrl);
 	}
 }

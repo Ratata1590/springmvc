@@ -5,5 +5,5 @@ public interface AsyncThreadConfig {
 		INIT, RUNNING, STOP, ERROR, DESTROY
 	}
 
-	public static int poolsize = 5;
+	public static int poolsize = 10;
 }

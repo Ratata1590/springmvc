@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ratata.model.User;
-import com.ratata.service.MyThreadService;
+import com.ratata.service.ImportThreadService;
 import com.ratata.service.UserService;
 
 @RestController
@@ -47,62 +47,68 @@ public class DemoController {
 	}
 
 	@Autowired
-	private MyThreadService asyncService;
+	private ImportThreadService importThreadService;
 
 	@RequestMapping(value = "/threadSetData", method = RequestMethod.GET)
-	public Object threadController(@RequestParam int id, @RequestParam String dataUrl, @RequestParam int startId,
-			@RequestParam int stopId) {
-		asyncService.setData(id, dataUrl, null, startId, stopId);
-		return asyncService.getstatus(id);
+	public Object threadSetDataController(@RequestParam int id, @RequestParam int startId, @RequestParam int stopId,
+			@RequestParam int currentId) {
+		importThreadService.setData(id, startId, stopId, currentId);
+		return importThreadService.getStatus(id);
 	}
 
-	@RequestMapping(value = "/threadCreate", method = RequestMethod.GET)
-	public Object threadCreateController(@RequestParam String dataUrl, @RequestParam int startId,
-			@RequestParam int stopId) {
-		asyncService.createSingleThread(dataUrl, null, startId, stopId);
-		return asyncService.getstatusAll();
+	@RequestMapping(value = "/threadGetDataRemote", method = RequestMethod.GET)
+	public void getDataFromRemoteEndpointController() {
+		// TODO:request remote data
+		importThreadService.setDataIviewFromRemoteEndpoint(null);
+		importThreadService.setDataSystemObjectFromRemoteEndpoint(null);
+	}
+
+	@RequestMapping(value = "/threadInit", method = RequestMethod.GET)
+	public Object threadInitController() {
+		importThreadService.insertThreadInit();
+		return importThreadService.getStatusAll();
+	}
+
+	@RequestMapping(value = "/threadSplit", method = RequestMethod.GET)
+	public Object threadSplitController(@RequestParam int id) {
+		importThreadService.splitThread(id);
+		return importThreadService.getStatusAll();
 	}
 
 	@RequestMapping(value = "/threadStart", method = RequestMethod.GET)
 	public Object threadStartController(@RequestParam int id) {
 		if (id == -1) {
-			asyncService.startAll();
-			return asyncService.getstatusAll();
+			importThreadService.startAll();
+			return importThreadService.getStatusAll();
 		} else {
-			asyncService.startService(id);
-			return asyncService.getstatus(id);
+			importThreadService.startService(id);
+			return importThreadService.getStatus(id);
 		}
 	}
 
 	@RequestMapping(value = "/threadStop", method = RequestMethod.GET)
 	public Object threadStopController(@RequestParam int id) {
 		if (id == -1) {
-			asyncService.stopAll();
-			return asyncService.getstatusAll();
+			importThreadService.stopAll();
+			return importThreadService.getStatusAll();
 		} else {
-			asyncService.stopService(id);
-			return asyncService.getstatus(id);
+			importThreadService.stopService(id);
+			return importThreadService.getStatus(id);
 		}
 	}
 
 	@RequestMapping(value = "/threadDestroy", method = RequestMethod.GET)
 	public Object threadDestroyController(@RequestParam int id) {
 		if (id == -1) {
-			asyncService.destroyAll();
+			importThreadService.destroyAll();
 		} else {
-			asyncService.destroy(id);
+			importThreadService.destroy(id);
 		}
-		return asyncService.getstatusAll();
+		return importThreadService.getStatusAll();
 	}
 
 	@RequestMapping(value = "/threadStatus", method = RequestMethod.GET)
 	public Object threadGetStatusController() {
-		return asyncService.getstatusAll();
-	}
-
-	@RequestMapping(value = "/threadInit", method = RequestMethod.GET)
-	public Object threadInitController() {
-		asyncService.initPool();
-		return asyncService.getstatusAll();
+		return importThreadService.getStatusAll();
 	}
 }

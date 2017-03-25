@@ -21,19 +21,8 @@ public abstract class AbstractAsyncService {
 
 	ObjectMapper mapper = new ObjectMapper();
 
-	public void initPool() {
-		while (threadPool.size() < AsyncThreadConfig.poolsize) {
-			createSingleThread();
-		}
-	}
-
-	public AsyncThread createThread() {
-		return null;
-	}
-
-	public void createSingleThread() {
+	public void createThread(AsyncThread asyncThread) {
 		if (threadPool.size() < AsyncThreadConfig.poolsize) {
-			AsyncThread asyncThread = createThread();
 			taskExecutor.execute(asyncThread);
 			threadPool.add(asyncThread);
 		}
@@ -59,7 +48,7 @@ public abstract class AbstractAsyncService {
 		}
 	}
 
-	public ObjectNode getstatus(int id) {
+	public ObjectNode getStatus(int id) {
 		ObjectNode thread = mapper.createObjectNode();
 		thread.put("id", id);
 		thread.put("status", threadPool.get(id).getStatus());
@@ -67,10 +56,10 @@ public abstract class AbstractAsyncService {
 		return thread;
 	}
 
-	public ArrayNode getstatusAll() {
+	public ArrayNode getStatusAll() {
 		ArrayNode status = mapper.createArrayNode();
 		for (int i = 0; i < threadPool.size(); i++) {
-			status.add(getstatus(i));
+			status.add(getStatus(i));
 		}
 		return status;
 	}
