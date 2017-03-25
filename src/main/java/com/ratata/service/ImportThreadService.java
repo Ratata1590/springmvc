@@ -5,6 +5,7 @@ import java.util.Map;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.asyncEngine.AbstractAsyncService;
 import com.ratata.asyncImpl.InsertThread;
@@ -42,20 +43,18 @@ public class ImportThreadService extends AbstractAsyncService {
 
 	public void insertThreadInit() {
 		// TODO: split by data length
-		createThread(new IviewInsertThread("1", null, 0, 1000));
-		createThread(new IviewInsertThread("2", null, 0, 1000));
-		createThread(new IviewInsertThread("3", null, 0, 1000));
-		createThread(new IviewInsertThread("4", null, 0, 1000));
-		// for (String url : dataIviewFromRemoteEndpoint.keySet()) {
-		// ArrayNode data = (ArrayNode) dataIviewFromRemoteEndpoint.get(url);
-		// createThread(new IviewInsertThread(url, data, 0, data.size()));
-		// }
-		// for (String url : dataSystemObjectFromRemoteEndpoint.keySet()) {
-		// ArrayNode data = (ArrayNode)
-		// dataSystemObjectFromRemoteEndpoint.get(url);
-		// createThread(new SystemObjectInsertThread(url, data, 0,
-		// data.size()));
-		// }
+//		createThread(new IviewInsertThread("1", null, 0, 1000));
+//		createThread(new IviewInsertThread("2", null, 0, 1000));
+//		createThread(new IviewInsertThread("3", null, 0, 1000));
+//		createThread(new IviewInsertThread("4", null, 0, 1000));
+		for (String url : dataIviewFromRemoteEndpoint.keySet()) {
+			ArrayNode data = (ArrayNode) dataIviewFromRemoteEndpoint.get(url);
+			createThread(new IviewInsertThread(url, data, 0, data.size()));
+		}
+		for (String url : dataSystemObjectFromRemoteEndpoint.keySet()) {
+			ArrayNode data = (ArrayNode) dataSystemObjectFromRemoteEndpoint.get(url);
+			createThread(new SystemObjectInsertThread(url, data, 0, data.size()));
+		}
 	}
 
 	public void splitThread(int id) {

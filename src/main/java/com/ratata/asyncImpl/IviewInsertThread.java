@@ -1,6 +1,7 @@
 package com.ratata.asyncImpl;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.ratata.asyncEngine.AsyncThreadConfig.AsyncThreadStatus;
 
 public class IviewInsertThread extends InsertThread {
 
@@ -13,6 +14,7 @@ public class IviewInsertThread extends InsertThread {
 		for (currentItemId = startId; currentItemId < stopId - 1; currentItemId++) {
 			Thread.sleep(2000);
 		}
+		status = AsyncThreadStatus.STOP;
 	}
 
 }
