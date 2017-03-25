@@ -77,6 +77,16 @@ public class DemoController {
 		}
 	}
 
+	@RequestMapping(value = "/threadDestroy", method = RequestMethod.GET)
+	public Object threadDestroyController(@RequestParam int id) {
+		if (id == -1) {
+			asyncService.destroyAll();
+		} else {
+			asyncService.destroy(id);
+		}
+		return asyncService.getstatusAll();
+	}
+
 	@RequestMapping(value = "/threadStatus", method = RequestMethod.GET)
 	public Object threadGetStatusController() {
 		return asyncService.getstatusAll();

@@ -23,7 +23,7 @@ public abstract class AsyncThread implements Runnable {
 	}
 
 	private void process() throws InterruptedException {
-		while (true) {
+		while (!status.equals(AsyncThreadConfig.AsyncThreadStatus.DESTROY)) {
 			while (semaphore.tryAcquire(1, TimeUnit.SECONDS)) {
 				status = AsyncThreadConfig.AsyncThreadStatus.RUNNING;
 				try {
@@ -54,5 +54,10 @@ public abstract class AsyncThread implements Runnable {
 
 	public String getStatus() {
 		return status.toString();
+	}
+
+	public void destroy() {
+		stop();
+		status = AsyncThreadConfig.AsyncThreadStatus.DESTROY;
 	}
 }

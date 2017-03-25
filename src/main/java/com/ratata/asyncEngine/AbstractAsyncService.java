@@ -1,6 +1,7 @@
 package com.ratata.asyncEngine;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,16 +34,32 @@ public abstract class AbstractAsyncService {
 		return null;
 	}
 
+	public void startService(int id) {
+		threadPool.get(id).start();
+	}
+
 	public void startAll() {
 		for (AsyncThread asyncThread : threadPool) {
 			asyncThread.start();
 		}
 	}
 
+	public void stopService(int id) {
+		threadPool.get(id).stop();
+	}
+
 	public void stopAll() {
 		for (AsyncThread asyncThread : threadPool) {
 			asyncThread.stop();
 		}
+	}
+
+	public ObjectNode getstatus(int id) {
+		ObjectNode thread = mapper.createObjectNode();
+		thread.put("id", id);
+		thread.put("status", threadPool.get(id).getStatus());
+		thread.put("error", threadPool.get(id).errorStackTrace);
+		return thread;
 	}
 
 	public ArrayNode getstatusAll() {
@@ -53,19 +70,16 @@ public abstract class AbstractAsyncService {
 		return status;
 	}
 
-	public void startService(int id) {
-		threadPool.get(id).start();
+	public void destroy(int id) {
+		threadPool.get(id).destroy();
+		threadPool.remove(id);
 	}
 
-	public void stopService(int id) {
-		threadPool.get(id).stop();
-	}
-
-	public ObjectNode getstatus(int id) {
-		ObjectNode thread = mapper.createObjectNode();
-		thread.put("id", id);
-		thread.put("status", threadPool.get(id).getStatus());
-		thread.put("error", threadPool.get(id).errorStackTrace);
-		return thread;
+	public void destroyAll() {
+		List<AsyncThread> toRemove = new ArrayList<>();
+		for (AsyncThread asyncThread : threadPool) {
+			toRemove.add(asyncThread);
+		}
+		threadPool.removeAll(toRemove);
 	}
 }
