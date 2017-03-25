@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ratata.model.User;
-import com.ratata.service.AsyncService;
+import com.ratata.service.MyThreadService;
 import com.ratata.service.UserService;
 
 @RestController
@@ -47,33 +47,44 @@ public class DemoController {
 	}
 
 	@Autowired
-	private AsyncService asyncService;
+	private MyThreadService asyncService;
 
 	@RequestMapping(value = "/threadSetData", method = RequestMethod.GET)
 	public Object threadController(@RequestParam String data, @RequestParam int id) {
 		asyncService.setData(data, id);
-		return asyncService.getstatus();
+		return asyncService.getstatus(id);
 	}
 
 	@RequestMapping(value = "/threadStart", method = RequestMethod.GET)
 	public Object threadStartController(@RequestParam int id) {
-		asyncService.startService(id);
-		return asyncService.getstatus();
+		if (id == -1) {
+			asyncService.startAll();
+			return asyncService.getstatusAll();
+		} else {
+			asyncService.startService(id);
+			return asyncService.getstatus(id);
+		}
 	}
 
 	@RequestMapping(value = "/threadStop", method = RequestMethod.GET)
-	public void threadStopController(@RequestParam int id) {
-		asyncService.stopService(id);
+	public Object threadStopController(@RequestParam int id) {
+		if (id == -1) {
+			asyncService.stopAll();
+			return asyncService.getstatusAll();
+		} else {
+			asyncService.stopService(id);
+			return asyncService.getstatus(id);
+		}
 	}
 
 	@RequestMapping(value = "/threadStatus", method = RequestMethod.GET)
 	public Object threadGetStatusController() {
-		return asyncService.getstatus();
+		return asyncService.getstatusAll();
 	}
 
 	@RequestMapping(value = "/threadInit", method = RequestMethod.GET)
 	public Object threadInitController() {
 		asyncService.initPool();
-		return asyncService.getstatus();
+		return asyncService.getstatusAll();
 	}
 }

@@ -1,19 +1,17 @@
-package com.ratata.async;
+package com.ratata.asyncEngine;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 
-public class AsyncThread implements Runnable {
-
-	public String data = "updating";
+public abstract class AsyncThread implements Runnable {
 
 	public String errorStackTrace = "";
 
 	private Semaphore semaphore = new Semaphore(0);
 
-	public AsyncThreadStatus status = AsyncThreadStatus.INIT;
+	public AsyncThreadConfig.AsyncThreadStatus status = AsyncThreadConfig.AsyncThreadStatus.INIT;
 
 	@Override
 	public void run() {
@@ -27,17 +25,13 @@ public class AsyncThread implements Runnable {
 	private void process() throws InterruptedException {
 		while (true) {
 			while (semaphore.tryAcquire(1, TimeUnit.SECONDS)) {
-				status = AsyncThreadStatus.RUNNING;
+				status = AsyncThreadConfig.AsyncThreadStatus.RUNNING;
 				try {
-					while (status.equals(AsyncThreadStatus.RUNNING)) {
-						// running job
-						Thread.sleep(1000);
-						System.out.println(data);
+					while (status.equals(AsyncThreadConfig.AsyncThreadStatus.RUNNING)) {
+						job();
 					}
-				} catch (InterruptedException e) {
-					throw e;
 				} catch (Exception e) {
-					status = AsyncThreadStatus.ERROR;
+					status = AsyncThreadConfig.AsyncThreadStatus.ERROR;
 					StringWriter errors = new StringWriter();
 					e.printStackTrace(new PrintWriter(errors));
 					errorStackTrace = errors.toString();
@@ -46,12 +40,16 @@ public class AsyncThread implements Runnable {
 		}
 	}
 
+	public void job() throws Exception {
+		Thread.sleep(1000);
+	}
+
 	public void start() {
 		semaphore.release();
 	}
 
 	public void stop() {
-		status = AsyncThreadStatus.STOP;
+		status = AsyncThreadConfig.AsyncThreadStatus.STOP;
 	}
 
 	public String getStatus() {
