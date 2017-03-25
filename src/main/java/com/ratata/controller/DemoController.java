@@ -49,19 +49,31 @@ public class DemoController {
 	@Autowired
 	private AsyncService asyncService;
 
-	@RequestMapping(value = "/thread", method = RequestMethod.GET)
-	public String threadController(@RequestParam String data) {
-		asyncService.setData(data);
-		return asyncService.getAsyncThread().getStatus();
+	@RequestMapping(value = "/threadSetData", method = RequestMethod.GET)
+	public Object threadController(@RequestParam String data, @RequestParam int id) {
+		asyncService.setData(data, id);
+		return asyncService.getstatus();
 	}
 
 	@RequestMapping(value = "/threadStart", method = RequestMethod.GET)
-	public int threadStartController() {
-		return asyncService.startService();
+	public Object threadStartController(@RequestParam int id) {
+		asyncService.startService(id);
+		return asyncService.getstatus();
 	}
 
 	@RequestMapping(value = "/threadStop", method = RequestMethod.GET)
-	public void threadStopController() {
-		asyncService.stopService();
+	public void threadStopController(@RequestParam int id) {
+		asyncService.stopService(id);
+	}
+
+	@RequestMapping(value = "/threadStatus", method = RequestMethod.GET)
+	public Object threadGetStatusController() {
+		return asyncService.getstatus();
+	}
+
+	@RequestMapping(value = "/threadInit", method = RequestMethod.GET)
+	public Object threadInitController() {
+		asyncService.initPool();
+		return asyncService.getstatus();
 	}
 }
