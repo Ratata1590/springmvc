@@ -1,5 +1,6 @@
 package com.ratata.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ratata.dao.UserDAOCustom;
 import com.ratata.model.User;
 import com.ratata.service.UserService;
@@ -22,17 +24,17 @@ public class DemoController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
-    private UserDAOCustom userDAOCustom;
+	private UserDAOCustom userDAOCustom;
 
 	@RequestMapping(value = "/user/", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> home(Model model) {
 		List<User> users = userService.getAllUsers();
-        if(users.isEmpty()){
-            return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<List<User>>(users, HttpStatus.OK);
+		if (users.isEmpty()) {
+			return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
+		}
+		return new ResponseEntity<List<User>>(users, HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
@@ -49,10 +51,12 @@ public class DemoController {
 
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
-	
+
 	@RequestMapping(value = "/nativequery", method = RequestMethod.GET)
-	public Object nativeQuery(@RequestParam("query") String query,@RequestParam(value="className",required=false,defaultValue="") String className) throws ClassNotFoundException {
-		System.out.println(query + "-" + className);
-		return userDAOCustom.nativeQery(query,className);
+	public Object nativeQuery(@RequestParam("query") String query,
+			@RequestParam(value = "className", required = false, defaultValue = "") String className,
+			@RequestParam(value = "resultSet", required = false) String[] resultSet)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+		return userDAOCustom.nativeQery(query, className, resultSet);
 	}
 }
