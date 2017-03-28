@@ -1,7 +1,6 @@
 package com.ratata.controller;
 
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,9 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponentsBuilder;
 
+import com.ratata.dao.UserDAOCustom;
 import com.ratata.model.User;
 import com.ratata.service.UserService;
 
@@ -22,6 +22,9 @@ public class DemoController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+    private UserDAOCustom userDAOCustom;
 
 	@RequestMapping(value = "/user/", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> home(Model model) {
@@ -45,5 +48,11 @@ public class DemoController {
 		userService.delete(userId);
 
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
+	}
+	
+	@RequestMapping(value = "/nativequery", method = RequestMethod.GET)
+	public Object nativeQuery(@RequestParam("query") String query,@RequestParam(value="className",required=false,defaultValue="") String className) throws ClassNotFoundException {
+		System.out.println(query + "-" + className);
+		return userDAOCustom.nativeQery(query,className);
 	}
 }
