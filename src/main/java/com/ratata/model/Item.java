@@ -9,43 +9,46 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table
 public class Item {
 
-	@Id
-	@GeneratedValue
-	private long id;
+  @Id
+  @GeneratedValue
+  private long id;
 
-	@Column
-	private String data;
-	
-	@ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="userId", nullable=false)
-	private User user;
+  @Column
+  private String data;
 
-	public User getUser() {
-		return user;
-	}
+  @JsonBackReference
+  @ManyToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "userId", nullable = false)
+  private User user;
 
-	public void setUser(User user) {
-		this.user = user;
-	}
+  public User getUser() {
+    return user;
+  }
 
-	public long getId() {
-		return id;
-	}
+  public void setUser(User user) {
+    this.user = user;
+  }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+  public long getId() {
+    return id;
+  }
 
-	public String getData() {
-		return data;
-	}
+  public void setId(long id) {
+    this.id = id;
+  }
 
-	public void setData(String data) {
-		this.data = data;
-	}
+  public String getData() {
+    return data;
+  }
+
+  public void setData(String data) {
+    this.data = data;
+  }
 
 }

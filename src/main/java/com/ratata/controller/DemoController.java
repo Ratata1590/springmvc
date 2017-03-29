@@ -57,6 +57,6 @@ public class DemoController {
 			@RequestParam(value = "className", required = false, defaultValue = "") String className,
 			@RequestParam(value = "resultSet", required = false) String[] resultSet)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
-		return userDAOCustom.nativeQery(query, className, resultSet);
+		return userDAOCustom.nativeQuery(query, className, resultSet);
 	}
 }

@@ -20,7 +20,7 @@ public class UserDAOCustom {
 	private EntityManager em;
 
 	@SuppressWarnings("unchecked")
-	public Object nativeQery(String query, String className, String[] resultSet)
+	public Object nativeQuery(String query, String className, String[] resultSet)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
 		if (resultSet != null && resultSet.length != 0) {
 			List<Object[]> result = em.createNativeQuery(query).getResultList();
