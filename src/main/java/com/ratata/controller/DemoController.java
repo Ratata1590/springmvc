@@ -1,18 +1,25 @@
 package com.ratata.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
+import com.bosch.portal.app.utils.Constants;
+import com.bosch.portal.app.utils.Utilities;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ratata.model.User;
 import com.ratata.service.ImportThreadService;
 import com.ratata.service.UserService;
@@ -46,69 +53,92 @@ public class DemoController {
 		return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
 	}
 
-	@Autowired
-	private ImportThreadService importThreadService;
+  @Autowired
+  private ImportThreadService importThreadService;
 
-	@RequestMapping(value = "/threadSetData", method = RequestMethod.GET)
-	public Object threadSetDataController(@RequestParam int id, @RequestParam int startId, @RequestParam int stopId,
-			@RequestParam int currentId) {
-		importThreadService.setData(id, startId, stopId, currentId);
-		return importThreadService.getStatus(id);
-	}
+  @RequestMapping(value = "/threadSetData", method = RequestMethod.GET)
+  public Object threadSetDataController(@RequestParam int id, @RequestParam int startId,
+      @RequestParam int stopId, @RequestParam int currentId) {
+    importThreadService.setData(id, startId, stopId, currentId);
+    return importThreadService.getStatus(id);
+  }
 
-	@RequestMapping(value = "/threadGetDataRemote", method = RequestMethod.GET)
-	public void getDataFromRemoteEndpointController() {
-		// TODO:request remote data
-		importThreadService.setDataIviewFromRemoteEndpoint(null);
-		importThreadService.setDataSystemObjectFromRemoteEndpoint(null);
-	}
+  @RequestMapping(value = "/threadGetDataRemote", method = RequestMethod.GET)
+  public void getDataFromRemoteEndpointController() throws JsonProcessingException, IOException {
 
-	@RequestMapping(value = "/threadInit", method = RequestMethod.GET)
-	public Object threadInitController() {
-		importThreadService.insertThreadInit();
-		return importThreadService.getStatusAll();
-	}
+    RestTemplate resttemp = new RestTemplate();
+    LinkedMultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>();
+    ObjectMapper mapper = new ObjectMapper();
+    // Authentication
+    form.add("j_username", "");
+    form.add("j_password", "");
 
-	@RequestMapping(value = "/threadSplit", method = RequestMethod.GET)
-	public Object threadSplitController(@RequestParam int id) {
-		importThreadService.splitThread(id);
-		return importThreadService.getStatusAll();
-	}
+    List<String> locations =
+        Utilities.readLocationFile(Constants.IVIEW_LOC_PROPS, Constants.LOCATION_RESOURCE_PATH);
 
-	@RequestMapping(value = "/threadStart", method = RequestMethod.GET)
-	public Object threadStartController(@RequestParam int id) {
-		if (id == -1) {
-			importThreadService.startAll();
-			return importThreadService.getStatusAll();
-		} else {
-			importThreadService.startService(id);
-			return importThreadService.getStatus(id);
-		}
-	}
+    for (String s : locations) {
+      System.out.println(Constants.IVIEW_location + s);
+      String result = resttemp.postForObject(Constants.IVIEW_location + s, form, String.class);
+      // System.out.println(result);
+      importThreadService.getDataIviewFromRemoteEndpoint().put(s, mapper.readTree(result));
+    }
 
-	@RequestMapping(value = "/threadStop", method = RequestMethod.GET)
-	public Object threadStopController(@RequestParam int id) {
-		if (id == -1) {
-			importThreadService.stopAll();
-			return importThreadService.getStatusAll();
-		} else {
-			importThreadService.stopService(id);
-			return importThreadService.getStatus(id);
-		}
-	}
+    locations = Utilities.readLocationFile(Constants.SYSTEMOBJECT_LOC_PROPS,
+        Constants.LOCATION_RESOURCE_PATH);
+    for (String s : locations) {
+      System.out.println(Constants.SYSTEMOBJECT_Location + s);
+      String result =
+          resttemp.postForObject(Constants.SYSTEMOBJECT_Location + s, form, String.class);
+      importThreadService.getDataSystemObjectFromRemoteEndpoint().put(s, mapper.readTree(result));
+    }
+  }
 
-	@RequestMapping(value = "/threadDestroy", method = RequestMethod.GET)
-	public Object threadDestroyController(@RequestParam int id) {
-		if (id == -1) {
-			importThreadService.destroyAll();
-		} else {
-			importThreadService.destroy(id);
-		}
-		return importThreadService.getStatusAll();
-	}
+  @RequestMapping(value = "/threadInit", method = RequestMethod.GET)
+  public Object threadInitController() {
+    importThreadService.insertThreadInit();
+    return importThreadService.getStatusAll();
+  }
 
-	@RequestMapping(value = "/threadStatus", method = RequestMethod.GET)
-	public Object threadGetStatusController() {
-		return importThreadService.getStatusAll();
-	}
+  @RequestMapping(value = "/threadSplit", method = RequestMethod.GET)
+  public Object threadSplitController(@RequestParam int id) {
+    importThreadService.splitThread(id);
+    return importThreadService.getStatusAll();
+  }
+
+  @RequestMapping(value = "/threadStart", method = RequestMethod.GET)
+  public Object threadStartController(@RequestParam int id) {
+    if (id == -1) {
+      importThreadService.startAll();
+      return importThreadService.getStatusAll();
+    } else {
+      importThreadService.startService(id);
+      return importThreadService.getStatus(id);
+    }
+  }
+
+  @RequestMapping(value = "/threadStop", method = RequestMethod.GET)
+  public Object threadStopController(@RequestParam int id) {
+    if (id == -1) {
+      importThreadService.stopAll();
+      return importThreadService.getStatusAll();
+    } else {
+      importThreadService.stopService(id);
+      return importThreadService.getStatus(id);
+    }
+  }
+
+  @RequestMapping(value = "/threadDestroy", method = RequestMethod.GET)
+  public Object threadDestroyController(@RequestParam int id) {
+    if (id == -1) {
+      importThreadService.destroyAll();
+    } else {
+      importThreadService.destroy(id);
+    }
+    return importThreadService.getStatusAll();
+  }
+
+  @RequestMapping(value = "/threadStatus", method = RequestMethod.GET)
+  public Object threadGetStatusController() {
+    return importThreadService.getStatusAll();
+  }
 }
