@@ -70,7 +70,19 @@ public abstract class AbstractAsyncService {
   public void destroyAll() {
     List<AsyncThread> toRemove = new ArrayList<>();
     for (AsyncThread asyncThread : threadPool) {
+      asyncThread.destroy();
       toRemove.add(asyncThread);
+    }
+    threadPool.removeAll(toRemove);
+  }
+
+  public void cleanFinishTask() {
+    List<AsyncThread> toRemove = new ArrayList<>();
+    for (AsyncThread asyncThread : threadPool) {
+      if (asyncThread.status.equals(AsyncThreadConfig.AsyncThreadStatus.STOP)) {
+        asyncThread.destroy();
+        toRemove.add(asyncThread);
+      }
     }
     threadPool.removeAll(toRemove);
   }

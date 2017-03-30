@@ -7,19 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import com.bosch.portal.app.utils.Constants;
-import com.bosch.portal.app.utils.Utilities;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ratata.model.User;
 import com.ratata.service.ImportThreadService;
 import com.ratata.service.UserService;
@@ -66,31 +61,31 @@ public class DemoController {
   @RequestMapping(value = "/threadGetDataRemote", method = RequestMethod.GET)
   public void getDataFromRemoteEndpointController() throws JsonProcessingException, IOException {
 
-    RestTemplate resttemp = new RestTemplate();
-    LinkedMultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>();
-    ObjectMapper mapper = new ObjectMapper();
-    // Authentication
-    form.add("j_username", "");
-    form.add("j_password", "");
-
-    List<String> locations =
-        Utilities.readLocationFile(Constants.IVIEW_LOC_PROPS, Constants.LOCATION_RESOURCE_PATH);
-
-    for (String s : locations) {
-      System.out.println(Constants.IVIEW_location + s);
-      String result = resttemp.postForObject(Constants.IVIEW_location + s, form, String.class);
-      // System.out.println(result);
-      importThreadService.getDataIviewFromRemoteEndpoint().put(s, mapper.readTree(result));
-    }
-
-    locations = Utilities.readLocationFile(Constants.SYSTEMOBJECT_LOC_PROPS,
-        Constants.LOCATION_RESOURCE_PATH);
-    for (String s : locations) {
-      System.out.println(Constants.SYSTEMOBJECT_Location + s);
-      String result =
-          resttemp.postForObject(Constants.SYSTEMOBJECT_Location + s, form, String.class);
-      importThreadService.getDataSystemObjectFromRemoteEndpoint().put(s, mapper.readTree(result));
-    }
+//    RestTemplate resttemp = new RestTemplate();
+//    LinkedMultiValueMap<String, String> form = new LinkedMultiValueMap<String, String>();
+//    ObjectMapper mapper = new ObjectMapper();
+//    // Authentication
+//    form.add("j_username", "");
+//    form.add("j_password", "");
+//
+//    List<String> locations =
+//        Utilities.readLocationFile(Constants.IVIEW_LOC_PROPS, Constants.LOCATION_RESOURCE_PATH);
+//
+//    for (String s : locations) {
+//      System.out.println(Constants.IVIEW_location + s);
+//      String result = resttemp.postForObject(Constants.IVIEW_location + s, form, String.class);
+//      // System.out.println(result);
+//      importThreadService.getDataIviewFromRemoteEndpoint().put(s, mapper.readTree(result));
+//    }
+//
+//    locations = Utilities.readLocationFile(Constants.SYSTEMOBJECT_LOC_PROPS,
+//        Constants.LOCATION_RESOURCE_PATH);
+//    for (String s : locations) {
+//      System.out.println(Constants.SYSTEMOBJECT_Location + s);
+//      String result =
+//          resttemp.postForObject(Constants.SYSTEMOBJECT_Location + s, form, String.class);
+//      importThreadService.getDataSystemObjectFromRemoteEndpoint().put(s, mapper.readTree(result));
+//    }
   }
 
   @RequestMapping(value = "/threadInit", method = RequestMethod.GET)
