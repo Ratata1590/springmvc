@@ -26,3 +26,19 @@ POST http://localhost:8080/demoSpringMvc4/nativequery
 		]
 	}
 }
+
+POST http://localhost:8080/demoSpringMvc4/SaveQueryList
+{
+	"hello":{
+		"query":"Select i.data,i.id from Item i where i.id in (?0,?1)",
+		"resultSet":["thedata","theid"]
+	},
+	"hi":{
+		"query":"Select i.data,i.id from Item i where i.id = 1",
+		"resultSet":["thedata","theid"],
+		"singleReturn":true
+	}
+}
+
+http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hello&param=1,2
+
