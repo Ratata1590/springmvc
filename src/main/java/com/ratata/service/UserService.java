@@ -10,19 +10,18 @@ import com.ratata.model.User;
 
 @Service
 public class UserService {
-	
+
 	@Autowired
-    private UserDAO userDAO;
-	
-	
+	private UserDAO userDAO;
+
 	public List<User> getAllUsers() {
 		return userDAO.getAllUsers();
 	}
-	
+
 	public void save(User aUser) {
 		userDAO.save(aUser);
 	}
-	
+
 	public void delete(int userId) {
 		userDAO.delete(userId);
 	}

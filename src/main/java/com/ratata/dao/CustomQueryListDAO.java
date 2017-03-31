@@ -25,10 +25,21 @@ public class CustomQueryListDAO {
 	public static Map<String, JsonNode> queryList = new HashMap<String, JsonNode>();
 	ObjectMapper mapper = new ObjectMapper();
 
+	@SuppressWarnings("unchecked")
 	public void saveQueryList(ObjectNode query) {
+		queryList = mapper.convertValue(query, Map.class);
+	}
+
+	public void updateQueryList(ObjectNode query) {
 		Iterator<Entry<String, JsonNode>> nodeEntry = query.fields();
 		while (nodeEntry.hasNext()) {
 			Map.Entry<String, JsonNode> entry = (Map.Entry<String, JsonNode>) nodeEntry.next();
+			if (entry.getValue().isNull()) {
+				if (queryList.containsKey(entry.getKey())) {
+					CustomQueryListDAO.queryList.remove(entry.getKey());
+				}
+				continue;
+			}
 			CustomQueryListDAO.queryList.put(entry.getKey(), entry.getValue());
 		}
 	}
