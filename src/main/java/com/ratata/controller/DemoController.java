@@ -2,13 +2,8 @@ package com.ratata.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,57 +12,51 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.dao.UserDAOCustom;
-import com.ratata.model.User;
-import com.ratata.service.UserService;
+import com.ratata.dao.CustomQueryListDAO;
+import com.ratata.dao.NativeQueryDAO;
+import com.ratata.dao.NativeQueryDynamicPojoDAO;
 
 @RestController
 public class DemoController {
+	@Autowired
+	private NativeQueryDAO userDAOCustom;
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	NativeQueryDynamicPojoDAO nativeQueryDynamicPojoDAO;
 
-  @Autowired
-  private UserDAOCustom userDAOCustom;
+	@Autowired
+	CustomQueryListDAO customQueryListDAO;
 
-  @RequestMapping(value = "/user/", method = RequestMethod.GET)
-  public ResponseEntity<List<User>> home(Model model) {
-    List<User> users = userService.getAllUsers();
-    if (users.isEmpty()) {
-      return new ResponseEntity<List<User>>(HttpStatus.NO_CONTENT);
-    }
-    return new ResponseEntity<List<User>>(users, HttpStatus.OK);
-  }
+	@RequestMapping(value = "/nativequery", method = RequestMethod.GET)
+	public Object nativeQuery(@RequestParam("query") String query,
+			@RequestParam(value = "className", required = false, defaultValue = "") String className,
+			@RequestParam(value = "resultSet", required = false) String[] resultSet,
+			@RequestParam(value = "singleReturn", required = false, defaultValue = "false") boolean singleReturn)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+		return userDAOCustom.nativeQuery(query, className, Arrays.asList(resultSet), singleReturn, null);
+	}
 
-  @RequestMapping(value = "/user/add", method = RequestMethod.POST)
-  public ResponseEntity<Void> addUser(@RequestBody User user) {
+	@RequestMapping(value = "/nativequery", method = RequestMethod.POST)
+	public Object nativeQueryWithDynamicPoJo(@RequestBody ObjectNode pojo)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+		nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(pojo);
+		return pojo;
+	}
 
-    userService.save(user);
-    return new ResponseEntity<Void>(HttpStatus.CREATED);
-  }
+	// ------------------------------
+	@RequestMapping(value = "/SaveQueryList", method = RequestMethod.POST)
+	public Object SaveQueryList(@RequestBody ObjectNode queryList) {
+		customQueryListDAO.saveQueryList(queryList);
+		return CustomQueryListDAO.queryList;
+	}
 
-  @RequestMapping(value = "/user/delete/{userId}", method = RequestMethod.DELETE)
-  public ResponseEntity<User> removeUser(@PathVariable("userId") int userId) {
+	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
+	public Object queryWithParam(@RequestParam String queryName, @RequestParam String[] param)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+		if (CustomQueryListDAO.queryList == null) {
+			return "please insert query list first";
+		}
+		return customQueryListDAO.processCustomQuery(queryName, Arrays.asList(param));
 
-    userService.delete(userId);
-
-    return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
-  }
-
-  @RequestMapping(value = "/nativequery", method = RequestMethod.GET)
-  public Object nativeQuery(@RequestParam("query") String query,
-      @RequestParam(value = "className", required = false, defaultValue = "") String className,
-      @RequestParam(value = "resultSet", required = false) String[] resultSet,
-      @RequestParam(value = "singleReturn", required = false,
-          defaultValue = "false") boolean singleReturn)
-      throws ClassNotFoundException, JsonProcessingException, IOException {
-    return userDAOCustom.nativeQuery(query, className, Arrays.asList(resultSet), singleReturn);
-  }
-
-  @RequestMapping(value = "/nativequery", method = RequestMethod.POST)
-  public Object nativeQueryWithDynamicPoJo(@RequestBody ObjectNode pojo)
-      throws ClassNotFoundException, JsonProcessingException, IOException {
-    userDAOCustom.nativeWithDynamicPojo(pojo);
-    return pojo;
-  }
+	}
 }
