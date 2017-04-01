@@ -21,8 +21,13 @@ POST http://localhost:8080/demoSpringMvc4/nativequery
 		"deepper":[
 			{
 				"query":"Select * from User",
-				"className":"com.ratata.model.User"
-			},[4,3]
+				"className":"com.ratata.model.User",
+				"mergeArray":true
+			},[4,3],			{
+				"query":"Select * from Item",
+				"className":"com.ratata.model.Item",
+				"mergeArray":true
+			}
 		]
 	}
 }
