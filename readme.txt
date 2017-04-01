@@ -1,5 +1,5 @@
 GET http://localhost:8080/demoSpringMvc4/nativequery?query=select * from Item a;&className=com.ratata.model.Item
-
+GET http://localhost:8080/demoSpringMvc4/nativequery?query=Select i.data,i.id from Item i where i.id in (?0);&resultSet=id,theusername&param=[[1,2]]
 
 POST http://localhost:8080/demoSpringMvc4/nativequery
 {
@@ -23,7 +23,7 @@ POST http://localhost:8080/demoSpringMvc4/nativequery
 				"query":"Select * from User",
 				"className":"com.ratata.model.User",
 				"mergeArray":true
-			},[4,3],			{
+			},[4,3],{
 				"query":"Select * from Item",
 				"className":"com.ratata.model.Item",
 				"mergeArray":true
@@ -86,7 +86,7 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
     }
   },
   "hello": {
-    "query": "Select i.data,i.id from Item i where i.id in (?0,?1)",
+    "query": "Select i.data,i.id from Item i where i.id in (?0)",
     "resultSet": [
       "thedata",
       "theid"
@@ -94,7 +94,7 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
   }
 }
 
-http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hello&param=1,2
+http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hello&param=[[1,2]]
 
 
 

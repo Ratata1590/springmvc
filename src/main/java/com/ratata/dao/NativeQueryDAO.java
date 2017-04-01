@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @Component
@@ -21,10 +22,12 @@ public class NativeQueryDAO {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+	ObjectMapper mapper = new ObjectMapper();
 
 	@SuppressWarnings("unchecked")
 	public Object nativeQuery(String query, String className, List<String> resultSet, boolean singleReturn,
-			List<String> param) throws ClassNotFoundException, JsonProcessingException, IOException {
+			String param) throws ClassNotFoundException, JsonProcessingException, IOException {
 		Object result = returnResult(singleReturn, returnQuery(query, className, param));
 
 		if (resultSet != null && resultSet.size() != 0) {
@@ -61,7 +64,8 @@ public class NativeQueryDAO {
 		}
 	}
 
-	private Query returnQuery(String query, String className, List<String> param) throws ClassNotFoundException {
+	private Query returnQuery(String query, String className, String param)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
 		Query queryObj;
 		if (className != null && !className.isEmpty()) {
 			queryObj = em.createNativeQuery(query, Class.forName(className));
@@ -69,14 +73,35 @@ public class NativeQueryDAO {
 			queryObj = em.createNativeQuery(query);
 		}
 		if (param != null && !param.isEmpty()) {
-			for (int i = 0; i < param.size(); i++) {
-				queryObj.setParameter(i, param.get(i));
+			ArrayNode paramNode = ((ArrayNode) mapper.readTree(param));
+			for (int i = 0; i < paramNode.size(); i++) {
+				queryObj.setParameter(i, resolveParam(paramNode.get(i)));
 			}
 		}
 		return queryObj;
 	}
 
-	public Object processQueryObject(JsonNode queryObject, List<String> param)
+	private Object resolveParam(JsonNode node) {
+		if (node.isArray()) {
+			List<Object> arrayData = new ArrayList<Object>();
+			for (int i = 0; i < ((ArrayNode) node).size(); i++) {
+				arrayData.add(resolveParam(node.get(i)));
+			}
+			return arrayData;
+		}
+		if (node.isNumber()) {
+			return node.asLong();
+		}
+		if (node.isBoolean()) {
+			return node.asBoolean();
+		}
+		if (node.isTextual()) {
+			return node.asText();
+		}
+		return node;
+	}
+
+	public Object processQueryObject(JsonNode queryObject, String param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
 		String query = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_QUERY)
 				? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_QUERY).asText() : null;

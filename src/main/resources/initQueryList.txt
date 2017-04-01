@@ -1,6 +1,6 @@
 {
 	"hello":{
-		"query":"Select i.data,i.id from Item i where i.id in (?0,?1)",
+		"query":"Select i.data,i.id from Item i where i.id in (?0)",
 		"resultSet":["thedata","theid"]
 	},
 	"hi":{

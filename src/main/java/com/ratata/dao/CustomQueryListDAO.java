@@ -3,7 +3,6 @@ package com.ratata.dao;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -48,7 +47,7 @@ public class CustomQueryListDAO {
 		}
 	}
 
-	public Object processCustomQuery(String queryName, List<String> param)
+	public Object processCustomQuery(String queryName, String param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
 		JsonNode queryObject = CustomQueryListDAO.queryList.get(queryName);
 		if (queryObject == null) {

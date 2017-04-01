@@ -3,7 +3,6 @@ package com.ratata.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -36,9 +35,11 @@ public class DemoController {
 	public Object nativeQuery(@RequestParam("query") String query,
 			@RequestParam(value = "className", required = false, defaultValue = "") String className,
 			@RequestParam(value = "resultSet", required = false) String[] resultSet,
-			@RequestParam(value = "singleReturn", required = false, defaultValue = "false") boolean singleReturn)
+			@RequestParam(value = "singleReturn", required = false, defaultValue = "false") boolean singleReturn,
+			@RequestParam(required = false) String param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
-		return userDAOCustom.nativeQuery(query, className, Arrays.asList(resultSet), singleReturn, null);
+		return userDAOCustom.nativeQuery(query, className, resultSet != null ? Arrays.asList(resultSet) : null,
+				singleReturn, param);
 	}
 
 	@RequestMapping(value = "/nativequery", method = RequestMethod.POST)
@@ -67,16 +68,12 @@ public class DemoController {
 	}
 
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
-	public Object queryWithParam(@RequestParam String queryName, @RequestParam(required = false) String[] param)
+	public Object queryWithParam(@RequestParam String queryName, @RequestParam(required = false) String param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
-		List<String> paramList = null;
 		if (CustomQueryListDAO.queryList == null) {
 			return "please insert query list first";
 		}
-		if (param != null) {
-			paramList = Arrays.asList(param);
-		}
-		return customQueryListDAO.processCustomQuery(queryName, paramList);
+		return customQueryListDAO.processCustomQuery(queryName, param);
 
 	}
 
