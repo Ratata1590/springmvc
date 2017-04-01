@@ -1,7 +1,9 @@
 package com.ratata.dao;
 
 import java.io.IOException;
+import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -20,6 +22,7 @@ public class NativeQueryDynamicPojoDAO {
 	public static final String PARAM_CLASSNAME = "className";
 	public static final String PARAM_RESULTSET = "resultSet";
 	public static final String PARAM_SINGLERETURN = "singleReturn";
+	public static final String PARAM_MERGEARRAY = "mergeArray";
 
 	ObjectMapper mapper = new ObjectMapper();
 
@@ -35,6 +38,7 @@ public class NativeQueryDynamicPojoDAO {
 		return node;
 	}
 
+	@SuppressWarnings("unchecked")
 	public void checkNode(JsonNode node) throws ClassNotFoundException, JsonProcessingException, IOException {
 		Iterator<Entry<String, JsonNode>> nodeEntry = node.fields();
 		while (nodeEntry.hasNext()) {
@@ -44,8 +48,16 @@ public class NativeQueryDynamicPojoDAO {
 				for (int i = 0; i < entry.getValue().size(); i++) {
 					JsonNode tnode = entry.getValue().get(i);
 					if (tnode.has(PARAM_QUERY)) {
-						((ArrayNode) entry.getValue()).set(i,
-								mapper.valueToTree(nativeQueryDAO.processQueryObject(tnode, null)));
+						if (tnode.has(PARAM_MERGEARRAY) && tnode.get(PARAM_MERGEARRAY).asBoolean()) {
+							((ArrayNode) entry.getValue()).remove(i);
+							List<Object> results = (List<Object>) nativeQueryDAO.processQueryObject(tnode, null);
+							for (Object obj : results) {
+								((ArrayNode) entry.getValue()).add(mapper.valueToTree(obj));
+							}
+						} else {
+							((ArrayNode) entry.getValue()).set(i,
+									mapper.valueToTree(nativeQueryDAO.processQueryObject(tnode, null)));
+						}
 					} else {
 						checkNode(tnode);
 					}
