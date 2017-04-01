@@ -44,3 +44,11 @@ DELETE
 http://localhost:8080/demoSpringMvc4/user/delete/1
 ===================================================================================
 add log4j pom,log4j.properties,<mvc:resources mapping="/resources/**" location="/resources/" />
+
+
+
+-----
+Move RestTemplate to outside
+Move LinkedMultiValueMap to outside
+remove cleanupFinishTask
+use new tryResuseTask
