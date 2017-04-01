@@ -1,0 +1,35 @@
+{
+	"hello":{
+		"query":"Select i.data,i.id from Item i where i.id in (?0,?1)",
+		"resultSet":["thedata","theid"]
+	},
+	"hi":{
+	"data1":{
+		"query":"Select * from User a where a.id =-1",
+		"className":"com.ratata.model.User",
+		"singleReturn":true
+	},
+	"data2":{
+		"query":"Select i.data,i.id from Item i where i.id = 1",
+		"resultSet":["thedata","theid"],
+		"singleReturn":true
+	},
+	"data3":{
+		"query":"Select * from User"
+	},
+	"data4":{
+		"someData":4,
+		"deepper":[
+			{
+				"query":"Select * from User",
+				"className":"com.ratata.model.User",
+				"mergeArray":true
+			},[4,3],			{
+				"query":"Select * from Item",
+				"className":"com.ratata.model.Item",
+				"mergeArray":true
+			}
+		]
+	}
+}
+}

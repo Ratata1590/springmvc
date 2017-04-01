@@ -28,7 +28,7 @@ public class CustomQueryListDAO {
 	public static Map<String, JsonNode> queryList = new HashMap<String, JsonNode>();
 	ObjectMapper mapper = new ObjectMapper();
 
-	public void saveQueryList(ObjectNode query) {
+	public void saveQueryList(Object query) {
 		TypeReference<HashMap<String, JsonNode>> typeRef = new TypeReference<HashMap<String, JsonNode>>() {
 		};
 		queryList = mapper.convertValue(query, typeRef);

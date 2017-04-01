@@ -1,8 +1,11 @@
 package com.ratata.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+
+import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.dao.CustomQueryListDAO;
 import com.ratata.dao.NativeQueryDAO;
@@ -74,5 +78,13 @@ public class DemoController {
 		}
 		return customQueryListDAO.processCustomQuery(queryName, paramList);
 
+	}
+
+	@PostConstruct
+	public void InitQueryList() throws JsonProcessingException, IOException {
+		ClassLoader classLoader = getClass().getClassLoader();
+		ObjectMapper mapper = new ObjectMapper();
+		File file = new File(classLoader.getResource("initQueryList.txt").getFile());
+		customQueryListDAO.saveQueryList(mapper.readTree(file));
 	}
 }
