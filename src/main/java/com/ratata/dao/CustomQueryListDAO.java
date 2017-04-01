@@ -20,6 +20,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class CustomQueryListDAO {
 
 	@Autowired
+	NativeQueryDynamicPojoDAO nativeQueryDynamicPojoDAO;
+
+	@Autowired
 	NativeQueryDAO nativeQueryDAO;
 
 	public static Map<String, JsonNode> queryList = new HashMap<String, JsonNode>();
@@ -51,6 +54,9 @@ public class CustomQueryListDAO {
 		if (queryObject == null) {
 			return "query not exist";
 		}
-		return nativeQueryDAO.processQueryObject(queryObject, param);
+		if (queryObject.has(NativeQueryDynamicPojoDAO.PARAM_QUERY)) {
+			return nativeQueryDAO.processQueryObject(queryObject, param);
+		}
+		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo((ObjectNode) queryObject);
 	}
 }

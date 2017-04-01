@@ -2,6 +2,7 @@ package com.ratata.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -62,12 +63,16 @@ public class DemoController {
 	}
 
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
-	public Object queryWithParam(@RequestParam String queryName, @RequestParam String[] param)
+	public Object queryWithParam(@RequestParam String queryName, @RequestParam(required = false) String[] param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
+		List<String> paramList = null;
 		if (CustomQueryListDAO.queryList == null) {
 			return "please insert query list first";
 		}
-		return customQueryListDAO.processCustomQuery(queryName, Arrays.asList(param));
+		if (param != null) {
+			paramList = Arrays.asList(param);
+		}
+		return customQueryListDAO.processCustomQuery(queryName, paramList);
 
 	}
 }
