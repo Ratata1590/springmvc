@@ -13,6 +13,8 @@ import javax.persistence.Query;
 import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @Component
 public class NativeQueryDAO {
@@ -72,6 +74,19 @@ public class NativeQueryDAO {
 			}
 		}
 		return queryObj;
+	}
+
+	public Object processQueryObject(JsonNode queryObject, List<String> param)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+		String query = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_QUERY)
+				? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_QUERY).asText() : null;
+		String className = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_CLASSNAME)
+				? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_CLASSNAME).asText() : null;
+		List<String> resultSet = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_RESULTSET) ? UtilNativeQuery
+				.arrayNodeToListString((ArrayNode) queryObject.get(NativeQueryDynamicPojoDAO.PARAM_RESULTSET)) : null;
+		boolean singleReturn = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_SINGLERETURN)
+				? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_SINGLERETURN).asBoolean() : false;
+		return nativeQuery(query, className, resultSet, singleReturn, param);
 	}
 
 }

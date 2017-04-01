@@ -29,7 +29,7 @@ public class NativeQueryDynamicPojoDAO {
 	public Object nativeWithDynamicPojo(ObjectNode node)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
 		if (node.has(PARAM_QUERY)) {
-			return processQuery(node);
+			return nativeQueryDAO.processQueryObject(node, null);
 		}
 		checkNode(node);
 		return node;
@@ -44,7 +44,8 @@ public class NativeQueryDynamicPojoDAO {
 				for (int i = 0; i < entry.getValue().size(); i++) {
 					JsonNode tnode = entry.getValue().get(i);
 					if (tnode.has(PARAM_QUERY)) {
-						((ArrayNode) entry.getValue()).set(i, mapper.valueToTree(processQuery(tnode)));
+						((ArrayNode) entry.getValue()).set(i,
+								mapper.valueToTree(nativeQueryDAO.processQueryObject(tnode, null)));
 					} else {
 						checkNode(tnode);
 					}
@@ -52,7 +53,8 @@ public class NativeQueryDynamicPojoDAO {
 				break;
 			case OBJECT:
 				if (entry.getValue().has(PARAM_QUERY)) {
-					((ObjectNode) node).replace(entry.getKey(), mapper.valueToTree(processQuery(entry.getValue())));
+					((ObjectNode) node).replace(entry.getKey(),
+							mapper.valueToTree(nativeQueryDAO.processQueryObject(entry.getValue(), null)));
 				} else {
 					checkNode(entry.getValue());
 				}
@@ -60,23 +62,6 @@ public class NativeQueryDynamicPojoDAO {
 				break;
 			}
 		}
-	}
-
-	private Object processQuery(JsonNode node) throws ClassNotFoundException, JsonProcessingException, IOException {
-		boolean singleReturn = false;
-
-		if (node.has(PARAM_SINGLERETURN)) {
-			singleReturn = node.get(PARAM_SINGLERETURN).asBoolean();
-		}
-		if (node.has(PARAM_RESULTSET)) {
-			return nativeQueryDAO.nativeQuery(node.get(PARAM_QUERY).asText(), null,
-					UtilNativeQuery.arrayNodeToListString((ArrayNode) node.get(PARAM_RESULTSET)), singleReturn, null);
-		}
-		if (node.has(PARAM_CLASSNAME)) {
-			return nativeQueryDAO.nativeQuery(node.get(PARAM_QUERY).asText(), node.get(PARAM_CLASSNAME).asText(), null,
-					singleReturn, null);
-		}
-		return nativeQueryDAO.nativeQuery(node.get(PARAM_QUERY).asText(), null, null, singleReturn, null);
 	}
 
 }

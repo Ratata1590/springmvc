@@ -56,6 +56,11 @@ public class DemoController {
 		return CustomQueryListDAO.queryList;
 	}
 
+	@RequestMapping(value = "/GetQueryList", method = RequestMethod.GET)
+	public Object GetQueryList() {
+		return CustomQueryListDAO.queryList;
+	}
+
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
 	public Object queryWithParam(@RequestParam String queryName, @RequestParam String[] param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
