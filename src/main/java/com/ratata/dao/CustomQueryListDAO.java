@@ -57,6 +57,6 @@ public class CustomQueryListDAO {
 		if (queryObject.has(NativeQueryDynamicPojoDAO.PARAM_QUERY)) {
 			return nativeQueryDAO.processQueryObject(queryObject, param);
 		}
-		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo((ObjectNode) queryObject);
+		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo((ObjectNode) queryObject.deepCopy());
 	}
 }
