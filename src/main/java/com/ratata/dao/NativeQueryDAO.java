@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Component;
 
@@ -22,7 +23,7 @@ public class NativeQueryDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-	
+
 	ObjectMapper mapper = new ObjectMapper();
 
 	@SuppressWarnings("unchecked")
@@ -114,4 +115,8 @@ public class NativeQueryDAO {
 		return nativeQuery(query, className, resultSet, singleReturn, param);
 	}
 
+	@Transactional
+	public void saveObject(Object obj, String className) throws IllegalArgumentException, ClassNotFoundException {
+		em.persist(mapper.convertValue(obj, Class.forName(className)));
+	}
 }

@@ -23,7 +23,7 @@ import com.ratata.dao.NativeQueryDynamicPojoDAO;
 @RestController
 public class DemoController {
 	@Autowired
-	private NativeQueryDAO userDAOCustom;
+	private NativeQueryDAO nativeQueryDAO;
 
 	@Autowired
 	NativeQueryDynamicPojoDAO nativeQueryDynamicPojoDAO;
@@ -38,7 +38,7 @@ public class DemoController {
 			@RequestParam(value = "singleReturn", required = false, defaultValue = "false") boolean singleReturn,
 			@RequestParam(required = false) String param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
-		return userDAOCustom.nativeQuery(query, className, resultSet != null ? Arrays.asList(resultSet) : null,
+		return nativeQueryDAO.nativeQuery(query, className, resultSet != null ? Arrays.asList(resultSet) : null,
 				singleReturn, param);
 	}
 
@@ -75,6 +75,13 @@ public class DemoController {
 		}
 		return customQueryListDAO.processCustomQuery(queryName, param);
 
+	}
+
+	// ------------------------
+	@RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
+	public void saveData(@RequestBody Object obj, @RequestParam String className)
+			throws IllegalArgumentException, ClassNotFoundException {
+		nativeQueryDAO.saveObject(obj, className);
 	}
 
 	@PostConstruct
