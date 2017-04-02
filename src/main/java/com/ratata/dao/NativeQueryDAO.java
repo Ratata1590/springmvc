@@ -26,43 +26,49 @@ public class NativeQueryDAO {
 
 	ObjectMapper mapper = new ObjectMapper();
 
-	@SuppressWarnings("unchecked")
-	public Object nativeQuery(String query, String className, List<String> resultSet, boolean singleReturn,
-			String param) throws ClassNotFoundException, JsonProcessingException, IOException {
-		Object result = returnResult(singleReturn, returnQuery(query, className, param));
+	public static final String QUERYMODE_SINGLE = "S";
+	public static final String QUERYMODE_LIST = "L";
+	public static final String QUERYMODE_UPDATE = "U";
 
-		if (resultSet != null && resultSet.size() != 0) {
-			if (singleReturn) {
-				Object[] record = (Object[]) result;
-				Map<String, Object> resultMap = new HashMap<String, Object>();
-				for (int i = 0; i < record.length; i++) {
-					resultMap.put(resultSet.get(i), record[i]);
-				}
-				return resultMap;
-			} else {
-				List<Object> resultReturn = new ArrayList<>();
-				for (Object[] record : (List<Object[]>) result) {
-					int i = 0;
-					Map<String, Object> resultMap = new HashMap<String, Object>();
-					while (i < record.length) {
-						resultMap.put(resultSet.get(i), record[i]);
-						i++;
-					}
-					resultReturn.add(resultMap);
-				}
-				return resultReturn;
-			}
-		} else {
+	@SuppressWarnings("unchecked")
+	@Transactional
+	public Object nativeQuery(String query, String className, List<String> resultSet, String queryMode, String param)
+			throws ClassNotFoundException, JsonProcessingException, IOException {
+		Object result = returnResult(queryMode, returnQuery(query, className, param));
+
+		if (resultSet == null || resultSet.size() == 0) {
 			return result;
+		}
+		if (queryMode.equals(QUERYMODE_SINGLE)) {
+			Object[] record = (Object[]) result;
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			for (int i = 0; i < record.length; i++) {
+				resultMap.put(resultSet.get(i), record[i]);
+			}
+			return resultMap;
+		} else {
+			List<Object> resultReturn = new ArrayList<>();
+			for (Object[] record : (List<Object[]>) result) {
+				int i = 0;
+				Map<String, Object> resultMap = new HashMap<String, Object>();
+				while (i < record.length) {
+					resultMap.put(resultSet.get(i), record[i]);
+					i++;
+				}
+				resultReturn.add(resultMap);
+			}
+			return resultReturn;
 		}
 	}
 
-	private Object returnResult(boolean singleReturn, Query queryOjb) {
-		if (singleReturn) {
+	private Object returnResult(String queryMode, Query queryOjb) {
+		if (queryMode.equals(QUERYMODE_SINGLE)) {
 			return queryOjb.getSingleResult();
-		} else {
-			return queryOjb.getResultList();
 		}
+		if (queryMode.equals(QUERYMODE_UPDATE)) {
+			return queryOjb.executeUpdate();
+		}
+		return queryOjb.getResultList();
 	}
 
 	private Query returnQuery(String query, String className, String param)
@@ -110,9 +116,9 @@ public class NativeQueryDAO {
 				? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_CLASSNAME).asText() : null;
 		List<String> resultSet = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_RESULTSET) ? UtilNativeQuery
 				.arrayNodeToListString((ArrayNode) queryObject.get(NativeQueryDynamicPojoDAO.PARAM_RESULTSET)) : null;
-		boolean singleReturn = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_SINGLERETURN)
-				? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_SINGLERETURN).asBoolean() : false;
-		return nativeQuery(query, className, resultSet, singleReturn, param);
+		String queryMode = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_QUERYMODE)
+				? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_QUERYMODE).asText() : "L";
+		return nativeQuery(query, className, resultSet, queryMode, param);
 	}
 
 	@Transactional

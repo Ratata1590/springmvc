@@ -1,17 +1,18 @@
 GET http://localhost:8080/demoSpringMvc4/nativequery?query=select * from Item a;&className=com.ratata.model.Item
 GET http://localhost:8080/demoSpringMvc4/nativequery?query=Select i.data,i.id from Item i where i.id in (?0);&resultSet=id,theusername&param=[[1,2]]
-
+GET http://localhost:8080/demoSpringMvc4/nativequery?query=UPDATE User Set username = 'ratata' where username = '?';&queryMode=U
+ 
 POST http://localhost:8080/demoSpringMvc4/nativequery
 {
 	"data1":{
 		"query":"Select * from User a where a.id =-1",
 		"className":"com.ratata.model.User",
-		"singleReturn":true
+		"queryMode":"S"
 	},
 	"data2":{
 		"query":"Select i.data,i.id from Item i where i.id = 1",
 		"resultSet":["thedata","theid"],
-		"singleReturn":true
+		"queryMode":"S"
 	},
 	"data3":{
 		"query":"Select * from User"
@@ -43,7 +44,7 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
 	"hi":{
 		"query":"Select i.data,i.id from Item i where i.id = 1",
 		"resultSet":["thedata","theid"],
-		"singleReturn":true
+		"queryMode":"S"
 	}
 }
 
@@ -52,7 +53,7 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
     "data1": {
       "query": "Select * from User a where a.id =-1",
       "className": "com.ratata.model.User",
-      "singleReturn": true
+      "queryMode": "S"
     },
     "data2": {
       "query": "Select i.data,i.id from Item i where i.id = 1",
@@ -60,7 +61,7 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
         "thedata",
         "theid"
       ],
-      "singleReturn": true
+      "queryMode": "S"
     },
     "data3": {
       "query": "Select * from User"
@@ -98,7 +99,6 @@ http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hello&param=[[1,2]]
 
 jointable
 http://localhost:8080/demoSpringMvc4/nativequery?query=select b.id,b.data from User a join Item b on b.userId = a.id where a.id=3;&resultSet=id,data
-
 
 save
 POST http://localhost:8080/demoSpringMvc4/SaveObject?className=com.ratata.model.User

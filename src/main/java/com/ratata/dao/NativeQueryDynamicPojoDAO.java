@@ -20,7 +20,7 @@ public class NativeQueryDynamicPojoDAO {
 	public static final String PARAM_QUERY = "query";
 	public static final String PARAM_CLASSNAME = "className";
 	public static final String PARAM_RESULTSET = "resultSet";
-	public static final String PARAM_SINGLERETURN = "singleReturn";
+	public static final String PARAM_QUERYMODE = "singleReturn";
 	public static final String PARAM_MERGEARRAY = "mergeArray";
 
 	ObjectMapper mapper = new ObjectMapper();

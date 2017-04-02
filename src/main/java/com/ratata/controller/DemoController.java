@@ -37,11 +37,11 @@ public class DemoController {
 	public Object nativeQuery(@RequestParam("query") String query,
 			@RequestParam(value = "className", required = false, defaultValue = "") String className,
 			@RequestParam(value = "resultSet", required = false) String[] resultSet,
-			@RequestParam(value = "singleReturn", required = false, defaultValue = "false") boolean singleReturn,
+			@RequestParam(value = "queryMode", required = false, defaultValue = "false") String queryMode,
 			@RequestParam(required = false) String param)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
 		return nativeQueryDAO.nativeQuery(query, className, resultSet != null ? Arrays.asList(resultSet) : null,
-				singleReturn, param);
+				queryMode, param);
 	}
 
 	@RequestMapping(value = "/nativequery", method = RequestMethod.POST)
