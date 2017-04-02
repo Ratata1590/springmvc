@@ -2,6 +2,7 @@ package com.ratata.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.ratata.LockUtil.LockUtil;
 import com.ratata.dao.CustomQueryListDAO;
 import com.ratata.dao.NativeQueryDAO;
 import com.ratata.dao.NativeQueryDynamicPojoDAO;
@@ -81,7 +83,20 @@ public class DemoController {
 	@RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
 	public void saveData(@RequestBody Object obj, @RequestParam String className)
 			throws IllegalArgumentException, ClassNotFoundException {
+		if (LockUtil.isLockFlag()) {
+			return;
+		}
 		nativeQueryDAO.saveObject(obj, className);
+	}
+
+	@RequestMapping(value = "/lock", method = RequestMethod.GET)
+	public String lockOption(@RequestParam String password, String hint) throws NoSuchAlgorithmException {
+		return LockUtil.lock(password, hint);
+	}
+
+	@RequestMapping(value = "/unlock", method = RequestMethod.GET)
+	public String unlockOption(@RequestParam String key) {
+		return LockUtil.unlock(key);
 	}
 
 	@PostConstruct
