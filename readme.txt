@@ -96,5 +96,20 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
 
 http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hello&param=[[1,2]]
 
+jointable
+http://localhost:8080/demoSpringMvc4/nativequery?query=select b.id,b.data from User a join Item b on b.userId = a.id where a.id=3;&resultSet=id,data
 
 
+save
+POST http://localhost:8080/demoSpringMvc4/SaveObject?className=com.ratata.model.User
+ {   "username": "hellno",
+    "version": 0,
+    "items": [
+      {
+        "data": "alan"
+      },
+      {
+        "data": "alan"
+      }
+    ]
+  }
