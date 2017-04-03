@@ -15,12 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.LockUtil.LockUtil;
 import com.ratata.dao.CustomQueryListDAO;
 import com.ratata.dao.NativeQueryDAO;
 import com.ratata.dao.NativeQueryDynamicPojoDAO;
+import com.ratata.dao.UtilNativeQuery;
 
 @RestController
 public class DemoController {
@@ -45,10 +46,11 @@ public class DemoController {
 	}
 
 	@RequestMapping(value = "/nativequery", method = RequestMethod.POST)
-	public Object nativeQueryWithDynamicPoJo(@RequestBody ObjectNode pojo)
+	public Object nativeQueryWithDynamicPoJo(@RequestBody JsonNode pojo)
 			throws ClassNotFoundException, JsonProcessingException, IOException {
-		nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(pojo);
-		return pojo;
+		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(
+				pojo.get(NativeQueryDynamicPojoDAO.PARAM_SINGLEREQUEST_DATA), UtilNativeQuery.mapper
+						.writeValueAsString(pojo.get(NativeQueryDynamicPojoDAO.PARAM_SINGLEREQUEST_PARAM)));
 	}
 
 	// ------------------------------
@@ -102,8 +104,7 @@ public class DemoController {
 	@PostConstruct
 	public void InitQueryList() throws JsonProcessingException, IOException {
 		ClassLoader classLoader = getClass().getClassLoader();
-		ObjectMapper mapper = new ObjectMapper();
 		File file = new File(classLoader.getResource("initQueryList.txt").getFile());
-		customQueryListDAO.saveQueryList(mapper.readTree(file));
+		customQueryListDAO.saveQueryList(UtilNativeQuery.mapper.readTree(file));
 	}
 }

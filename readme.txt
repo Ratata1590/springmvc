@@ -1,5 +1,15 @@
 GET http://localhost:8080/demoSpringMvc4/nativequery?query=select * from Item a;&className=com.ratata.model.Item
+
 GET http://localhost:8080/demoSpringMvc4/nativequery?query=Select i.data,i.id from Item i where i.id in (?0);&resultSet=id,theusername&param=[[1,2]]
+POST http://localhost:8080/demoSpringMvc4/nativequery
+{
+	"param":[[1,2]],
+	"data":{
+		"query":"Select i.data,i.id from Item i where i.id in (?0)",
+		"resultSet":["thedata","theid"]
+	}
+}
+
 GET http://localhost:8080/demoSpringMvc4/nativequery?query=UPDATE User Set username = 'ratata' where username = '?';&queryMode=U
  
 POST http://localhost:8080/demoSpringMvc4/nativequery
@@ -56,13 +66,9 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
       "queryMode": "S"
     },
     "data2": {
-      "query": "Select i.data,i.id from Item i where i.id = 1",
-      "resultSet": [
-        "thedata",
-        "theid"
-      ],
-      "queryMode": "S"
-    },
+		"query":"Select i.data,i.id from Item i where i.id in (?0)",
+		"resultSet":["thedata","theid"]
+	},
     "data3": {
       "query": "Select * from User"
     },
@@ -94,6 +100,50 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
     ]
   }
 }
+http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hi&param=[[],[[1,2]],[],[],[]]
+
+
+{
+  "hi": {
+    "data1": {
+      "query": "Select * from User a where a.id =1",
+      "className": "com.ratata.model.User",
+      "queryMode": "S"
+    },
+    "data2": {
+		"linkquery":"hello"
+	},
+    "data3": {
+      "query": "Select * from User"
+    },
+    "data4": {
+      "someData": 4,
+      "deepper": [
+        {
+		  "linkquery":"hello",
+          "mergeArray": true
+        },
+        [
+          4,
+          3
+        ],
+        {
+          "query": "Select * from Item",
+          "className": "com.ratata.model.Item",
+          "mergeArray": true
+        }
+      ]
+    }
+  },
+  "hello": {
+    "query": "Select i.data,i.id from Item i where i.id in (?0)",
+    "resultSet": [
+      "thedata",
+      "theid"
+    ]
+  }
+}
+http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hi&param=[[],[[1,2]],[],[[1,2]],[]]
 
 http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hello&param=[[1,2]]
 

@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Component
 public class CustomQueryListDAO {
 
+	public static final String LINK_QUERY = "linkquery";
 	@Autowired
 	NativeQueryDynamicPojoDAO nativeQueryDynamicPojoDAO;
 
@@ -25,12 +25,11 @@ public class CustomQueryListDAO {
 	NativeQueryDAO nativeQueryDAO;
 
 	public static Map<String, JsonNode> queryList = new HashMap<String, JsonNode>();
-	ObjectMapper mapper = new ObjectMapper();
 
 	public void saveQueryList(Object query) {
 		TypeReference<HashMap<String, JsonNode>> typeRef = new TypeReference<HashMap<String, JsonNode>>() {
 		};
-		queryList = mapper.convertValue(query, typeRef);
+		queryList = UtilNativeQuery.mapper.convertValue(query, typeRef);
 	}
 
 	public void updateQueryList(ObjectNode query) {
@@ -56,6 +55,6 @@ public class CustomQueryListDAO {
 		if (queryObject.has(NativeQueryDynamicPojoDAO.PARAM_QUERY)) {
 			return nativeQueryDAO.processQueryObject(queryObject, param);
 		}
-		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo((ObjectNode) queryObject.deepCopy());
+		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo((ObjectNode) queryObject.deepCopy(), param);
 	}
 }

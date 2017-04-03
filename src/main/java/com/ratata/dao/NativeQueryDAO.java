@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 
 @Component
@@ -23,8 +22,6 @@ public class NativeQueryDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-
-	ObjectMapper mapper = new ObjectMapper();
 
 	public static final String QUERYMODE_SINGLE = "S";
 	public static final String QUERYMODE_LIST = "L";
@@ -80,7 +77,7 @@ public class NativeQueryDAO {
 			queryObj = em.createNativeQuery(query);
 		}
 		if (param != null && !param.isEmpty()) {
-			ArrayNode paramNode = ((ArrayNode) mapper.readTree(param));
+			ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
 			for (int i = 0; i < paramNode.size(); i++) {
 				queryObj.setParameter(i, resolveParam(paramNode.get(i)));
 			}
@@ -123,6 +120,6 @@ public class NativeQueryDAO {
 
 	@Transactional
 	public void saveObject(Object obj, String className) throws IllegalArgumentException, ClassNotFoundException {
-		em.persist(mapper.convertValue(obj, Class.forName(className)));
+		em.persist(UtilNativeQuery.mapper.convertValue(obj, Class.forName(className)));
 	}
 }
