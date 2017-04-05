@@ -15,7 +15,7 @@ GET http://localhost:8080/demoSpringMvc4/nativequery?query=UPDATE User Set usern
 POST http://localhost:8080/demoSpringMvc4/nativequery
 {
 	"data1":{
-		"query":"Select * from User a where a.id =-1",
+		"query":"Select * from User a where a.id =1",
 		"className":"com.ratata.model.User",
 		"queryMode":"S"
 	},
@@ -61,7 +61,7 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
 {
   "hi": {
     "data1": {
-      "query": "Select * from User a where a.id =-1",
+      "query": "Select * from User a where a.id =1",
       "className": "com.ratata.model.User",
       "queryMode": "S"
     },
@@ -100,7 +100,7 @@ POST http://localhost:8080/demoSpringMvc4/SaveQueryList
     ]
   }
 }
-http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hi&param=[[],[[1,2]],[],[],[]]
+GET http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hi&param=[[],[[1,2]],[],[],[]]
 
 
 {
