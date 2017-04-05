@@ -18,6 +18,8 @@ public class NativeQueryDynamicPojoDAO {
   public static final String PARAM_CLASSNAME = "className";
   public static final String PARAM_RESULTSET = "resultSet";
   public static final String PARAM_QUERYMODE = "queryMode";
+  public static final String PARAM_OFFSET = "offset";
+  public static final String PARAM_LIMIT = "limit";
 
   public static final String PARAM_MERGEARRAY = "mergeArray";
 

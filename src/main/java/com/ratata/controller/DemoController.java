@@ -40,11 +40,13 @@ public class DemoController {
       @RequestParam(required = false, defaultValue = "") String className,
       @RequestParam(required = false, defaultValue = "") String[] resultSet,
       @RequestParam(required = false, defaultValue = "L") String queryMode,
-      @RequestParam(required = false, defaultValue = "[]") String param)
+      @RequestParam(required = false, defaultValue = "[]") String param,
+      @RequestParam(required = false, defaultValue = "0") int offset,
+      @RequestParam(required = false, defaultValue = "0") int limit)
       throws ClassNotFoundException, JsonProcessingException, IOException {
     ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
-    return nativeQueryDAO.nativeQuery(query, className,
-        resultSet != null ? Arrays.asList(resultSet) : null, queryMode, paramNode);
+    return nativeQueryDAO.nativeQuery(query, className, Arrays.asList(resultSet), queryMode,
+        paramNode, offset, limit);
   }
 
   @RequestMapping(value = "/nativequery", method = RequestMethod.POST)

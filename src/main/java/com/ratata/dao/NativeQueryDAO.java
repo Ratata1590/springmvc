@@ -31,9 +31,9 @@ public class NativeQueryDAO {
   @SuppressWarnings("unchecked")
   @Transactional
   public Object nativeQuery(String query, String className, List<String> resultSet,
-      String queryMode, ArrayNode param)
+      String queryMode, ArrayNode param, int offset, int limit)
       throws ClassNotFoundException, JsonProcessingException, IOException {
-    Object result = returnResult(queryMode, returnQuery(query, className, param));
+    Object result = returnResult(queryMode, returnQuery(query, className, param, offset, limit));
 
     if (resultSet == null || resultSet.size() == 0) {
       return result;
@@ -74,7 +74,7 @@ public class NativeQueryDAO {
     return queryOjb.getResultList();
   }
 
-  private Query returnQuery(String query, String className, ArrayNode param)
+  private Query returnQuery(String query, String className, ArrayNode param, int offset, int limit)
       throws ClassNotFoundException, JsonProcessingException, IOException {
     Query queryObj;
     if (className != null && !className.isEmpty()) {
@@ -86,6 +86,12 @@ public class NativeQueryDAO {
       for (int i = 0; i < param.size(); i++) {
         queryObj.setParameter(i, resolveParam(param.get(i)));
       }
+    }
+    if (offset != 0) {
+      queryObj.setFirstResult(offset);
+    }
+    if (limit != 0) {
+      queryObj.setMaxResults(limit);
     }
     return queryObj;
   }
@@ -122,7 +128,12 @@ public class NativeQueryDAO {
         : null;
     String queryMode = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_QUERYMODE)
         ? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_QUERYMODE).asText() : "L";
-    return nativeQuery(query, className, resultSet, queryMode, param);
+
+    int offset = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_OFFSET)
+        ? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_OFFSET).asInt() : 0;
+    int limit = queryObject.has(NativeQueryDynamicPojoDAO.PARAM_LIMIT)
+        ? queryObject.get(NativeQueryDynamicPojoDAO.PARAM_LIMIT).asInt() : 0;
+    return nativeQuery(query, className, resultSet, queryMode, param, offset, limit);
   }
 
   @Transactional
