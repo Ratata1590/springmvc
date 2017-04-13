@@ -163,3 +163,17 @@ POST http://localhost:8080/demoSpringMvc4/SaveObject?className=com.ratata.model.
       }
     ]
   }
+------------idea for custom fetching
+"resolver":"select a.id from User",
+"resolverMap":{
+	"resolverQuery":"Select i.username,i.version from User i where i.id = ?0",
+	"resolverResultSet":["theusername","theversion"],
+	"other":{
+		"items":{
+			"resolver":
+			"resolverQuery":"Select i.data from Item i where i.userId = ?0",
+			"resolverResultSet":["data"],
+			"other"
+		}
+	}
+} 
