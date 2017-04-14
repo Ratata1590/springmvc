@@ -22,7 +22,7 @@ import com.ratata.dao.NativeQueryDynamicPojoDAO;
 import com.ratata.dao.NativeQueryLinkQueryDAO;
 
 @RestController
-public class DemoController {
+public class NativeQueryEndpointController {
 	@Autowired
 	private NativeQueryDAO nativeQueryDAO;
 
@@ -63,18 +63,18 @@ public class DemoController {
 	@RequestMapping(value = "/SaveQueryList", method = RequestMethod.POST)
 	public Object SaveQueryList(@RequestBody ObjectNode queryList) {
 		nativeQueryLinkQueryDAO.saveQueryList(queryList);
-		return NativeQueryLinkQueryDAO.queryList;
+		return nativeQueryLinkQueryDAO.getQueryList();
 	}
 
 	@RequestMapping(value = "/UpdateQueryList", method = RequestMethod.POST)
 	public Object UpdateQueryList(@RequestBody ObjectNode queryList) {
 		nativeQueryLinkQueryDAO.updateQueryList(queryList);
-		return NativeQueryLinkQueryDAO.queryList;
+		return nativeQueryLinkQueryDAO.getQueryList();
 	}
 
 	@RequestMapping(value = "/GetQueryList", method = RequestMethod.GET)
 	public Object GetQueryList() {
-		return NativeQueryLinkQueryDAO.queryList;
+		return nativeQueryLinkQueryDAO.getQueryList();
 	}
 
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
