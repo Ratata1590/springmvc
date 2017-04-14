@@ -1,7 +1,5 @@
 package com.ratata.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
@@ -14,104 +12,91 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.LockUtil.LockUtil;
-import com.ratata.dao.CustomQueryListDAO;
+import com.ratata.Util.LockUtil;
+import com.ratata.Util.UtilNativeQuery;
 import com.ratata.dao.NativeQueryDAO;
 import com.ratata.dao.NativeQueryDynamicPojoDAO;
-import com.ratata.dao.UtilNativeQuery;
+import com.ratata.dao.NativeQueryLinkQueryDAO;
 
 @RestController
 public class DemoController {
-  @Autowired
-  private NativeQueryDAO nativeQueryDAO;
+	@Autowired
+	private NativeQueryDAO nativeQueryDAO;
 
-  @Autowired
-  private NativeQueryDynamicPojoDAO nativeQueryDynamicPojoDAO;
+	@Autowired
+	private NativeQueryDynamicPojoDAO nativeQueryDynamicPojoDAO;
 
-  @Autowired
-  private CustomQueryListDAO customQueryListDAO;
+	@Autowired
+	private NativeQueryLinkQueryDAO nativeQueryLinkQueryDAO;
 
-  @RequestMapping(value = "/nativequery", method = RequestMethod.GET)
-  public Object nativeQuery(String query,
-      @RequestParam(required = false, defaultValue = "") String className,
-      @RequestParam(required = false, defaultValue = "") String[] resultSet,
-      @RequestParam(required = false, defaultValue = "L") String queryMode,
-      @RequestParam(required = false, defaultValue = "[]") String param,
-      @RequestParam(required = false, defaultValue = "0") int offset,
-      @RequestParam(required = false, defaultValue = "0") int limit)
-      throws ClassNotFoundException, JsonProcessingException, IOException {
-    ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
-    return nativeQueryDAO.nativeQuery(query, className, Arrays.asList(resultSet), queryMode,
-        paramNode, offset, limit);
-  }
+	// ------------------------------NativeQueryDAO
+	@RequestMapping(value = "/nativequery", method = RequestMethod.GET)
+	public Object nativeQuery(String query, @RequestParam(required = false, defaultValue = "") String className,
+			@RequestParam(required = false, defaultValue = "") String[] resultSet,
+			@RequestParam(required = false, defaultValue = "L") String queryMode,
+			@RequestParam(required = false, defaultValue = "[]") String param,
+			@RequestParam(required = false, defaultValue = "0") int offset,
+			@RequestParam(required = false, defaultValue = "0") int limit) throws Exception {
+		ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
+		return nativeQueryDAO.nativeQuery(query, className, Arrays.asList(resultSet), queryMode, paramNode, offset,
+				limit);
+	}
 
-  @RequestMapping(value = "/nativequery", method = RequestMethod.POST)
-  public Object nativeQueryWithDynamicPoJo(@RequestBody JsonNode pojo)
-      throws ClassNotFoundException, JsonProcessingException, IOException {
-    return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(
-        pojo.get(NativeQueryDynamicPojoDAO.PARAM_SINGLEREQUEST_DATA),
-        (ArrayNode) pojo.get(NativeQueryDynamicPojoDAO.PARAM_SINGLEREQUEST_PARAM));
-  }
+	@RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
+	public void saveData(@RequestBody Object obj, @RequestParam String className) throws Exception {
+		if (LockUtil.isLockFlag()) {
+			return;
+		}
+		nativeQueryDAO.saveObject(obj, className);
+	}
 
-  // ------------------------------
-  @RequestMapping(value = "/SaveQueryList", method = RequestMethod.POST)
-  public Object SaveQueryList(@RequestBody ObjectNode queryList) {
-    customQueryListDAO.saveQueryList(queryList);
-    return CustomQueryListDAO.queryList;
-  }
+	// ------------------------------NativeQueryDynamicPojoDAO
+	@RequestMapping(value = "/nativequery", method = RequestMethod.POST)
+	public Object nativeQueryWithDynamicPoJo(@RequestBody JsonNode pojo) throws Exception {
+		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(pojo);
+	}
 
-  @RequestMapping(value = "/UpdateQueryList", method = RequestMethod.POST)
-  public Object UpdateQueryList(@RequestBody ObjectNode queryList) {
-    customQueryListDAO.updateQueryList(queryList);
-    return CustomQueryListDAO.queryList;
-  }
+	// ------------------------------CustomQueryListDAO
+	@RequestMapping(value = "/SaveQueryList", method = RequestMethod.POST)
+	public Object SaveQueryList(@RequestBody ObjectNode queryList) {
+		nativeQueryLinkQueryDAO.saveQueryList(queryList);
+		return NativeQueryLinkQueryDAO.queryList;
+	}
 
-  @RequestMapping(value = "/GetQueryList", method = RequestMethod.GET)
-  public Object GetQueryList() {
-    return CustomQueryListDAO.queryList;
-  }
+	@RequestMapping(value = "/UpdateQueryList", method = RequestMethod.POST)
+	public Object UpdateQueryList(@RequestBody ObjectNode queryList) {
+		nativeQueryLinkQueryDAO.updateQueryList(queryList);
+		return NativeQueryLinkQueryDAO.queryList;
+	}
 
-  @RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
-  public Object queryWithParam(@RequestParam String queryName,
-      @RequestParam(required = false, defaultValue = "[]") String param)
-      throws ClassNotFoundException, JsonProcessingException, IOException {
-    if (CustomQueryListDAO.queryList == null) {
-      return "please insert query list first";
-    }
-    ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
-    return customQueryListDAO.processCustomQuery(queryName, paramNode);
+	@RequestMapping(value = "/GetQueryList", method = RequestMethod.GET)
+	public Object GetQueryList() {
+		return NativeQueryLinkQueryDAO.queryList;
+	}
 
-  }
+	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
+	public Object queryWithParam(@RequestParam String queryName,
+			@RequestParam(required = false, defaultValue = "[]") String param) throws Exception {
+		return nativeQueryLinkQueryDAO.processCustomQuery(queryName, param);
+	}
 
-  // ------------------------
-  @RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
-  public void saveData(@RequestBody Object obj, @RequestParam String className)
-      throws IllegalArgumentException, ClassNotFoundException {
-    if (LockUtil.isLockFlag()) {
-      return;
-    }
-    nativeQueryDAO.saveObject(obj, className);
-  }
+	@PostConstruct
+	public void InitQueryList() throws Exception {
+		nativeQueryLinkQueryDAO.saveQueryListFromFile();
+	}
 
-  @RequestMapping(value = "/lock", method = RequestMethod.GET)
-  public String lockOption(@RequestParam String password, String hint)
-      throws NoSuchAlgorithmException {
-    return LockUtil.lock(password, hint);
-  }
+	// ------------------------------LockUtil
+	@RequestMapping(value = "/lock", method = RequestMethod.GET)
+	public String lockOption(@RequestParam String password, String hint) throws NoSuchAlgorithmException {
+		return LockUtil.lock(password, hint);
+	}
 
-  @RequestMapping(value = "/unlock", method = RequestMethod.GET)
-  public String unlockOption(@RequestParam String key) {
-    return LockUtil.unlock(key);
-  }
+	@RequestMapping(value = "/unlock", method = RequestMethod.GET)
+	public String unlockOption(@RequestParam String key) {
+		return LockUtil.unlock(key);
+	}
 
-  @PostConstruct
-  public void InitQueryList() throws JsonProcessingException, IOException {
-    ClassLoader classLoader = getClass().getClassLoader();
-    File file = new File(classLoader.getResource("initQueryList.txt").getFile());
-    customQueryListDAO.saveQueryList(UtilNativeQuery.mapper.readTree(file));
-  }
 }
