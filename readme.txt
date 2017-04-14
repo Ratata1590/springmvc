@@ -14,32 +14,45 @@ GET http://localhost:8080/demoSpringMvc4/nativequery?query=UPDATE User Set usern
  
 POST http://localhost:8080/demoSpringMvc4/nativequery
 {
-	"data1":{
-		"query":"Select * from User a where a.id =1",
-		"className":"com.ratata.model.User",
-		"queryMode":"S"
-	},
-	"data2":{
-		"query":"Select i.data,i.id from Item i where i.id = 1",
-		"resultSet":["thedata","theid"],
-		"queryMode":"S"
-	},
-	"data3":{
-		"query":"Select * from User"
-	},
-	"data4":{
-		"someData":4,
-		"deepper":[
-			{
-				"query":"Select * from User",
-				"className":"com.ratata.model.User",
-				"mergeArray":true
-			},[4,3],{
-				"query":"Select * from Item",
-				"className":"com.ratata.model.Item",
-				"mergeArray":true
-			}
-		]
+	"param": [
+		[]
+	],
+	"data": {
+		"data1": {
+			"query": "Select * from User a where a.id =1",
+			"className": "com.ratata.model.User",
+			"queryMode": "S"
+		},
+		"data2": {
+			"query": "Select i.data,i.id from Item i where i.id = 1",
+			"resultSet": [
+				"thedata",
+				"theid"
+			],
+			"queryMode": "S"
+		},
+		"data3": {
+			"query": "Select * from User"
+		},
+		"data4": {
+			"someData": 4,
+			"deepper": [
+				{
+					"query": "Select * from User",
+					"className": "com.ratata.model.User",
+					"mergeArray": true
+				},
+				[
+					4,
+					3
+				],
+				{
+					"query": "Select * from Item",
+					"className": "com.ratata.model.Item",
+					"mergeArray": true
+				}
+			]
+		}
 	}
 }
 
@@ -164,16 +177,72 @@ POST http://localhost:8080/demoSpringMvc4/SaveObject?className=com.ratata.model.
     ]
   }
 ------------idea for custom fetching
-"resolver":"select a.id from User",
-"resolverMap":{
-	"resolverQuery":"Select i.username,i.version from User i where i.id = ?0",
-	"resolverResultSet":["theusername","theversion"],
-	"other":{
-		"items":{
-			"resolver":
-			"resolverQuery":"Select i.data from Item i where i.userId = ?0",
-			"resolverResultSet":["data"],
-			"other"
+if have insideObject select must have resultSet
+insideObject
+passParam
+resultSet
+query
+queryMode S,L
+
+http://localhost:8080/demoSpringMvc4/nativequery
+{
+	"param": [
+		[]
+	],
+	"data": {
+		"data1": {
+			"query": "Select * from User a where a.id =1",
+			"className": "com.ratata.model.User",
+			"queryMode": "S"
+		},
+		"data2": {
+			"query": "Select i.data,i.id from Item i where i.id = 1",
+			"resultSet": [
+				"thedata",
+				"theid"
+			],
+			"queryMode": "S"
+		},
+		"data3": {
+			"query": "Select a.id,a.data,a.userId from Item a",
+			"resultSet": [
+				"theid",
+				"theusername",
+				"userId"
+			],
+			"insideObject": {
+				"userList": {
+					"param": [
+						"userId"
+					],
+					"data": {
+						"query": "select a.id,a.username from User a where a.id!=?0",
+						"resultSet": [
+							"id",
+							"username"
+						]
+					}
+				}
+			}
+		},
+		"data4": {
+			"someData": 4,
+			"deepper": [
+				{
+					"query": "Select * from User",
+					"className": "com.ratata.model.User",
+					"mergeArray": true
+				},
+				[
+					4,
+					3
+				],
+				{
+					"query": "Select * from Item",
+					"className": "com.ratata.model.Item",
+					"mergeArray": true
+				}
+			]
 		}
 	}
-} 
+}

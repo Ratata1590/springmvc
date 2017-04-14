@@ -25,6 +25,9 @@ public class NativeQueryDynamicPojoDAO {
 
   public static final String PARAM_SINGLEREQUEST_DATA = "data";
   public static final String PARAM_SINGLEREQUEST_PARAM = "param";
+  
+  public static final String PARAM_PASSPARAM = "passParam";
+  public static final String PARAM_INSIDEOBJECT = "insideObject";
 
   @Autowired
   private NativeQueryDAO nativeQueryDAO;
