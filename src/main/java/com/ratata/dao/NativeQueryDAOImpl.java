@@ -31,9 +31,9 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public Object nativeQuery(String query, String className, List<String> resultSet, String queryMode, ArrayNode param,
-			int offset, int limit) throws Exception {
+			Integer offset, Integer limit) throws Exception {
 		Object result = returnResult(query, className, param, offset, limit, queryMode);
-		if (resultSet == null || resultSet.size() == 0) {
+		if (resultSet.isEmpty()) {
 			return result;
 		}
 		if (queryMode.equals(Const.QUERYMODE_SINGLE)) {
@@ -58,23 +58,23 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 		}
 	}
 
-	private Object returnResult(String query, String className, ArrayNode param, int offset, int limit,
+	private Object returnResult(String query, String className, ArrayNode param, Integer offset, Integer limit,
 			String queryMode) throws Exception {
 		Query queryObj;
-		if (className != null && !className.isEmpty()) {
+		if (!className.isEmpty()) {
 			queryObj = em.createNativeQuery(query, Class.forName(className));
 		} else {
 			queryObj = em.createNativeQuery(query);
 		}
-		if (param != null && !(param.size() == 0)) {
+		if (!(param.size() == 0)) {
 			for (int i = 0; i < param.size(); i++) {
 				queryObj.setParameter(i, resolveParam(param.get(i)));
 			}
 		}
-		if (offset != 0) {
+		if (!offset.equals(0)) {
 			queryObj.setFirstResult(offset);
 		}
-		if (limit != 0) {
+		if (!offset.equals(0)) {
 			queryObj.setMaxResults(limit);
 		}
 
@@ -86,9 +86,7 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 			}
 		}
 		if (queryMode.equals(Const.QUERYMODE_UPDATE)) {
-			Object result;
-			result = queryObj.executeUpdate();
-			return result;
+			return queryObj.executeUpdate();
 		}
 		return queryObj.getResultList();
 	}
@@ -134,21 +132,18 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 	}
 
 	public Object processQueryObject(JsonNode queryObject, ArrayNode param) throws Exception {
-		String query = queryObject.has(Const.PARAM_QUERY) ? queryObject.get(Const.PARAM_QUERY).asText() : null;
-		String queryMode = queryObject.has(Const.PARAM_QUERYMODE) ? queryObject.get(Const.PARAM_QUERYMODE).asText()
-				: "L";
-		List<String> resultSet = queryObject.has(Const.PARAM_RESULTSET)
-				? UtilNativeQuery.arrayNodeToListString((ArrayNode) queryObject.get(Const.PARAM_RESULTSET)) : null;
+		String query = queryObject.get(Const.PARAM_QUERY).asText();
+		String queryMode = queryObject.get(Const.PARAM_QUERYMODE).asText();
+		List<String> resultSet = UtilNativeQuery
+				.arrayNodeToListString((ArrayNode) queryObject.get(Const.PARAM_RESULTSET));
 
 		if (queryObject.has(Const.PARAM_INSIDEOBJECT)) {
-			JsonNode insideObject = queryObject.has(Const.PARAM_INSIDEOBJECT)
-					? queryObject.get(Const.PARAM_INSIDEOBJECT) : null;
+			JsonNode insideObject = queryObject.get(Const.PARAM_INSIDEOBJECT);
 			return nestedNativeQuery(query, resultSet, queryMode, param, insideObject);
 		}
-		String className = queryObject.has(Const.PARAM_CLASSNAME) ? queryObject.get(Const.PARAM_CLASSNAME).asText()
-				: null;
-		int offset = queryObject.has(Const.PARAM_OFFSET) ? queryObject.get(Const.PARAM_OFFSET).asInt() : 0;
-		int limit = queryObject.has(Const.PARAM_LIMIT) ? queryObject.get(Const.PARAM_LIMIT).asInt() : 0;
+		String className = queryObject.get(Const.PARAM_CLASSNAME).asText();
+		Integer offset = queryObject.get(Const.PARAM_OFFSET).asInt();
+		Integer limit = queryObject.get(Const.PARAM_LIMIT).asInt();
 		return nativeQuery(query, className, resultSet, queryMode, param, offset, limit);
 	}
 
@@ -156,11 +151,11 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 	private Object nestedNativeQuery(String query, List<String> resultSet, String queryMode, ArrayNode param,
 			JsonNode insideObject) throws Exception {
 		if (queryMode.equals(Const.QUERYMODE_SINGLE)) {
-			Map<String, Object> rootResult = (Map<String, Object>) nativeQuery(query, null, resultSet, queryMode, param,
+			Map<String, Object> rootResult = (Map<String, Object>) nativeQuery(query, "", resultSet, queryMode, param,
 					0, 0);
 			return processSingleNestedNode(rootResult, insideObject);
 		}
-		List<Map<String, Object>> rootResultList = (List<Map<String, Object>>) nativeQuery(query, null, resultSet,
+		List<Map<String, Object>> rootResultList = (List<Map<String, Object>>) nativeQuery(query, "", resultSet,
 				queryMode, param, 0, 0);
 		List<Object> result = new ArrayList<Object>();
 		for (Map<String, Object> item : rootResultList) {

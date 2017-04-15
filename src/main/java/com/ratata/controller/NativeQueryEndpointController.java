@@ -38,8 +38,8 @@ public class NativeQueryEndpointController {
 			@RequestParam(required = false, defaultValue = "") String[] resultSet,
 			@RequestParam(required = false, defaultValue = "L") String queryMode,
 			@RequestParam(required = false, defaultValue = "[]") String param,
-			@RequestParam(required = false, defaultValue = "0") int offset,
-			@RequestParam(required = false, defaultValue = "0") int limit) throws Exception {
+			@RequestParam(required = false, defaultValue = "0") Integer offset,
+			@RequestParam(required = false, defaultValue = "0") Integer limit) throws Exception {
 		ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
 		return nativeQueryDAO.nativeQuery(query, className, Arrays.asList(resultSet), queryMode, paramNode, offset,
 				limit);
