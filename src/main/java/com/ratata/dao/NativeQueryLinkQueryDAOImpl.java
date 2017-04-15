@@ -9,7 +9,6 @@ import java.util.Map.Entry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -35,9 +34,6 @@ public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
 		this.queryList = queryList;
 	}
 
-	private TypeReference<HashMap<String, JsonNode>> typeRef = new TypeReference<HashMap<String, JsonNode>>() {
-	};
-
 	public void saveQueryListFromFile() throws Exception {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource(Const.LINK_QUERY_INITFILENAME).getFile());
@@ -45,7 +41,7 @@ public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
 	}
 
 	public void saveQueryList(Object query) {
-		queryList = UtilNativeQuery.mapper.convertValue(query, typeRef);
+		queryList = UtilNativeQuery.mapper.convertValue(query, UtilNativeQuery.typeRef);
 	}
 
 	public void updateQueryList(ObjectNode query) {

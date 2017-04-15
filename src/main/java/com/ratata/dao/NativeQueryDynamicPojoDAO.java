@@ -10,5 +10,5 @@ public interface NativeQueryDynamicPojoDAO {
 
 	public void processDynamicPojo(JsonNode node, ArrayNode param) throws Exception;
 
-	public void checkNode(JsonNode node, ArrayNode paramArray, int objectNodeNumber) throws Exception;
+	public void checkNode(JsonNode node, ArrayNode paramArray, Integer objectNodeNumber) throws Exception;
 }
