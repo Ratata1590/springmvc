@@ -17,37 +17,17 @@ public class RObject implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
-
-	private int parentId;
-
-	private boolean isArrayParent;
+	private Long id;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "robject")
 	private Set<RObjectKey> rObjectKey;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public int getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(int parentId) {
-		this.parentId = parentId;
-	}
-
-	public boolean isArrayParent() {
-		return isArrayParent;
-	}
-
-	public void setArrayParent(boolean isArrayParent) {
-		this.isArrayParent = isArrayParent;
 	}
 
 	public Set<RObjectKey> getrObjectKey() {

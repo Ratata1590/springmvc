@@ -15,6 +15,9 @@ public class UtilNativeQuery {
 	public static final TypeReference<HashMap<String, JsonNode>> typeRef = new TypeReference<HashMap<String, JsonNode>>() {
 	};
 
+	public static final TypeReference<List<Long>> typeRefListLong = new TypeReference<List<Long>>() {
+	};
+
 	public static List<String> arrayNodeToListString(ArrayNode arrayNode) {
 		List<String> options = new ArrayList<String>();
 		if (arrayNode != null) {

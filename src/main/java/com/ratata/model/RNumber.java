@@ -15,15 +15,15 @@ public class RNumber implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 
 	private Double data;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

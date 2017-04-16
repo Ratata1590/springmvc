@@ -16,7 +16,7 @@ public class RObjectKey implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 
 	private String keyName;
 
@@ -24,15 +24,15 @@ public class RObjectKey implements Serializable {
 	@JoinColumn(name = "robjectId", nullable = false)
 	private RObject robject;
 
-	private String childType;
+	private Integer childType;
 
-	private int childId;
+	private Long childId;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -52,19 +52,19 @@ public class RObjectKey implements Serializable {
 		this.robject = robject;
 	}
 
-	public String getChildType() {
+	public Integer getChildType() {
 		return childType;
 	}
 
-	public void setChildType(String childType) {
+	public void setChildType(Integer childType) {
 		this.childType = childType;
 	}
 
-	public int getChildId() {
+	public Long getChildId() {
 		return childId;
 	}
 
-	public void setChildId(int childId) {
+	public void setChildId(Long childId) {
 		this.childId = childId;
 	}
 

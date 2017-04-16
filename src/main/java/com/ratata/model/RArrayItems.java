@@ -16,21 +16,21 @@ public class RArrayItems implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Long id;
 
 	@ManyToOne
 	@JoinColumn(name = "rarrayId", nullable = false)
 	private RArray rarray;
 
-	private String childType;
+	private Integer childType;
 
-	private int childId;
+	private Long childId;
 
-	public int getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -42,19 +42,19 @@ public class RArrayItems implements Serializable {
 		this.rarray = rarray;
 	}
 
-	public String getChildType() {
+	public Integer getChildType() {
 		return childType;
 	}
 
-	public void setChildType(String childType) {
+	public void setChildType(Integer childType) {
 		this.childType = childType;
 	}
 
-	public int getChildId() {
+	public Long getChildId() {
 		return childId;
 	}
 
-	public void setChildId(int childId) {
+	public void setChildId(Long childId) {
 		this.childId = childId;
 	}
 
