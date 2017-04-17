@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 
 public interface NativeQueryDAO {
 	public Object nativeQuery(String query, String className, List<String> resultSet, String queryMode, ArrayNode param,
-			Integer offset, Integer limit) throws Exception;
+			Boolean isNative, Integer offset, Integer limit) throws Exception;
 
 	public Object processQueryObject(JsonNode queryObject, ArrayNode param) throws Exception;
 
