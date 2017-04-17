@@ -9,53 +9,57 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table
 public class RArrayItems implements Serializable {
-	private static final long serialVersionUID = 3382251698368599181L;
+  private static final long serialVersionUID = 3382251698368599181L;
 
-	@Id
-	@GeneratedValue
-	private Long id;
+  @Id
+  @GeneratedValue
+  private Long id;
 
-	@ManyToOne
-	@JoinColumn(name = "rarrayId", nullable = false)
-	private RArray rarray;
 
-	private Integer childType;
+  @ManyToOne
+  @JoinColumn(name = "rarrayId", nullable = false)
+  private RArray rarray;
 
-	private Long childId;
+  private Integer childType;
 
-	public Long getId() {
-		return id;
-	}
+  private Long childId;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+  public Long getId() {
+    return id;
+  }
 
-	public RArray getRarray() {
-		return rarray;
-	}
+  public void setId(Long id) {
+    this.id = id;
+  }
 
-	public void setRarray(RArray rarray) {
-		this.rarray = rarray;
-	}
+  @JsonIgnore
+  public RArray getRarray() {
+    return rarray;
+  }
 
-	public Integer getChildType() {
-		return childType;
-	}
+  public void setRarray(RArray rarray) {
+    this.rarray = rarray;
+  }
 
-	public void setChildType(Integer childType) {
-		this.childType = childType;
-	}
+  public Integer getChildType() {
+    return childType;
+  }
 
-	public Long getChildId() {
-		return childId;
-	}
+  public void setChildType(Integer childType) {
+    this.childType = childType;
+  }
 
-	public void setChildId(Long childId) {
-		this.childId = childId;
-	}
+  public Long getChildId() {
+    return childId;
+  }
+
+  public void setChildId(Long childId) {
+    this.childId = childId;
+  }
 
 }
