@@ -20,7 +20,7 @@ public class QueryList implements Serializable {
 	@Column(unique = true)
 	private String queryName;
 
-	@Column(length=3000)
+	@Column(columnDefinition = "TEXT")
 	private String queryData;
 
 	public int getId() {
