@@ -6,6 +6,7 @@ import java.util.Arrays;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -84,9 +85,15 @@ public class NativeQueryEndpointController {
 		return nativeQueryLinkQueryDAO.processCustomQuery(queryName, param);
 	}
 
+	@Scheduled(fixedRate = 10000)
+	public void SyncDbQueryList() {
+		nativeQueryLinkQueryDAO.syncQueryListfromDB();
+	}
+
 	@PostConstruct
 	public void InitQueryList() throws Exception {
 		nativeQueryLinkQueryDAO.saveQueryListFromFile();
+		nativeQueryLinkQueryDAO.persistQueryListToDB();
 	}
 
 	// ------------------------------LockUtil

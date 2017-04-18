@@ -3,11 +3,11 @@
   <display-name>Archetype Created Web Application</display-name>
 	
 	<!-- add ContextLoaderListener -->
-	<listener>
+<!-- 	<listener>
 		<listener-class>
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
-	</listener>
+	</listener> -->
 	
 	<!-- add DispatcherServlet -->
 	<context-param>
