@@ -63,14 +63,16 @@ public class NativeQueryEndpointController {
 
 	// ------------------------------CustomQueryListDAO
 	@RequestMapping(value = "/SaveQueryList", method = RequestMethod.POST)
-	public Object SaveQueryList(@RequestBody ObjectNode queryList) {
+	public Object SaveQueryList(@RequestBody ObjectNode queryList) throws Exception {
 		nativeQueryLinkQueryDAO.saveQueryList(queryList);
+		nativeQueryLinkQueryDAO.saveQueryListToDB();
 		return nativeQueryLinkQueryDAO.getQueryList();
 	}
 
 	@RequestMapping(value = "/UpdateQueryList", method = RequestMethod.POST)
-	public Object UpdateQueryList(@RequestBody ObjectNode queryList) {
+	public Object UpdateQueryList(@RequestBody ObjectNode queryList) throws Exception {
 		nativeQueryLinkQueryDAO.updateQueryList(queryList);
+		nativeQueryLinkQueryDAO.saveQueryListToDB();
 		return nativeQueryLinkQueryDAO.getQueryList();
 	}
 

@@ -59,7 +59,40 @@ public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
 			query.setQueryData(UtilNativeQuery.mapper.writeValueAsString(queryList.get(key)));
 			queryListRepo.save(query);
 		}
+	}
 
+	public void saveQueryListToDB() throws Exception {
+		Iterator<String> iter = queryList.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = iter.next();
+			QueryList query = queryListRepo.findQueryByKey(key);
+			if (query == null) {
+				query = new QueryList();
+			}
+			query.setQueryName(key);
+			query.setQueryData(UtilNativeQuery.mapper.writeValueAsString(queryList.get(key)));
+			queryListRepo.save(query);
+		}
+	}
+
+	public void updateQueryListToDB() throws Exception {
+		Iterator<String> iter = queryList.keySet().iterator();
+		List<String> listName = queryListRepo.getAllqueryName();
+		for (String name : listName) {
+			if (!queryList.containsKey(name)) {
+				queryListRepo.deleteQueryByqueryName(name);
+			}
+		}
+		while (iter.hasNext()) {
+			String key = iter.next();
+			QueryList query = queryListRepo.findQueryByKey(key);
+			if (query == null) {
+				query = new QueryList();
+			}
+			query.setQueryName(key);
+			query.setQueryData(UtilNativeQuery.mapper.writeValueAsString(queryList.get(key)));
+			queryListRepo.save(query);
+		}
 	}
 
 	public void syncQueryListfromDB() {
@@ -108,4 +141,5 @@ public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
 		}
 		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo((ObjectNode) queryObject.deepCopy(), param);
 	}
+
 }
