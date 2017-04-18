@@ -72,7 +72,7 @@ public class NativeQueryEndpointController {
 	@RequestMapping(value = "/UpdateQueryList", method = RequestMethod.POST)
 	public Object UpdateQueryList(@RequestBody ObjectNode queryList) throws Exception {
 		nativeQueryLinkQueryDAO.updateQueryList(queryList);
-		nativeQueryLinkQueryDAO.saveQueryListToDB();
+		nativeQueryLinkQueryDAO.updateQueryListToDB();
 		return nativeQueryLinkQueryDAO.getQueryList();
 	}
 
