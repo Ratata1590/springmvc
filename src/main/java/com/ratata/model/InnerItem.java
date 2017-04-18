@@ -1,26 +1,22 @@
 package com.ratata.model;
 
 import java.io.Serializable;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table
-public class Item implements Serializable {
-	private static final long serialVersionUID = 8182035780340032132L;
+public class InnerItem implements Serializable {
+	private static final long serialVersionUID = -2946965440412473898L;
 
 	@Id
 	@GeneratedValue
@@ -31,19 +27,15 @@ public class Item implements Serializable {
 
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId", nullable = false)
-	private User user;
+	@JoinColumn(name = "itemId", nullable = false)
+	private Item item;
 
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "item", fetch = FetchType.EAGER)
-	private Set<InnerItem> inneritems;
-
-	public User getUser() {
-		return user;
+	public Item getItem() {
+		return item;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setItem(Item item) {
+		this.item = item;
 	}
 
 	public long getId() {
@@ -60,14 +52,6 @@ public class Item implements Serializable {
 
 	public void setData(String data) {
 		this.data = data;
-	}
-
-	public Set<InnerItem> getInneritems() {
-		return inneritems;
-	}
-
-	public void setInneritems(Set<InnerItem> inneritems) {
-		this.inneritems = inneritems;
 	}
 
 }

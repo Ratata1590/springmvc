@@ -48,11 +48,16 @@ public class NativeQueryEndpointController {
 	}
 
 	@RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
-	public void saveData(@RequestBody Object obj, @RequestParam String className) throws Exception {
+	public void saveData(@RequestBody JsonNode obj, @RequestParam String className) throws Exception {
 		if (LockUtil.isLockFlag()) {
 			return;
 		}
 		nativeQueryDAO.saveObject(obj, className);
+	}
+
+	@RequestMapping(value = "/SaveNestedObject", method = RequestMethod.POST)
+	public void saveData(@RequestBody JsonNode obj) throws Exception {
+		nativeQueryDAO.saveNestedObject(obj);
 	}
 
 	// ------------------------------NativeQueryDynamicPojoDAO

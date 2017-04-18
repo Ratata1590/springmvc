@@ -16,5 +16,7 @@ public interface NativeQueryDAO {
 
 	public ArrayNode resolveParamArrayNode(Map<String, Object> rootResult, ArrayNode arrayNodeConfig);
 
-	public void saveObject(Object obj, String className) throws Exception;
+	public void saveObject(JsonNode obj, String className) throws Exception;
+
+	public void saveNestedObject(JsonNode obj) throws Exception;
 }

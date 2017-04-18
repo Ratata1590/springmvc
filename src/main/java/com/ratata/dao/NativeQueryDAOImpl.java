@@ -193,7 +193,37 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 	}
 
 	@Transactional
-	public void saveObject(Object obj, String className) throws Exception {
+	public void saveObject(JsonNode obj, String className) throws Exception {
 		em.persist(UtilNativeQuery.mapper.convertValue(obj, Class.forName(className)));
+	}
+
+	@Transactional
+	public void saveNestedObject(JsonNode node) throws Exception {
+		if (node.isArray()) {
+			node = (ArrayNode) node;
+			for (JsonNode innerNode : node) {
+				em.persist(resolveNestedNode(innerNode));
+			}
+		}
+		if (node.isObject()) {
+			em.persist(resolveNestedNode(node));
+		}
+	}
+
+	private Object resolveNestedNode(JsonNode node) throws Exception {
+		if (node.isArray()) {
+			node = (ArrayNode) node;
+			for (JsonNode innerNode : node) {
+
+			}
+		}
+		if (node.isObject()) {
+			if (node.has("id") && node.has("className")) {
+				Object obj = UtilNativeQuery.mapper.convertValue(node, Class.forName(node.get("className").asText()));
+				Class.forName(node.get("className").asText()).cast(obj).se;
+			}
+
+		}
+		return null;
 	}
 }
