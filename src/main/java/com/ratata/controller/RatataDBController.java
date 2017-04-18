@@ -22,9 +22,9 @@ public class RatataDBController {
   }
 
   @RequestMapping(value = "/Rget", method = RequestMethod.GET)
-  public Object getNode(@RequestParam Long id, @RequestParam Integer type) throws Exception {
-    return ratataDBService.getNode(id, type);
+  public Object getNode(@RequestParam Long id, @RequestParam Integer type,
+      @RequestParam(required = false, defaultValue = "false") Boolean showId,
+      @RequestParam(required = false, defaultValue = "true") Boolean showData) throws Exception {
+    return ratataDBService.getNode(id, type, showId, showData);
   }
-
-
 }

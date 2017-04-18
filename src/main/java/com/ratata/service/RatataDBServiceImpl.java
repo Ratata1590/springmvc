@@ -49,20 +49,23 @@ public class RatataDBServiceImpl implements RatataDBService {
   }
 
   @Override
-  public Object getNode(Long id, Integer type) throws Exception {
+  public Object getNode(Long id, Integer type, Boolean showId, Boolean showData) throws Exception {
     JsonNode jsonNode = UtilNativeQuery.mapper.createArrayNode();
-    treeNode(jsonNode, id, type, null);
+    treeNode(jsonNode, id, type, null, showId, showData);
     return jsonNode.get(0);
   }
 
-  private void treeNode(JsonNode jsonNode, Long id, Integer type, String key) {
+  private void treeNode(JsonNode jsonNode, Long id, Integer type, String key, Boolean showId,
+      Boolean showData) {
     switch (type.intValue()) {
       case RDataType.RTRUE:
+
         if (jsonNode.isObject()) {
           ((ObjectNode) jsonNode).put(key, true);
         } else {
           ((ArrayNode) jsonNode).add(true);
         }
+
         break;
       case RDataType.RFALSE:
         if (jsonNode.isObject()) {
@@ -79,17 +82,33 @@ public class RatataDBServiceImpl implements RatataDBService {
         }
         break;
       case RDataType.RSTRING:
-        if (jsonNode.isObject()) {
-          ((ObjectNode) jsonNode).put(key, rStringRepo.findOne(id).getData());
+        if (!showData) {
+          if (jsonNode.isObject()) {
+            ((ObjectNode) jsonNode).put(key, "String");
+          } else {
+            ((ArrayNode) jsonNode).add("String");
+          }
         } else {
-          ((ArrayNode) jsonNode).add(rStringRepo.findOne(id).getData());
+          if (jsonNode.isObject()) {
+            ((ObjectNode) jsonNode).put(key, rStringRepo.findOne(id).getData());
+          } else {
+            ((ArrayNode) jsonNode).add(rStringRepo.findOne(id).getData());
+          }
         }
         break;
       case RDataType.RNUMBER:
-        if (jsonNode.isObject()) {
-          ((ObjectNode) jsonNode).put(key, rNumberRepo.findOne(id).getData());
+        if (!showData) {
+          if (jsonNode.isObject()) {
+            ((ObjectNode) jsonNode).put(key, "Number");
+          } else {
+            ((ArrayNode) jsonNode).add("Number");
+          }
         } else {
-          ((ArrayNode) jsonNode).add(rNumberRepo.findOne(id).getData());
+          if (jsonNode.isObject()) {
+            ((ObjectNode) jsonNode).put(key, rNumberRepo.findOne(id).getData());
+          } else {
+            ((ArrayNode) jsonNode).add(rNumberRepo.findOne(id).getData());
+          }
         }
         break;
       case RDataType.RARRAY:
@@ -98,9 +117,11 @@ public class RatataDBServiceImpl implements RatataDBService {
           return;
         }
         ArrayNode arrayNodein = UtilNativeQuery.mapper.createArrayNode();
-        arrayNodein.add(rarray.getId());
+        if (showId) {
+          arrayNodein.add(rarray.getId());
+        }
         for (RArrayItems item : rarray.getrArrayItems()) {
-          treeNode(arrayNodein, item.getChildId(), item.getChildType(), null);
+          treeNode(arrayNodein, item.getChildId(), item.getChildType(), null, showId, showData);
         }
 
         if (jsonNode.isObject()) {
@@ -115,12 +136,14 @@ public class RatataDBServiceImpl implements RatataDBService {
           return;
         }
         ObjectNode objectNodein = UtilNativeQuery.mapper.createObjectNode();
-        objectNodein.put("id", robject.getId());
+        if (showId) {
+          objectNodein.put("id", robject.getId());
+        }
         Iterator<RObjectKey> iter = robject.getrObjectKey().iterator();
         while (iter.hasNext()) {
           RObjectKey robjkey = iter.next();
-          treeNode(objectNodein, robjkey.getChildId(), robjkey.getChildType(),
-              robjkey.getKeyName());
+          treeNode(objectNodein, robjkey.getChildId(), robjkey.getChildType(), robjkey.getKeyName(),
+              showId, showData);
         }
 
         if (jsonNode.isObject()) {
