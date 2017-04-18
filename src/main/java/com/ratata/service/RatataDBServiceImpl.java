@@ -59,13 +59,11 @@ public class RatataDBServiceImpl implements RatataDBService {
       Boolean showData) {
     switch (type.intValue()) {
       case RDataType.RTRUE:
-
         if (jsonNode.isObject()) {
           ((ObjectNode) jsonNode).put(key, true);
         } else {
           ((ArrayNode) jsonNode).add(true);
         }
-
         break;
       case RDataType.RFALSE:
         if (jsonNode.isObject()) {
@@ -145,7 +143,6 @@ public class RatataDBServiceImpl implements RatataDBService {
           treeNode(objectNodein, robjkey.getChildId(), robjkey.getChildType(), robjkey.getKeyName(),
               showId, showData);
         }
-
         if (jsonNode.isObject()) {
           ((ObjectNode) jsonNode).set(key, objectNodein);
         } else {
@@ -188,7 +185,7 @@ public class RatataDBServiceImpl implements RatataDBService {
     }
     if (node.isObject()) {
       RObject rObject = null;
-      if (node.has("id")) {
+      if (node.has("id") && node.get("id").isNumber()) {
         rObject = rObjectRepo.findOne(node.get("id").asLong());
       }
       if (rObject == null) {
@@ -197,7 +194,6 @@ public class RatataDBServiceImpl implements RatataDBService {
       }
       nodeInfo.setChildId(rObject.getId());
       nodeInfo.setChildType(RDataType.ROBJECT);
-
       Set<String> objectkeys = rObjectKeyRepo.getAllKeyName(rObject.getId());
       ((ObjectNode) node).remove("id");
       Iterator<Entry<String, JsonNode>> iter = node.fields();
@@ -211,7 +207,6 @@ public class RatataDBServiceImpl implements RatataDBService {
           rObjectKey.setKeyName(property.getKey());
           rObjectKey.setObject(rObject);
         }
-
         NodeInfo nodeInfoIn = new NodeInfo();
         resolveValueNode(property.getValue(), nodeInfoIn);
         rObjectKey.setChildId(nodeInfoIn.getChildId());
@@ -233,13 +228,10 @@ public class RatataDBServiceImpl implements RatataDBService {
       }
       nodeInfo.setChildId(rArray.getId());
       nodeInfo.setChildType(RDataType.RARRAY);
-
       if (rArray.getrArrayItems() == null) {
         rArray.setrArrayItems(new ArrayList<RArrayItems>());
       }
-
       ((ArrayNode) node).remove(0);
-
       for (int i = 0; i < node.size(); i++) {
         NodeInfo nodeInfoIn = new NodeInfo();
         resolveValueNode(node.get(i), nodeInfoIn);
@@ -247,7 +239,6 @@ public class RatataDBServiceImpl implements RatataDBService {
         if (!hasNodeId) {
           rArrayItems = new RArrayItems();
           rArrayItems.setRarray(rArray);
-
           rArrayItems.setChildId(nodeInfoIn.getChildId());
           rArrayItems.setChildType(nodeInfoIn.getChildType());
           rArray.getrArrayItems().add(rArrayItems);
@@ -258,7 +249,6 @@ public class RatataDBServiceImpl implements RatataDBService {
           } else {
             rArrayItems = new RArrayItems();
             rArrayItems.setRarray(rArray);
-
             rArrayItems.setChildId(nodeInfoIn.getChildId());
             rArrayItems.setChildType(nodeInfoIn.getChildType());
             rArray.getrArrayItems().add(rArrayItems);
