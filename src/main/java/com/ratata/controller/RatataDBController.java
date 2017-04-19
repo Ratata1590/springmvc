@@ -24,14 +24,15 @@ public class RatataDBController {
   @RequestMapping(value = "/Rget", method = RequestMethod.GET)
   public Object getNode(@RequestParam Long id, @RequestParam Integer type,
       @RequestParam(required = false, defaultValue = "false") Boolean showId,
-      @RequestParam(required = false, defaultValue = "true") Boolean showData) throws Exception {
-    return ratataDBService.getNode(id, type, showId, showData);
+      @RequestParam(required = false, defaultValue = "true") Boolean showData,
+      @RequestParam(required = false, defaultValue = "false") Boolean showBinary) throws Exception {
+    return ratataDBService.getNode(id, type, showId, showData, showBinary);
   }
 
-  @RequestMapping(value = "/Rgetparent", method = RequestMethod.GET)
-  public Object getNodeParent(@RequestParam Long id, @RequestParam Integer type,
-      @RequestParam(required = false, defaultValue = "false") Boolean showId,
-      @RequestParam(required = false, defaultValue = "true") Boolean showData) throws Exception {
-    return ratataDBService.getNode(id, type, showId, showData);
-  }
+//  @RequestMapping(value = "/Rgetparent", method = RequestMethod.GET)
+//  public Object getNodeParent(@RequestParam Long id, @RequestParam Integer type,
+//      @RequestParam(required = false, defaultValue = "false") Boolean showId,
+//      @RequestParam(required = false, defaultValue = "true") Boolean showData) throws Exception {
+//    return ratataDBService.getNode(id, type, showId, showData);
+//  }
 }

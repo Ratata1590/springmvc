@@ -8,4 +8,5 @@ public interface RDataType {
   public final static int RTRUE = 4;
   public final static int RFALSE = 5;
   public final static int RNULL = 6;
+  public final static int RBINARY = 7;
 }

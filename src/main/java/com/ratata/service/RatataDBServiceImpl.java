@@ -2,26 +2,30 @@ package com.ratata.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
 import java.util.Map.Entry;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.NullNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.Util.RDataType;
+import com.ratata.Util.RatataDBConst;
 import com.ratata.Util.UtilNativeQuery;
 import com.ratata.model.RArray;
 import com.ratata.model.RArrayItems;
+import com.ratata.model.RBinary;
 import com.ratata.model.RNumber;
 import com.ratata.model.RObject;
 import com.ratata.model.RObjectKey;
 import com.ratata.model.RString;
 import com.ratata.pojo.NodeInfo;
 import com.ratata.repoRatataDB.RArrayRepo;
+import com.ratata.repoRatataDB.RBinaryRepo;
 import com.ratata.repoRatataDB.RNumberRepo;
 import com.ratata.repoRatataDB.RObjectKeyRepo;
 import com.ratata.repoRatataDB.RObjectRepo;
@@ -40,6 +44,8 @@ public class RatataDBServiceImpl implements RatataDBService {
   private RObjectKeyRepo rObjectKeyRepo;
   @Autowired
   private RStringRepo rStringRepo;
+  @Autowired
+  private RBinaryRepo rBinaryRepo;
 
   @Override
   public Long saveNode(JsonNode object) throws Exception {
@@ -49,14 +55,15 @@ public class RatataDBServiceImpl implements RatataDBService {
   }
 
   @Override
-  public Object getNode(Long id, Integer type, Boolean showId, Boolean showData) throws Exception {
+  public Object getNode(Long id, Integer type, Boolean showId, Boolean showData, Boolean showBinary)
+      throws Exception {
     JsonNode jsonNode = UtilNativeQuery.mapper.createArrayNode();
-    treeNode(jsonNode, id, type, null, showId, showData);
+    treeNode(jsonNode, id, type, null, showId, showData, showBinary);
     return jsonNode.get(0);
   }
 
   private void treeNode(JsonNode jsonNode, Long id, Integer type, String key, Boolean showId,
-      Boolean showData) {
+      Boolean showData, Boolean showBinary) {
     switch (type.intValue()) {
       case RDataType.RTRUE:
         if (jsonNode.isObject()) {
@@ -79,12 +86,35 @@ public class RatataDBServiceImpl implements RatataDBService {
           ((ArrayNode) jsonNode).add(NullNode.getInstance());
         }
         break;
+      case RDataType.RBINARY:
+        if ((!showData)) {
+          if (jsonNode.isObject()) {
+            ((ObjectNode) jsonNode).put(key, RatataDBConst.PLACE_HOLDER_BINARY);
+          } else {
+            ((ArrayNode) jsonNode).add(RatataDBConst.PLACE_HOLDER_BINARY);
+          }
+          break;
+        }
+        if (!showBinary) {
+          if (jsonNode.isObject()) {
+            ((ObjectNode) jsonNode).put(key, rBinaryRepo.findOne(id).getHashMD5());
+          } else {
+            ((ArrayNode) jsonNode).add(rBinaryRepo.findOne(id).getHashMD5());
+          }
+        } else {
+          if (jsonNode.isObject()) {
+            ((ObjectNode) jsonNode).put(key, rBinaryRepo.findOne(id).getData());
+          } else {
+            ((ArrayNode) jsonNode).add(rBinaryRepo.findOne(id).getData());
+          }
+        }
+        break;
       case RDataType.RSTRING:
         if (!showData) {
           if (jsonNode.isObject()) {
-            ((ObjectNode) jsonNode).put(key, "String");
+            ((ObjectNode) jsonNode).put(key, RatataDBConst.PLACE_HOLDER_STRING);
           } else {
-            ((ArrayNode) jsonNode).add("String");
+            ((ArrayNode) jsonNode).add(RatataDBConst.PLACE_HOLDER_STRING);
           }
         } else {
           if (jsonNode.isObject()) {
@@ -97,9 +127,9 @@ public class RatataDBServiceImpl implements RatataDBService {
       case RDataType.RNUMBER:
         if (!showData) {
           if (jsonNode.isObject()) {
-            ((ObjectNode) jsonNode).put(key, "Number");
+            ((ObjectNode) jsonNode).put(key, RatataDBConst.PLACE_HOLDER_NUMBER);
           } else {
-            ((ArrayNode) jsonNode).add("Number");
+            ((ArrayNode) jsonNode).add(RatataDBConst.PLACE_HOLDER_NUMBER);
           }
         } else {
           if (jsonNode.isObject()) {
@@ -119,7 +149,8 @@ public class RatataDBServiceImpl implements RatataDBService {
           arrayNodein.add(rarray.getId());
         }
         for (RArrayItems item : rarray.getrArrayItems()) {
-          treeNode(arrayNodein, item.getChildId(), item.getChildType(), null, showId, showData);
+          treeNode(arrayNodein, item.getChildId(), item.getChildType(), null, showId, showData,
+              showBinary);
         }
 
         if (jsonNode.isObject()) {
@@ -135,13 +166,13 @@ public class RatataDBServiceImpl implements RatataDBService {
         }
         ObjectNode objectNodein = UtilNativeQuery.mapper.createObjectNode();
         if (showId) {
-          objectNodein.put("id", robject.getId());
+          objectNodein.put(RatataDBConst.RATATA_ID_OBJECT_KEYNAME, robject.getId());
         }
         Iterator<RObjectKey> iter = robject.getrObjectKey().iterator();
         while (iter.hasNext()) {
           RObjectKey robjkey = iter.next();
           treeNode(objectNodein, robjkey.getChildId(), robjkey.getChildType(), robjkey.getKeyName(),
-              showId, showData);
+              showId, showData, showBinary);
         }
         if (jsonNode.isObject()) {
           ((ObjectNode) jsonNode).set(key, objectNodein);
@@ -150,112 +181,132 @@ public class RatataDBServiceImpl implements RatataDBService {
         }
         break;
     }
+
   }
 
   private void resolveValueNode(JsonNode node, NodeInfo nodeInfo) throws Exception {
-    if (node.isNull()) {
-      nodeInfo.setChildType(RDataType.RNULL);
-    }
-    if (node.isBoolean()) {
-      if (node.asBoolean()) {
-        nodeInfo.setChildType(RDataType.RTRUE);
-      } else {
-        nodeInfo.setChildType(RDataType.RFALSE);
-      }
-    }
-    if (node.isNumber()) {
-      RNumber rNumber = rNumberRepo.findbyValue(node.asDouble());
-      if (rNumber == null) {
-        rNumber = new RNumber();
-        rNumber.setData(node.asDouble());
-        rNumber = rNumberRepo.save(rNumber);
-      }
-      nodeInfo.setChildId(rNumber.getId());
-      nodeInfo.setChildType(RDataType.RNUMBER);
-    }
-    if (node.isTextual()) {
-      RString rString = rStringRepo.findbyValue(node.asText());
-      if (rString == null) {
-        rString = new RString();
-        rString.setData(node.asText());
-        rString = rStringRepo.save(rString);
-      }
-      nodeInfo.setChildId(rString.getId());
-      nodeInfo.setChildType(RDataType.RSTRING);
-    }
-    if (node.isObject()) {
-      RObject rObject = null;
-      if (node.has("id") && node.get("id").isNumber()) {
-        rObject = rObjectRepo.findOne(node.get("id").asLong());
-      }
-      if (rObject == null) {
-        rObject = new RObject();
-        rObject = rObjectRepo.save(rObject);
-      }
-      nodeInfo.setChildId(rObject.getId());
-      nodeInfo.setChildType(RDataType.ROBJECT);
-      Set<String> objectkeys = rObjectKeyRepo.getAllKeyName(rObject.getId());
-      ((ObjectNode) node).remove("id");
-      Iterator<Entry<String, JsonNode>> iter = node.fields();
-      while (iter.hasNext()) {
-        Entry<String, JsonNode> property = (Entry<String, JsonNode>) iter.next();
-        RObjectKey rObjectKey;
-        if (objectkeys.contains(property.getKey())) {
-          rObjectKey = rObjectKeyRepo.findbyValue(rObject.getId(), property.getKey());
+    switch (node.getNodeType()) {
+      case NULL:
+        nodeInfo.setChildType(RDataType.RNULL);
+        break;
+      case BOOLEAN:
+        if (node.asBoolean()) {
+          nodeInfo.setChildType(RDataType.RTRUE);
         } else {
-          rObjectKey = new RObjectKey();
-          rObjectKey.setKeyName(property.getKey());
-          rObjectKey.setObject(rObject);
+          nodeInfo.setChildType(RDataType.RFALSE);
         }
-        NodeInfo nodeInfoIn = new NodeInfo();
-        resolveValueNode(property.getValue(), nodeInfoIn);
-        rObjectKey.setChildId(nodeInfoIn.getChildId());
-        rObjectKey.setChildType(nodeInfoIn.getChildType());
-        rObjectKeyRepo.save(rObjectKey);
-      }
-    }
-    if (node.isArray()) {
-      RArray rArray = null;
-      Boolean hasNodeId = false;
-      if (!node.get(0).isNull() && node.get(0).isNumber()) {
-        hasNodeId = true;
-        rArray = rArrayRepo.findOne(node.get(0).asLong());
-      }
-      if (rArray == null) {
-        hasNodeId = false;
-        rArray = new RArray();
-        rArray = rArrayRepo.save(rArray);
-      }
-      nodeInfo.setChildId(rArray.getId());
-      nodeInfo.setChildType(RDataType.RARRAY);
-      if (rArray.getrArrayItems() == null) {
-        rArray.setrArrayItems(new ArrayList<RArrayItems>());
-      }
-      ((ArrayNode) node).remove(0);
-      for (int i = 0; i < node.size(); i++) {
-        NodeInfo nodeInfoIn = new NodeInfo();
-        resolveValueNode(node.get(i), nodeInfoIn);
-        RArrayItems rArrayItems = null;
-        if (!hasNodeId) {
-          rArrayItems = new RArrayItems();
-          rArrayItems.setRarray(rArray);
-          rArrayItems.setChildId(nodeInfoIn.getChildId());
-          rArrayItems.setChildType(nodeInfoIn.getChildType());
-          rArray.getrArrayItems().add(rArrayItems);
-        } else {
-          if (i < rArray.getrArrayItems().size()) {
-            rArray.getrArrayItems().get(i).setChildId(nodeInfoIn.getChildId());
-            rArray.getrArrayItems().get(i).setChildType(nodeInfoIn.getChildType());
+        break;
+      case BINARY:
+        byte[] data = node.binaryValue();
+        String hashMD5 = DigestUtils.md5DigestAsHex(data);
+        RBinary rbin = rBinaryRepo.findbyhashMD5(hashMD5);
+        if (rbin == null) {
+          rbin = new RBinary();
+          rbin.setHashMD5(hashMD5);
+          rbin.setData(data);
+          rbin = rBinaryRepo.save(rbin);
+        }
+        nodeInfo.setChildId(rbin.getId());
+        nodeInfo.setChildType(RDataType.RBINARY);
+        break;
+      case NUMBER:
+        RNumber rNumber = rNumberRepo.findbyValue(node.asDouble());
+        if (rNumber == null) {
+          rNumber = new RNumber();
+          rNumber.setData(node.asDouble());
+          rNumber = rNumberRepo.save(rNumber);
+        }
+        nodeInfo.setChildId(rNumber.getId());
+        nodeInfo.setChildType(RDataType.RNUMBER);
+        break;
+      case STRING:
+        RString rString = rStringRepo.findbyValue(node.asText());
+        if (rString == null) {
+          rString = new RString();
+          rString.setData(node.asText());
+          rString = rStringRepo.save(rString);
+        }
+        nodeInfo.setChildId(rString.getId());
+        nodeInfo.setChildType(RDataType.RSTRING);
+        break;
+      case OBJECT:
+        RObject rObject = null;
+        if (node.has(RatataDBConst.RATATA_ID_OBJECT_KEYNAME)
+            && node.get(RatataDBConst.RATATA_ID_OBJECT_KEYNAME).isNumber()) {
+          rObject = rObjectRepo.findOne(node.get(RatataDBConst.RATATA_ID_OBJECT_KEYNAME).asLong());
+        }
+        if (rObject == null) {
+          rObject = new RObject();
+          rObject = rObjectRepo.save(rObject);
+        }
+        nodeInfo.setChildId(rObject.getId());
+        nodeInfo.setChildType(RDataType.ROBJECT);
+        Set<String> objectkeys = rObjectKeyRepo.getAllKeyName(rObject.getId());
+        ((ObjectNode) node).remove(RatataDBConst.RATATA_ID_OBJECT_KEYNAME);
+        Iterator<Entry<String, JsonNode>> iter = node.fields();
+        while (iter.hasNext()) {
+          Entry<String, JsonNode> property = (Entry<String, JsonNode>) iter.next();
+          RObjectKey rObjectKey;
+          if (objectkeys.contains(property.getKey())) {
+            rObjectKey = rObjectKeyRepo.findbyValue(rObject.getId(), property.getKey());
           } else {
+            rObjectKey = new RObjectKey();
+            rObjectKey.setKeyName(property.getKey());
+            rObjectKey.setObject(rObject);
+          }
+          NodeInfo nodeInfoIn = new NodeInfo();
+          resolveValueNode(property.getValue(), nodeInfoIn);
+          rObjectKey.setChildId(nodeInfoIn.getChildId());
+          rObjectKey.setChildType(nodeInfoIn.getChildType());
+          rObjectKeyRepo.save(rObjectKey);
+        }
+        break;
+      case ARRAY:
+        RArray rArray = null;
+        Boolean hasNodeId = false;
+        if (!node.get(RatataDBConst.RATATA_ID_ARRAY_LOCATION).isNull()
+            && node.get(RatataDBConst.RATATA_ID_ARRAY_LOCATION).isNumber()) {
+          hasNodeId = true;
+          rArray = rArrayRepo.findOne(node.get(RatataDBConst.RATATA_ID_ARRAY_LOCATION).asLong());
+        }
+        if (rArray == null) {
+          hasNodeId = false;
+          rArray = new RArray();
+          rArray = rArrayRepo.save(rArray);
+        }
+        nodeInfo.setChildId(rArray.getId());
+        nodeInfo.setChildType(RDataType.RARRAY);
+        if (rArray.getrArrayItems() == null) {
+          rArray.setrArrayItems(new ArrayList<RArrayItems>());
+        }
+        ((ArrayNode) node).remove(RatataDBConst.RATATA_ID_ARRAY_LOCATION);
+        for (int i = 0; i < node.size(); i++) {
+          NodeInfo nodeInfoIn = new NodeInfo();
+          resolveValueNode(node.get(i), nodeInfoIn);
+          RArrayItems rArrayItems = null;
+          if (!hasNodeId) {
             rArrayItems = new RArrayItems();
             rArrayItems.setRarray(rArray);
             rArrayItems.setChildId(nodeInfoIn.getChildId());
             rArrayItems.setChildType(nodeInfoIn.getChildType());
             rArray.getrArrayItems().add(rArrayItems);
+          } else {
+            if (i < rArray.getrArrayItems().size()) {
+              rArray.getrArrayItems().get(i).setChildId(nodeInfoIn.getChildId());
+              rArray.getrArrayItems().get(i).setChildType(nodeInfoIn.getChildType());
+            } else {
+              rArrayItems = new RArrayItems();
+              rArrayItems.setRarray(rArray);
+              rArrayItems.setChildId(nodeInfoIn.getChildId());
+              rArrayItems.setChildType(nodeInfoIn.getChildType());
+              rArray.getrArrayItems().add(rArrayItems);
+            }
           }
         }
-      }
-      rArray = rArrayRepo.save(rArray);
+        rArray = rArrayRepo.save(rArray);
+        break;
+      default:
+        break;
     }
   }
 }
