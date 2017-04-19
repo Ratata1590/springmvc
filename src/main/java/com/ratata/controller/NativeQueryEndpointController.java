@@ -56,8 +56,8 @@ public class NativeQueryEndpointController {
 	}
 
 	@RequestMapping(value = "/SaveNestedObject", method = RequestMethod.POST)
-	public void saveData(@RequestBody JsonNode obj) throws Exception {
-		nativeQueryDAO.saveNestedObject(obj);
+	public void saveLinkedData(@RequestBody JsonNode obj) throws Exception {
+		nativeQueryDAO.saveLinkedObject(obj);
 	}
 
 	// ------------------------------NativeQueryDynamicPojoDAO

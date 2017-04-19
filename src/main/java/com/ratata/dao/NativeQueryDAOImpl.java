@@ -198,32 +198,32 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 	}
 
 	@Transactional
-	public void saveNestedObject(JsonNode node) throws Exception {
+	public void saveLinkedObject(JsonNode node) throws Exception {
 		if (node.isArray()) {
 			node = (ArrayNode) node;
 			for (JsonNode innerNode : node) {
-				em.persist(resolveNestedNode(innerNode));
+				resolveLinkedObject(innerNode);
 			}
 		}
 		if (node.isObject()) {
-			em.persist(resolveNestedNode(node));
+			resolveLinkedObject(node);
 		}
 	}
 
-	private Object resolveNestedNode(JsonNode node) throws Exception {
-		if (node.isArray()) {
-			node = (ArrayNode) node;
-			for (JsonNode innerNode : node) {
-
-			}
+	private void resolveLinkedObject(JsonNode node) throws Exception {
+		String className = node.get("className").asText();
+		Object parent = em.find(Class.forName(className), node.get("id").asLong());
+		ArrayNode childList = (ArrayNode) node.get("childList");
+		for (JsonNode child : childList) {
+			StringBuilder query = new StringBuilder();
+			query.append("UPDATE ");
+			query.append(child.get("className").asText());
+			query.append(" a SET a.");
+			query.append(child.get("parentKey").asText());
+			query.append(" =:parent WHERE a.id IN (");
+			query.append(child.get("idList").asText());
+			query.append(")");
+			em.createQuery(query.toString()).setParameter("parent", parent).executeUpdate();
 		}
-		if (node.isObject()) {
-			if (node.has("id") && node.has("className")) {
-				Object obj = UtilNativeQuery.mapper.convertValue(node, Class.forName(node.get("className").asText()));
-				Class.forName(node.get("className").asText()).cast(obj).se;
-			}
-
-		}
-		return null;
 	}
 }

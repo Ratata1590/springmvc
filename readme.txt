@@ -246,3 +246,17 @@ http://localhost:8080/demoSpringMvc4/nativequery
 		}
 	}
 }
+
+http://localhost:8080/demoSpringMvc4/SaveNestedObject
+update linked Object
+{
+	"id":3,
+	"className":"com.ratata.model.User",
+	"childList":[
+			{
+				"idList":"0,1",
+				"className":"com.ratata.model.Item",
+				"parentKey":"user"
+			}
+	]
+}

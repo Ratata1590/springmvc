@@ -18,5 +18,5 @@ public interface NativeQueryDAO {
 
 	public void saveObject(JsonNode obj, String className) throws Exception;
 
-	public void saveNestedObject(JsonNode obj) throws Exception;
+	public void saveLinkedObject(JsonNode obj) throws Exception;
 }
