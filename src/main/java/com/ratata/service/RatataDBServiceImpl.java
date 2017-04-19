@@ -5,9 +5,12 @@ import java.util.Iterator;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.DigestUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
@@ -55,11 +58,41 @@ public class RatataDBServiceImpl implements RatataDBService {
   }
 
   @Override
-  public Object getNode(Long id, Integer type, Boolean showId, Boolean showData, Boolean showBinary)
-      throws Exception {
+  public JsonNode getNode(Long id, Integer type, Boolean showId, Boolean showData,
+      Boolean showBinary) throws Exception {
     JsonNode jsonNode = UtilNativeQuery.mapper.createArrayNode();
     treeNode(jsonNode, id, type, null, showId, showData, showBinary);
     return jsonNode.get(0);
+  }
+
+
+  @Override
+  public Object uploadFile(MultipartFile[] files, String[] names) throws Exception {
+    if (files.length != names.length) {
+      return RatataDBConst.UPLOADFILE_ERROR;
+    }
+    ObjectNode result = UtilNativeQuery.mapper.createObjectNode();
+    for (int i = 0; i < files.length; i++) {
+      if (files[i].isEmpty() || names[i].isEmpty()) {
+        continue;
+      }
+      ObjectNode fileObj = UtilNativeQuery.mapper.createObjectNode();
+      fileObj.put(names[i], files[i].getBytes());
+      NodeInfo nodeInfo = new NodeInfo();
+      resolveValueNode(fileObj, nodeInfo);
+      result.put(names[i], nodeInfo.getChildId());
+    }
+    return result;
+  }
+
+  @Override
+  public void downloadFileById(HttpServletResponse response, Long id) throws Exception {
+    response.getOutputStream().write(rBinaryRepo.findOne(id).getData());
+  }
+
+  @Override
+  public void downloadFileByHash(HttpServletResponse response, String hash) throws Exception {
+    response.getOutputStream().write(rBinaryRepo.findbyhashMD5(hash).getData());
   }
 
   private void treeNode(JsonNode jsonNode, Long id, Integer type, String key, Boolean showId,

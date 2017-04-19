@@ -2,10 +2,14 @@ package com.ratata.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Table;
 
+@Entity
+@Table
 public class RBinary implements Serializable {
 
   private static final long serialVersionUID = -8099480854673486001L;

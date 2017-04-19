@@ -7,4 +7,6 @@ public interface RatataDBConst {
   public final static String PLACE_HOLDER_STRING = "String";
   public final static String PLACE_HOLDER_NUMBER = "Number";
   public final static String PLACE_HOLDER_BINARY = "Binary";
+  
+  public final static String UPLOADFILE_ERROR = "please provide name for file";
 }
