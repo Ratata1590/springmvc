@@ -246,3 +246,22 @@ http://localhost:8080/demoSpringMvc4/nativequery
 		}
 	}
 }
+
+
+upload multipart file
+http://localhost:8080/demoSpringMvc4/RsaveFile
+form-data
+file pom
+name pom
+file hello.txt
+name hello.txt
+return:
+{
+  "pom": 1,
+  "image": 2
+}
+
+get by hash
+http://localhost:8080/demoSpringMvc4/RgetFileByHash?hash=b877a2a98c3fb24e1900706f8a6ed1cf
+get object
+http://localhost:8080/demoSpringMvc4/Rget?id=2&type=0&showId=false
