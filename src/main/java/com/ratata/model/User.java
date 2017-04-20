@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Version;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -34,7 +35,7 @@ public class User implements Serializable {
 	@Version
 	private long version;
 
-	@JsonManagedReference
+	//@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<Item> items;
 
@@ -70,7 +71,7 @@ public class User implements Serializable {
 	public void setVersion(long version) {
 		this.version = version;
 	}
-
+	@JsonIgnore
 	public Set<Item> getItems() {
 		return items;
 	}

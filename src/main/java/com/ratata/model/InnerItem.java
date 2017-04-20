@@ -12,7 +12,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = InnerItem.class)
 @Entity
 @Table
 public class InnerItem implements Serializable {
@@ -25,7 +29,8 @@ public class InnerItem implements Serializable {
 	@Column
 	private String data;
 
-	@JsonBackReference
+	//@JsonBackReference
+	@JsonIdentityReference(alwaysAsId=true)
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "itemId", nullable = false)
 	private Item item;
