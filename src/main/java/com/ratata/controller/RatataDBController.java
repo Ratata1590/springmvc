@@ -34,8 +34,9 @@ public class RatataDBController {
   public Object getNode(@RequestParam Long id, @RequestParam Integer type,
       @RequestParam(required = false, defaultValue = "false") Boolean showId,
       @RequestParam(required = false, defaultValue = "true") Boolean showData,
-      @RequestParam(required = false, defaultValue = "false") Boolean showBinary) throws Exception {
-    return ratataDBService.getNode(id, type, showId, showData, showBinary);
+      @RequestParam(required = false, defaultValue = "false") Boolean showBinary,
+      @RequestParam(required = false, defaultValue = "10") Long limit) throws Exception {
+    return ratataDBService.getNode(id, type, showId, showData, showBinary,limit);
   }
 
   @RequestMapping(value = "/RgetFileById", method = RequestMethod.GET)
@@ -52,7 +53,8 @@ public class RatataDBController {
   public Object getNodeParent(@RequestParam Long id, @RequestParam Integer type,
       @RequestParam(required = false, defaultValue = "false") Boolean showId,
       @RequestParam(required = false, defaultValue = "true") Boolean showData,
-      @RequestParam(required = false, defaultValue = "false") Boolean showBinary) throws Exception {
-    return ratataDBService.getParent(id, type, showId, showData, showBinary);
+      @RequestParam(required = false, defaultValue = "false") Boolean showBinary,
+      @RequestParam(required = false, defaultValue = "10") Long limit) throws Exception {
+    return ratataDBService.getParent(id, type, showId, showData, showBinary,limit);
   }
 }

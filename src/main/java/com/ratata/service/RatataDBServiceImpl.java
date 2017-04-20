@@ -63,9 +63,9 @@ public class RatataDBServiceImpl implements RatataDBService {
 
   @Override
   public JsonNode getNode(Long id, Integer type, Boolean showId, Boolean showData,
-      Boolean showBinary) throws Exception {
+      Boolean showBinary, Long limit) throws Exception {
     JsonNode jsonNode = UtilNativeQuery.mapper.createArrayNode();
-    treeNode(jsonNode, id, type, null, showId, showData, showBinary);
+    treeNode(jsonNode, id, type, null, showId, showData, showBinary, limit);
     return jsonNode.get(0);
   }
 
@@ -99,7 +99,16 @@ public class RatataDBServiceImpl implements RatataDBService {
   }
 
   private void treeNode(JsonNode jsonNode, Long id, Integer type, String key, Boolean showId,
-      Boolean showData, Boolean showBinary) {
+      Boolean showData, Boolean showBinary, Long limit) {
+    if (limit == 0) {
+      if (jsonNode.isObject()) {
+        ((ObjectNode) jsonNode).put(key, RatataDBConst.UNFINISHED_DATA);
+      } else {
+        ((ArrayNode) jsonNode).add(RatataDBConst.UNFINISHED_DATA);
+      }
+      return;
+    }
+    limit--;
     switch (type.intValue()) {
       case RDataType.RTRUE:
         if (jsonNode.isObject()) {
@@ -213,7 +222,7 @@ public class RatataDBServiceImpl implements RatataDBService {
         }
         for (RArrayItems item : rarray.getrArrayItems()) {
           treeNode(arrayNodein, item.getChildId(), item.getChildType(), null, showId, showData,
-              showBinary);
+              showBinary, new Long(limit));
         }
         if (jsonNode.isObject()) {
           ((ObjectNode) jsonNode).set(key, arrayNodein);
@@ -234,7 +243,7 @@ public class RatataDBServiceImpl implements RatataDBService {
         while (iter.hasNext()) {
           RObjectKey robjkey = iter.next();
           treeNode(objectNodein, robjkey.getChildId(), robjkey.getChildType(), robjkey.getKeyName(),
-              showId, showData, showBinary);
+              showId, showData, showBinary, new Long(limit));
         }
         if (jsonNode.isObject()) {
           ((ObjectNode) jsonNode).set(key, objectNodein);
@@ -374,16 +383,22 @@ public class RatataDBServiceImpl implements RatataDBService {
 
   @Override
   public List<NodeInfo> getParent(Long id, Integer type, Boolean showId, Boolean showData,
-      Boolean showBinary) {
+      Boolean showBinary, Long limit) {
     NodeInfo nodeInfo = new NodeInfo();
     nodeInfo.setId(id);
     nodeInfo.setType(type);
     List<NodeInfo> result = new ArrayList<NodeInfo>();
-    resolveParent(result, nodeInfo, true);
+    resolveParent(result, nodeInfo, true, limit);
     return result;
   }
 
-  private void resolveParent(List<NodeInfo> listResult, NodeInfo info, Boolean firstTime) {
+  private void resolveParent(List<NodeInfo> listResult, NodeInfo info, Boolean firstTime,
+      Long limit) {
+    if (limit == 0) {
+      listResult.add(info);
+      return;
+    }
+    limit--;
     List<Long> idObject = rObjectKeyRepo.findParentObjectId(info.getId(), info.getType());
     List<Long> idArray = rArrayItemsRepo.findParentArrayId(info.getId(), info.getType());
     if (idObject.isEmpty() && idArray.isEmpty()) {
@@ -397,13 +412,13 @@ public class RatataDBServiceImpl implements RatataDBService {
       NodeInfo nodeInfo = new NodeInfo();
       nodeInfo.setId(id);
       nodeInfo.setType(RDataType.ROBJECT);
-      resolveParent(listResult, nodeInfo, firstTime);
+      resolveParent(listResult, nodeInfo, firstTime, new Long(limit));
     }
     for (Long id : idArray) {
       NodeInfo nodeInfo = new NodeInfo();
       nodeInfo.setId(id);
       nodeInfo.setType(RDataType.RARRAY);
-      resolveParent(listResult, nodeInfo, firstTime);
+      resolveParent(listResult, nodeInfo, firstTime, new Long(limit));
     }
   }
 }
