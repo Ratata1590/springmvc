@@ -23,4 +23,7 @@ public interface RatataDBService {
   public void downloadFileByHash(HttpServletResponse response, String hash) throws Exception;
 
   public Object uploadFile(MultipartFile[] files, String[] names) throws Exception;
+
+  public JsonNode searchObjectNode(JsonNode node, Boolean showId, Boolean showData,
+      Boolean showBinary, Long limit);
 }

@@ -36,7 +36,16 @@ public class RatataDBController {
       @RequestParam(required = false, defaultValue = "true") Boolean showData,
       @RequestParam(required = false, defaultValue = "false") Boolean showBinary,
       @RequestParam(required = false, defaultValue = "10") Long limit) throws Exception {
-    return ratataDBService.getNode(id, type, showId, showData, showBinary,limit);
+    return ratataDBService.getNode(id, type, showId, showData, showBinary, limit);
+  }
+
+  @RequestMapping(value = "/RSearchObject", method = RequestMethod.POST)
+  public Object searchObjectNode(@RequestBody JsonNode node,
+      @RequestParam(required = false, defaultValue = "false") Boolean showId,
+      @RequestParam(required = false, defaultValue = "true") Boolean showData,
+      @RequestParam(required = false, defaultValue = "false") Boolean showBinary,
+      @RequestParam(required = false, defaultValue = "10") Long limit) {
+    return ratataDBService.searchObjectNode(node, showId, showData, showBinary, limit);
   }
 
   @RequestMapping(value = "/RgetFileById", method = RequestMethod.GET)
@@ -55,6 +64,6 @@ public class RatataDBController {
       @RequestParam(required = false, defaultValue = "true") Boolean showData,
       @RequestParam(required = false, defaultValue = "false") Boolean showBinary,
       @RequestParam(required = false, defaultValue = "10") Long limit) throws Exception {
-    return ratataDBService.getParent(id, type, showId, showData, showBinary,limit);
+    return ratataDBService.getParent(id, type, showId, showData, showBinary, limit);
   }
 }
