@@ -1,23 +1,23 @@
 package com.ratata.pojo;
 
 public class NodeInfo {
-  private Long childId;
-  private Integer childType;
+  private Long id;
+  private Integer type;
 
-  public Long getChildId() {
-    return childId;
+  public Long getId() {
+    return id;
   }
 
-  public void setChildId(Long childId) {
-    this.childId = childId;
+  public void setId(Long id) {
+    this.id = id;
   }
 
-  public Integer getChildType() {
-    return childType;
+  public Integer getType() {
+    return type;
   }
 
-  public void setChildType(Integer childType) {
-    this.childType = childType;
+  public void setType(Integer type) {
+    this.type = type;
   }
 
 

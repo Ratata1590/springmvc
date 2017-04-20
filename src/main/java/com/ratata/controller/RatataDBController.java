@@ -48,10 +48,11 @@ public class RatataDBController {
     ratataDBService.downloadFileByHash(response, hash);
   }
 
-  // @RequestMapping(value = "/Rgetparent", method = RequestMethod.GET)
-  // public Object getNodeParent(@RequestParam Long id, @RequestParam Integer type,
-  // @RequestParam(required = false, defaultValue = "false") Boolean showId,
-  // @RequestParam(required = false, defaultValue = "true") Boolean showData) throws Exception {
-  // return ratataDBService.getNode(id, type, showId, showData);
-  // }
+  @RequestMapping(value = "/RgetParent", method = RequestMethod.GET)
+  public Object getNodeParent(@RequestParam Long id, @RequestParam Integer type,
+      @RequestParam(required = false, defaultValue = "false") Boolean showId,
+      @RequestParam(required = false, defaultValue = "true") Boolean showData,
+      @RequestParam(required = false, defaultValue = "false") Boolean showBinary) throws Exception {
+    return ratataDBService.getParent(id, type, showId, showData, showBinary);
+  }
 }
