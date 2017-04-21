@@ -1,4 +1,4 @@
-package com.ratata.controller;
+package com.ratata.NativeQuery.controller;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.Util.LockUtil;
-import com.ratata.Util.UtilNativeQuery;
-import com.ratata.dao.NativeQueryDAO;
-import com.ratata.dao.NativeQueryDynamicPojoDAO;
-import com.ratata.dao.NativeQueryLinkQueryDAO;
+import com.ratata.NativeQuery.Util.LockUtil;
+import com.ratata.NativeQuery.Util.UtilNativeQuery;
+import com.ratata.NativeQuery.dao.NativeQueryDAO;
+import com.ratata.NativeQuery.dao.NativeQueryDynamicPojoDAO;
+import com.ratata.NativeQuery.dao.NativeQueryLinkQueryDAO;
 
 @RestController
 public class NativeQueryEndpointController {

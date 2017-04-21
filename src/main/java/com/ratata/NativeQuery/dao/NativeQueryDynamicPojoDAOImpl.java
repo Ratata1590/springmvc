@@ -1,4 +1,4 @@
-package com.ratata.dao;
+package com.ratata.NativeQuery.dao;
 
 import java.util.Iterator;
 import java.util.Map.Entry;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.Util.Const;
-import com.ratata.Util.UtilNativeQuery;
+import com.ratata.NativeQuery.Util.Const;
+import com.ratata.NativeQuery.Util.UtilNativeQuery;
 
 @Component
 public class NativeQueryDynamicPojoDAOImpl implements NativeQueryDynamicPojoDAO {

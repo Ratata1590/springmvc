@@ -32,6 +32,7 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 		<property name="packagesToScan">
 			<list>
 				<value>com.ratata.model</value>
+				<value>com.ratata.NativeQuery.entity</value>
 			</list>
 		</property>
 		<property name="persistenceProvider">
@@ -50,7 +51,7 @@ http://www.springframework.org/schema/task http://www.springframework.org/schema
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-	<jpa:repositories base-package="com.ratata.repo" />
+	<jpa:repositories base-package="com.ratata.NativeQuery.repo" />
 
 	<task:annotation-driven executor="myExecutor"
 		scheduler="myScheduler" />

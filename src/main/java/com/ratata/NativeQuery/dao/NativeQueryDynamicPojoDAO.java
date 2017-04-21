@@ -1,4 +1,4 @@
-package com.ratata.dao;
+package com.ratata.NativeQuery.dao;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;

@@ -1,4 +1,4 @@
-package com.ratata.dao;
+package com.ratata.NativeQuery.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,8 +19,8 @@ import com.fasterxml.jackson.core.JsonParser.NumberType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.Util.Const;
-import com.ratata.Util.UtilNativeQuery;
+import com.ratata.NativeQuery.Util.Const;
+import com.ratata.NativeQuery.Util.UtilNativeQuery;
 
 @Component
 public class NativeQueryDAOImpl implements NativeQueryDAO {

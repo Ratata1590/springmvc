@@ -1,4 +1,4 @@
-package com.ratata.Util;
+package com.ratata.NativeQuery.Util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

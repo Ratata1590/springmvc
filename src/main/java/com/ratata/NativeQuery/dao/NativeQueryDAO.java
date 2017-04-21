@@ -1,4 +1,4 @@
-package com.ratata.dao;
+package com.ratata.NativeQuery.dao;
 
 import java.util.List;
 import java.util.Map;

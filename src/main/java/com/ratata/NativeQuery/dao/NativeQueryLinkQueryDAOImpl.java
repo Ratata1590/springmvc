@@ -1,4 +1,4 @@
-package com.ratata.dao;
+package com.ratata.NativeQuery.dao;
 
 import java.io.File;
 import java.util.HashMap;
@@ -15,10 +15,10 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.Util.Const;
-import com.ratata.Util.UtilNativeQuery;
-import com.ratata.model.QueryList;
-import com.ratata.repo.QueryListRepo;
+import com.ratata.NativeQuery.Util.Const;
+import com.ratata.NativeQuery.Util.UtilNativeQuery;
+import com.ratata.NativeQuery.entity.QueryList;
+import com.ratata.NativeQuery.repo.QueryListRepo;
 
 @Component
 public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {

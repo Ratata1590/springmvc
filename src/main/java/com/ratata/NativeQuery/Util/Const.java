@@ -1,4 +1,4 @@
-package com.ratata.Util;
+package com.ratata.NativeQuery.Util;
 
 public interface Const {
 	public static final String QUERYMODE_SINGLE = "S";

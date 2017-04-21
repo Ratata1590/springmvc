@@ -1,4 +1,4 @@
-package com.ratata.model;
+package com.ratata.NativeQuery.entity;
 
 import java.io.Serializable;
 

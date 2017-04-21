@@ -1,4 +1,4 @@
-package com.ratata.Util;
+package com.ratata.NativeQuery.Util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
