@@ -1,5 +1,7 @@
 package com.ratata.controller;
 
+import java.util.Iterator;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.Util.UtilNativeQuery;
 
@@ -18,8 +21,8 @@ public class ExportDBController {
 
   @PersistenceContext
   private EntityManager em;
-  
-  public static final String[] entityList = {"Item","User","InnerItem"};
+
+  public static final String[] entityList = {"Item", "User", "InnerItem"};
 
   @RequestMapping(value = "/exportTable", method = RequestMethod.GET)
   public JsonNode exportTable() {
@@ -35,9 +38,19 @@ public class ExportDBController {
   }
 
   @RequestMapping(value = "/importTable", method = RequestMethod.POST)
-  public void importTable(@RequestParam("data") MultipartFile data,
-      @RequestParam("map") MultipartFile map) throws Exception {
-    JsonNode jdata = UtilNativeQuery.mapper.readTree(data.getInputStream());
-    JsonNode jmap = UtilNativeQuery.mapper.readTree(map.getInputStream());
+  public void importTable(@RequestParam("data") MultipartFile data) throws Exception {
+    ObjectNode root = (ObjectNode) UtilNativeQuery.mapper.readTree(data.getInputStream());
+
+    ObjectNode map = (ObjectNode) root.get("map");
+    ObjectNode jdatas = (ObjectNode) root.get("data");
+    Iterator<String> keys = jdatas.fieldNames();
+    while (keys.hasNext()) {
+      String entity = keys.next();
+      ArrayNode records = (ArrayNode) jdatas.get(entity);
+      for(JsonNode record:records){
+        //((ObjectNode)record).remove(fieldName)
+      }
+      
+    }
   }
 }
