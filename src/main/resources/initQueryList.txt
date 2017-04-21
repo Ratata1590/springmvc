@@ -31,5 +31,25 @@
 			}
 		]
 	}
+},"mypojo":{
+			"query": "select a.id,a.username from User a",
+			"resultSet": [
+				"theid",
+				"theusername"
+			],
+			"insideObject": {
+				"ItemList": {
+					"param": [
+						"theid"
+					],
+					"data": {
+						"query": "select a.id,a.data from Item a where a.userId!=?0",
+						"resultSet": [
+							"id",
+							"data"
+						]
+					}
+				}
+			}
 }
 }

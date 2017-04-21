@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -75,6 +77,7 @@ public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
 		}
 	}
 
+	@Transactional
 	public void updateQueryListToDB() throws Exception {
 		Iterator<String> iter = queryList.keySet().iterator();
 		List<String> listName = queryListRepo.getAllqueryName();

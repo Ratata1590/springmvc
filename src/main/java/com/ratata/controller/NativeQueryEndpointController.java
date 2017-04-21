@@ -7,6 +7,7 @@ import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,20 +35,21 @@ public class NativeQueryEndpointController {
 
 	// ------------------------------NativeQueryDAO
 	@RequestMapping(value = "/nativequery", method = RequestMethod.GET)
-	public Object nativeQuery(String query, @RequestParam(required = false, defaultValue = "") String className,
-			@RequestParam(required = false, defaultValue = "") String[] resultSet,
-			@RequestParam(required = false, defaultValue = "L") String queryMode,
-			@RequestParam(required = false, defaultValue = "[]") String param,
-			@RequestParam(required = false, defaultValue = "true") Boolean isNative,
-			@RequestParam(required = false, defaultValue = "0") Integer offset,
-			@RequestParam(required = false, defaultValue = "0") Integer limit) throws Exception {
+	public Object nativeQuery(@RequestParam String query,
+			@RequestHeader(required = false, defaultValue = "") String className,
+			@RequestHeader(required = false, defaultValue = "") String[] resultSet,
+			@RequestHeader(required = false, defaultValue = "L") String queryMode,
+			@RequestHeader(required = false, defaultValue = "[]") String param,
+			@RequestHeader(required = false, defaultValue = "true") Boolean isNative,
+			@RequestHeader(required = false, defaultValue = "0") Integer offset,
+			@RequestHeader(required = false, defaultValue = "0") Integer limit) throws Exception {
 		ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
 		return nativeQueryDAO.nativeQuery(query, className, Arrays.asList(resultSet), queryMode, paramNode, isNative,
 				offset, limit);
 	}
 
 	@RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
-	public void saveData(@RequestBody JsonNode obj, @RequestParam String className) throws Exception {
+	public void saveData(@RequestBody JsonNode obj, @RequestHeader String className) throws Exception {
 		if (LockUtil.isLockFlag()) {
 			return;
 		}
@@ -86,12 +88,12 @@ public class NativeQueryEndpointController {
 	}
 
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
-	public Object queryWithParam(@RequestParam String queryName,
-			@RequestParam(defaultValue = "[]") String param) throws Exception {
+	public Object queryWithParam(@RequestParam String queryName, @RequestHeader(defaultValue = "[]") String param)
+			throws Exception {
 		return nativeQueryLinkQueryDAO.processCustomQuery(queryName, param);
 	}
 
-	//@Scheduled(fixedRate = 10000)
+	// @Scheduled(fixedRate = 10000)
 	public void SyncDbQueryList() {
 		nativeQueryLinkQueryDAO.syncQueryListfromDB();
 	}
@@ -104,12 +106,13 @@ public class NativeQueryEndpointController {
 
 	// ------------------------------LockUtil
 	@RequestMapping(value = "/lock", method = RequestMethod.GET)
-	public String lockOption(@RequestParam String password, String hint) throws NoSuchAlgorithmException {
+	public String lockOption(@RequestHeader String password, @RequestHeader String hint)
+			throws NoSuchAlgorithmException {
 		return LockUtil.lock(password, hint);
 	}
 
 	@RequestMapping(value = "/unlock", method = RequestMethod.GET)
-	public String unlockOption(@RequestParam String key) {
+	public String unlockOption(@RequestHeader String key) {
 		return LockUtil.unlock(key);
 	}
 
