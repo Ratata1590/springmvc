@@ -88,11 +88,11 @@ public class NativeQueryEndpointController {
 
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
 	public Object queryWithParam(@RequestParam String queryName,
-			@RequestParam(required = false, defaultValue = "[]") String param) throws Exception {
+			@RequestParam(defaultValue = "[]") String param) throws Exception {
 		return nativeQueryLinkQueryDAO.processCustomQuery(queryName, param);
 	}
 
-	@Scheduled(fixedRate = 10000)
+	//@Scheduled(fixedRate = 10000)
 	public void SyncDbQueryList() {
 		nativeQueryLinkQueryDAO.syncQueryListfromDB();
 	}
