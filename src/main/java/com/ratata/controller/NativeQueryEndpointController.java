@@ -88,7 +88,7 @@ public class NativeQueryEndpointController {
 
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
 	public Object queryWithParam(@RequestParam String queryName,
-			@RequestParam(required = false, defaultValue = "[]") String param) throws Exception {
+			@RequestParam(defaultValue = "[]") String param) throws Exception {
 		return nativeQueryLinkQueryDAO.processCustomQuery(queryName, param);
 	}
 
@@ -97,7 +97,7 @@ public class NativeQueryEndpointController {
 		nativeQueryLinkQueryDAO.syncQueryListfromDB();
 	}
 
-	//@PostConstruct
+	@PostConstruct
 	public void InitQueryList() throws Exception {
 		nativeQueryLinkQueryDAO.saveQueryListFromFile();
 		nativeQueryLinkQueryDAO.persistQueryListToDB();
