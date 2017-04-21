@@ -92,12 +92,12 @@ public class NativeQueryEndpointController {
 		return nativeQueryLinkQueryDAO.processCustomQuery(queryName, param);
 	}
 
-	@Scheduled(fixedRate = 10000)
+	//@Scheduled(fixedRate = 10000)
 	public void SyncDbQueryList() {
 		nativeQueryLinkQueryDAO.syncQueryListfromDB();
 	}
 
-	@PostConstruct
+	//@PostConstruct
 	public void InitQueryList() throws Exception {
 		nativeQueryLinkQueryDAO.saveQueryListFromFile();
 		nativeQueryLinkQueryDAO.persistQueryListToDB();
