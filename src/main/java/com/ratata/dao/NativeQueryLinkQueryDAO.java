@@ -15,6 +15,14 @@ public interface NativeQueryLinkQueryDAO {
 
 	public void saveQueryList(Object query);
 
+	public void saveQueryListToDB() throws Exception;
+	
+	public void updateQueryListToDB() throws Exception;
+
+	public void persistQueryListToDB() throws Exception;
+
+	public void syncQueryListfromDB();
+
 	public void updateQueryList(ObjectNode query);
 
 	public Object processCustomQuery(String queryName, String param) throws Exception;

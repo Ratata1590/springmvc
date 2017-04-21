@@ -3,6 +3,7 @@ package com.ratata.dao;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,6 +15,8 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.Util.Const;
 import com.ratata.Util.UtilNativeQuery;
+import com.ratata.model.QueryList;
+import com.ratata.repo.QueryListRepo;
 
 @Component
 public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
@@ -38,6 +41,70 @@ public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
 		ClassLoader classLoader = getClass().getClassLoader();
 		File file = new File(classLoader.getResource(Const.LINK_QUERY_INITFILENAME).getFile());
 		saveQueryList(UtilNativeQuery.mapper.readTree(file));
+	}
+
+	@Autowired
+	private QueryListRepo queryListRepo;
+
+	public void persistQueryListToDB() throws Exception {
+		Iterator<String> iter = queryList.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = iter.next();
+			QueryList query = queryListRepo.findQueryByKey(key);
+			if (query != null) {
+				continue;
+			}
+			query = new QueryList();
+			query.setQueryName(key);
+			query.setQueryData(UtilNativeQuery.mapper.writeValueAsString(queryList.get(key)));
+			queryListRepo.save(query);
+		}
+	}
+
+	public void saveQueryListToDB() throws Exception {
+		Iterator<String> iter = queryList.keySet().iterator();
+		while (iter.hasNext()) {
+			String key = iter.next();
+			QueryList query = queryListRepo.findQueryByKey(key);
+			if (query == null) {
+				query = new QueryList();
+			}
+			query.setQueryName(key);
+			query.setQueryData(UtilNativeQuery.mapper.writeValueAsString(queryList.get(key)));
+			queryListRepo.save(query);
+		}
+	}
+
+	public void updateQueryListToDB() throws Exception {
+		Iterator<String> iter = queryList.keySet().iterator();
+		List<String> listName = queryListRepo.getAllqueryName();
+		for (String name : listName) {
+			if (!queryList.containsKey(name)) {
+				queryListRepo.deleteQueryByqueryName(name);
+			}
+		}
+		while (iter.hasNext()) {
+			String key = iter.next();
+			QueryList query = queryListRepo.findQueryByKey(key);
+			if (query == null) {
+				query = new QueryList();
+			}
+			query.setQueryName(key);
+			query.setQueryData(UtilNativeQuery.mapper.writeValueAsString(queryList.get(key)));
+			queryListRepo.save(query);
+		}
+	}
+
+	public void syncQueryListfromDB() {
+		List<QueryList> queryListDB = queryListRepo.findAll();
+		for (QueryList query : queryListDB) {
+			try {
+				queryList.put(query.getQueryName(), UtilNativeQuery.mapper.readTree(query.getQueryData()));
+			} catch (Exception e) {
+				queryList.put(query.getQueryName(),
+						UtilNativeQuery.mapper.createArrayNode().add("Invalid query from DB"));
+			}
+		}
 	}
 
 	public void saveQueryList(Object query) {
@@ -74,4 +141,5 @@ public class NativeQueryLinkQueryDAOImpl implements NativeQueryLinkQueryDAO {
 		}
 		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo((ObjectNode) queryObject.deepCopy(), param);
 	}
+
 }
