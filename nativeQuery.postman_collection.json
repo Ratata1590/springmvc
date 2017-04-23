@@ -14,7 +14,7 @@
 				{
 					"name": "query by className",
 					"request": {
-						"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
+						"url": " http://localhost:8080/demoSpringMvc4/directQuery?query=select * from User;",
 						"method": "GET",
 						"header": [
 							{
@@ -51,7 +51,7 @@
 					},
 					"response": [
 						{
-							"id": "9a3596ee-2a95-4053-a895-cc1a9d480ab0",
+							"id": "122dd06d-1926-405b-968d-b8c6d38b4527",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -137,7 +137,7 @@
 				{
 					"name": "query by resultSet",
 					"request": {
-						"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
+						"url": " http://localhost:8080/demoSpringMvc4/directQuery?query=select a.id,a.username,a.version from User a;",
 						"method": "GET",
 						"header": [
 							{
@@ -174,7 +174,7 @@
 					},
 					"response": [
 						{
-							"id": "125c2d99-4b96-4e18-ba06-03bb80e984a5",
+							"id": "54fd56e5-80ad-4dd7-9123-aa5ffa35d3ef",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -256,7 +256,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "217d206c-4777-49cb-a0b6-956461fb5acf",
+							"id": "b568765c-b21a-4063-9ad6-958ca536d9d2",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -337,7 +337,7 @@
 				{
 					"name": "query singleResult",
 					"request": {
-						"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
+						"url": " http://localhost:8080/demoSpringMvc4/directQuery?query=select a.id,a.username,a.version from User a where a.id=1;",
 						"method": "GET",
 						"header": [
 							{
@@ -374,7 +374,7 @@
 					},
 					"response": [
 						{
-							"id": "85de77c7-14b9-4d64-bd7b-176c0d86a016",
+							"id": "35e7c5ca-9319-4968-8c14-466d9981d79e",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -456,7 +456,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "8d25a4e5-fab6-4bac-a022-b09b8f2bcb51",
+							"id": "d5e71ed7-6650-40a6-bae9-bfab28fe10c6",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -533,7 +533,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "b36a6c1e-26cd-427e-87a1-2c920124b83a",
+							"id": "197ec92e-59e3-41cb-92e9-b155a1527ad8",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -609,7 +609,7 @@
 				{
 					"name": "query with param",
 					"request": {
-						"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
+						"url": " http://localhost:8080/demoSpringMvc4/directQuery?query=select a.id,a.username,a.version from User a where a.id=?0",
 						"method": "GET",
 						"header": [
 							{
@@ -651,7 +651,7 @@
 					},
 					"response": [
 						{
-							"id": "d3812ec6-7647-44a3-833d-b5b4fb929359",
+							"id": "f0610397-7a4b-4a8f-ad92-b79b6c9536f5",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -733,7 +733,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "f8726933-c571-4153-a5c8-852088829a2a",
+							"id": "2b3e0d30-0f4b-49a4-86bf-3ea46db47b95",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -810,7 +810,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "ce044218-fe87-4d3d-97ca-d9aba5e286f1",
+							"id": "db449514-b41e-4f47-b709-730f2a113f70",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -882,7 +882,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "994583c7-c981-4010-8135-7764c622bc33",
+							"id": "3f5f0451-3b5d-4e3c-a5b5-66441f521636",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -970,7 +970,7 @@
 				{
 					"name": "query with named param",
 					"request": {
-						"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=:theid",
+						"url": " http://localhost:8080/demoSpringMvc4/directQuery?query=select a.id,a.username,a.version from User a where a.id=:theid",
 						"method": "GET",
 						"header": [
 							{
@@ -1012,7 +1012,7 @@
 					},
 					"response": [
 						{
-							"id": "15b05d47-71a3-4827-a120-640312d839c3",
+							"id": "a6f0196b-b63b-49f1-83f9-cb897e86c5cc",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -1094,7 +1094,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "f36f4fe5-11b5-427d-b195-6c7b1dc79f11",
+							"id": "00bb45e5-8c15-4e37-b501-bfb363c7c10e",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -1171,7 +1171,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "2c917e3e-e5d2-4af8-9947-6b3490494353",
+							"id": "bb902acc-ef4e-46e6-b632-f64960ffc4aa",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -1243,7 +1243,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "119af658-aadc-4b74-8234-219687076226",
+							"id": "bf1f55bc-1587-44ce-9395-b5c3e65b775d",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -1331,7 +1331,7 @@
 				{
 					"name": "query jpa style",
 					"request": {
-						"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
+						"url": " http://localhost:8080/demoSpringMvc4/directQuery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
 						"method": "GET",
 						"header": [
 							{
@@ -1373,7 +1373,7 @@
 					},
 					"response": [
 						{
-							"id": "3eecadac-1789-467f-af9b-40bf7bc407f9",
+							"id": "7bcb6fd8-577d-4156-ad08-79205b072c72",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -1455,7 +1455,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "e39d1b07-abc3-41b4-a261-1895019a67e5",
+							"id": "61321fe7-2203-4c9f-a0c6-2d121305e5f3",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -1532,7 +1532,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "8959d62b-7611-4b18-bb4f-9da91b3600c2",
+							"id": "d3ac66e7-6a34-43e3-a5f8-f288ec6c1dbb",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -1604,7 +1604,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "27b03184-3405-4f43-98e9-edee260bd857",
+							"id": "5a7b513e-4ba1-4ae3-849a-60978df6e132",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -1688,7 +1688,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "ec5df6f1-d473-44b1-b729-79e2f499927a",
+							"id": "0e36314a-3fa3-46ca-9839-b6d5c0fe3fa4",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -1781,7 +1781,7 @@
 				{
 					"name": "nativequeryjson dynPoJo Single",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryJson",
 						"method": "POST",
 						"header": [
 							{
@@ -1798,7 +1798,7 @@
 					},
 					"response": [
 						{
-							"id": "68f66aa7-0da5-42d1-821e-e6736d143988",
+							"id": "8ac2643a-36ca-492f-b6c3-5d0b779a2db9",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -1880,7 +1880,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "859c235e-bd88-424e-9699-138aa72bc3cc",
+							"id": "f1247ac7-5a45-431e-85cb-4489e65dc0ce",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -1957,7 +1957,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "7445f6a0-a170-41b4-a13e-5311916be8a4",
+							"id": "1fa39b39-edfd-4d1a-bd73-809707f8a642",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -2029,7 +2029,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "233a2c5e-7f6f-4a4c-aee1-533fe96ceeef",
+							"id": "7e4a40fe-61d5-45de-bebd-72273c58affe",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -2113,7 +2113,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "8379d24c-43d7-4646-8b4f-90e23b96f970",
+							"id": "3af1babc-b08f-47fa-b538-51a89c557f9a",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -2196,7 +2196,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "9d6d00e4-9102-43f3-9d21-ed056f156bae",
+							"id": "77a10163-22b7-4aa4-947a-0251055614d2",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -2253,7 +2253,7 @@
 				{
 					"name": "nativequeryjson dynPoJo Single named param",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryJson",
 						"method": "POST",
 						"header": [
 							{
@@ -2270,7 +2270,7 @@
 					},
 					"response": [
 						{
-							"id": "a872be82-ee53-4c32-92cd-0fece3994e61",
+							"id": "a6d11d0e-519f-4178-8186-222c877df47e",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -2352,7 +2352,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "664e4240-10a1-4e55-a6c9-b07079ef782b",
+							"id": "6f090ac1-dc8d-44f9-bff4-0af05cf395de",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -2429,7 +2429,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "f6b58e58-8d7c-4e9e-841f-e6a7c71e9c69",
+							"id": "e95b1a02-1442-4a25-be99-919260b58835",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -2501,7 +2501,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "03d4dadb-0d39-4f8c-a348-5c48c594e4e3",
+							"id": "df63bea9-c766-4189-99f5-745be5c5b428",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -2585,7 +2585,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "47acaea9-e708-4588-ac84-67a643d315ab",
+							"id": "d0cdcba7-8c4f-4be4-ad14-b3cceaa0eb23",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -2668,7 +2668,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "363db687-aadd-4e13-a7f3-f327ebd65a2a",
+							"id": "9518bebb-459a-43f9-85ff-1c23d09c76ea",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -2725,7 +2725,7 @@
 				{
 					"name": "nativequeryjson customPojo",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryJson",
 						"method": "POST",
 						"header": [
 							{
@@ -2742,7 +2742,7 @@
 					},
 					"response": [
 						{
-							"id": "3d5e6bb8-fbdd-4d0d-8436-740300fbbf06",
+							"id": "9594f378-57f3-489c-9ae3-d51f3640d91b",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -2824,7 +2824,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "2eacd136-d71f-4a09-b39c-c78a680e31c0",
+							"id": "9ee54eea-e81e-4709-94ff-95322c59a541",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -2901,7 +2901,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "a3c8c319-1490-4701-a4c9-f33819ba5f16",
+							"id": "8d716d2a-93b9-4055-886a-b7d92a268517",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -2973,7 +2973,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "fcdab157-5feb-4b62-89ef-78f9c28baeef",
+							"id": "71afd1fb-d4af-4095-a5fd-35484a3c516c",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -3057,7 +3057,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "961f9d00-cd2f-4b55-b2df-d839193a2f47",
+							"id": "df3d9ff3-f63b-4be9-b5ce-d5cf0a8c6e78",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -3140,7 +3140,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "c7db67d1-14ee-4d28-ade5-458a97ceace5",
+							"id": "5ad4a28c-29d2-41a7-854f-257c71f74114",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -3197,7 +3197,7 @@
 				{
 					"name": "nativequeryjson customPojo named param",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryJson",
 						"method": "POST",
 						"header": [
 							{
@@ -3214,7 +3214,7 @@
 					},
 					"response": [
 						{
-							"id": "d656fe0e-5f0a-4613-81d8-fe7a8d03c260",
+							"id": "47d86a16-ad0d-4409-8933-a0e76f51969c",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -3296,7 +3296,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "3e9fd8b2-53ae-4e47-9b10-4d75d39a9c41",
+							"id": "313f6407-82b8-434f-872c-5e97f1c558a3",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -3373,7 +3373,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "4890c9eb-0848-41a3-8107-b11f5d18d255",
+							"id": "d40ea0de-d17b-4210-bb25-eab41c26ec41",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -3445,7 +3445,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "d7bf88bb-4422-4979-a77b-c7759cc10df6",
+							"id": "c7991945-6a36-465a-8354-959344f319cc",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -3529,7 +3529,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "c9e0ea43-6919-4ea2-b761-fcccc9b604ec",
+							"id": "f49e0186-6fd3-44b1-b24b-64a92993abdf",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -3612,7 +3612,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "ab9159e5-ad05-4dcd-ac11-e705a7021c9a",
+							"id": "2b8a1580-95ae-47b0-abeb-f5cb9c13d134",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -3669,7 +3669,7 @@
 				{
 					"name": "nativequeryjson nested cusChild",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryJson",
 						"method": "POST",
 						"header": [
 							{
@@ -3686,7 +3686,7 @@
 					},
 					"response": [
 						{
-							"id": "181639ef-aa21-4c46-96d5-ca4c6c776bf2",
+							"id": "a1eb97df-daf6-4a97-bb5d-9cd09eecdb15",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -3768,7 +3768,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "1ebe8879-2910-4040-8f04-d3d79b5d9cee",
+							"id": "2c0c0ce6-7843-4cfd-b5b9-80f18cf3852c",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -3845,7 +3845,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "2f9290b9-a9f6-4958-b7f2-9894ed342309",
+							"id": "3b1c7578-d13a-4350-b8a9-dfdcc5bf7c75",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -3917,7 +3917,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "925e9afe-ead1-44de-8e8d-8446f229cee2",
+							"id": "52b0279f-cd42-4753-a404-3744691f6c53",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -4001,7 +4001,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "84cc3521-d7ae-44fd-a729-215e17a4103c",
+							"id": "78d2e4db-0315-4e7b-9340-f267ecffb16c",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -4084,7 +4084,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "f6518a78-22ff-40d1-92e6-b6d149225dd4",
+							"id": "ae789ea0-7886-43e6-b653-56d0d87dc2d3",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -4141,7 +4141,7 @@
 				{
 					"name": "nativequeryjson nested cusChild named param",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryJson",
 						"method": "POST",
 						"header": [
 							{
@@ -4158,7 +4158,7 @@
 					},
 					"response": [
 						{
-							"id": "ad2f693b-d992-445e-a6e3-465ab09cfd3f",
+							"id": "57a0a8d0-3d82-4a6b-abd3-dab2e2893fac",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -4240,7 +4240,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "43393055-a043-4226-a901-a8cd142fbade",
+							"id": "9747ea16-6228-48ea-83c5-e369febd7c98",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -4317,7 +4317,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "1827f240-6041-4ff6-a49c-175c1770683e",
+							"id": "fbccf972-1f4c-4edf-aaca-dee1f53388be",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -4389,7 +4389,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "cb9b1195-09de-476a-8d61-be5a2b8f5487",
+							"id": "749225c4-4fcd-43f2-80ce-2c79b54bbeb0",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -4473,7 +4473,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "d6de635e-a128-42c2-bead-5c5197125641",
+							"id": "781fca90-661c-4624-aa7d-cde80fea7e7e",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -4556,7 +4556,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "20cbdfaf-1d05-4f6f-af8d-f477aad5e470",
+							"id": "96e11525-66e4-41b3-b527-389b99e0c794",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -4613,7 +4613,7 @@
 				{
 					"name": "nativequeryjson get",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryJson",
 						"method": "GET",
 						"header": [
 							{
@@ -4630,7 +4630,7 @@
 					},
 					"response": [
 						{
-							"id": "c5cb16bf-324a-4205-9fbf-2623a01a1ef9",
+							"id": "22b7dfdb-bdab-4bdf-9f7b-a26aa66bafcc",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -4712,7 +4712,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "f60f91fb-96fd-4464-b222-669c3ce3916f",
+							"id": "c85fab9e-e3a5-49c6-bf14-8406b133207f",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -4789,7 +4789,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "369a2feb-9725-436e-9eb2-20c27b8a29b4",
+							"id": "28f05a5a-dd2b-4e02-8c1c-5568c3160e58",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -4861,7 +4861,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "b0d729dd-5840-46b4-bce7-404d247c6471",
+							"id": "3ea05646-21a9-46e7-8ea6-69cec661c761",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -4945,7 +4945,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "56dcef32-a6a3-49d1-b2e7-2f06c59441f9",
+							"id": "01a7a152-7863-4425-a64e-e7c0774c62f6",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -5028,7 +5028,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "fb42e092-ad50-47ad-a0cb-1f34b07b8099",
+							"id": "b6d43c53-dfa0-4d2f-9ffd-c968b7abafba",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -5091,7 +5091,7 @@
 				{
 					"name": "saveObject",
 					"request": {
-						"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
+						"url": " http://localhost:8080/demoSpringMvc4/saveObject",
 						"method": "POST",
 						"header": [
 							{
@@ -5113,7 +5113,7 @@
 					},
 					"response": [
 						{
-							"id": "505ba7bf-f9ec-46f8-a8c7-d85ec4aca499",
+							"id": "f74e3517-4c2f-45ac-aea0-9b2a101ec5ea",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -5195,7 +5195,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "ca396cf7-a05c-4272-a50b-43ac351bc255",
+							"id": "8be4177a-4fa1-4a89-883d-6f4aa49afe80",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -5272,7 +5272,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "41c67eed-af59-4bd8-83a2-8b93f858170f",
+							"id": "90d7c954-ed52-45c5-8b63-c346cf6c537a",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -5344,7 +5344,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "826f1c8f-575a-4fc9-85a0-24c1eac42285",
+							"id": "ddbca62d-7f1e-4689-8377-930b24ce79f7",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -5428,7 +5428,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "05525428-da3b-4e16-87b3-56e6648c85cb",
+							"id": "afc06ce0-cfa2-4acd-9a1c-dda995ec2131",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -5511,7 +5511,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "5c2767d5-585d-48cb-8443-00fab8163a5b",
+							"id": "dbbf6d4b-a6a1-4f65-b9e9-1e2c86dd5c71",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -5568,7 +5568,7 @@
 				{
 					"name": "saveLinkedObject",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/SaveNestedObject",
+						"url": "http://localhost:8080/demoSpringMvc4/saveNestedObject",
 						"method": "POST",
 						"header": [
 							{
@@ -5585,7 +5585,7 @@
 					},
 					"response": [
 						{
-							"id": "8ad8ccf5-cca5-4b84-9007-4e727c4136b5",
+							"id": "080caf7d-5a46-44ba-b63e-a77882eaa854",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -5667,7 +5667,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "db65c191-43a0-4241-9397-ca9fb38f45be",
+							"id": "9d7550ab-afa8-41ae-8677-3e5e436ec8ed",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -5744,7 +5744,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "d1bc521b-ac82-494f-93df-bcdb83452122",
+							"id": "56a6ef1f-3244-4241-aa6f-8a4aabda523f",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -5816,7 +5816,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "9855e40b-224a-4c9f-afbc-625e5f5dc634",
+							"id": "d23f7fbe-8c10-42eb-909d-33d63391f24e",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -5900,7 +5900,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "828bf2d5-168a-43b0-9fcd-45e81e413e5b",
+							"id": "8e014051-6eca-473d-bcb6-ce186162df21",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -5983,7 +5983,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "d02b623b-be1f-4de8-8a94-7ad7b11a3e35",
+							"id": "98649d43-8547-4e90-bb29-97fd8f8646a8",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -6046,7 +6046,7 @@
 				{
 					"name": "get QueryList",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/GetQueryList",
+						"url": "http://localhost:8080/demoSpringMvc4/getQueryList",
 						"method": "GET",
 						"header": [
 							{
@@ -6063,7 +6063,7 @@
 					},
 					"response": [
 						{
-							"id": "70bdee71-3b98-463d-b395-00788e3d38fd",
+							"id": "207806ac-0ff4-4b38-8913-851faa340181",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -6145,7 +6145,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "410984d6-acd5-44df-9f65-80115b767dba",
+							"id": "f59cb5a3-b19b-443f-a83e-e40ce65c2dec",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -6222,7 +6222,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "37ad03ba-3640-433b-9909-803e02f0deb5",
+							"id": "63646e5f-0621-4094-bdf1-4195712e6d25",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -6294,7 +6294,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "2370c7b1-45b5-4f43-a012-57d47417d6e2",
+							"id": "ea24eb75-dcb3-4e94-88a3-ade2fe129450",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -6378,7 +6378,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "0efa4d05-f672-4549-a324-adbdd8f1574e",
+							"id": "e3e8ad7b-edb4-4aca-9e21-0d3ef63d45ff",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -6461,7 +6461,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "5490232d-efe5-41c8-b0fb-4b40419dce0b",
+							"id": "637b0cf1-c2ae-428c-9819-f7a841cd64db",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -6518,7 +6518,7 @@
 				{
 					"name": "saveQueryList",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/SaveQueryList",
+						"url": "http://localhost:8080/demoSpringMvc4/saveQueryList",
 						"method": "POST",
 						"header": [
 							{
@@ -6535,7 +6535,7 @@
 					},
 					"response": [
 						{
-							"id": "37f217e9-9ac3-4be0-993d-778f5a13ada9",
+							"id": "bccbb7fb-8a9e-40c9-95de-d9e8c0d3467b",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -6617,7 +6617,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "7502a85f-faa1-441c-9fb2-f9632cf71752",
+							"id": "90569128-2caf-47b0-916e-e9f91f07d970",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -6694,7 +6694,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "988e06fb-3c7f-425e-9ed0-81617f6478d2",
+							"id": "699eaafe-6fe7-493e-90e1-9e3e8624130c",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -6766,7 +6766,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "32c5d2c5-1c70-429f-99cc-d9c2d24e5b22",
+							"id": "7bca9c43-e9ad-4d53-8925-f00537094c1f",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -6850,7 +6850,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "fdc364f1-6479-4717-a8f2-dfa5257132e6",
+							"id": "29148cb9-accd-4723-a2de-24b9f5e5794d",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -6933,7 +6933,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "8d2ff8a7-8b7b-4d76-8862-ae1fcb6dac01",
+							"id": "3b8e87c6-23a6-4319-8e54-4ea0aa8f72cb",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -6990,7 +6990,7 @@
 				{
 					"name": "updateQueryList",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/UpdateQueryList",
+						"url": "http://localhost:8080/demoSpringMvc4/updateQueryList",
 						"method": "POST",
 						"header": [
 							{
@@ -7007,7 +7007,7 @@
 					},
 					"response": [
 						{
-							"id": "7f870aa1-58c1-438f-aeea-c547d682d1f6",
+							"id": "f5b5a943-2a7b-4889-8d9e-eb49dfeb0a34",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -7089,7 +7089,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "8bcb9284-d4bd-4e95-8304-164c4623b8ef",
+							"id": "626f949f-b181-49a9-a72c-9e3e62c0788f",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -7166,7 +7166,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "cbedadb0-95b0-4f8c-8c88-6a7912e39a23",
+							"id": "641327da-4cb5-4f95-ba94-f07dc2999b08",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -7238,7 +7238,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "f53a572b-ac81-4c5c-8a4d-4bc1b6605052",
+							"id": "8263bf37-105f-4d5e-8aad-df2d426ca628",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -7322,7 +7322,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "32a2e0d1-7b04-4e87-b730-1518e3dd1f8f",
+							"id": "78c5afb3-1c07-41de-83a7-d14ad3523b17",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -7405,7 +7405,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "7617ae43-aa08-4daf-8378-64c9814d5fec",
+							"id": "90514b5f-96c3-45cb-8751-e22030a8310e",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -7462,7 +7462,7 @@
 				{
 					"name": "query CustomQuery",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/CustomQuery?queryName=hello",
+						"url": "http://localhost:8080/demoSpringMvc4/customQuery/hello",
 						"method": "GET",
 						"header": [
 							{
@@ -7479,7 +7479,7 @@
 					},
 					"response": [
 						{
-							"id": "ee411cb8-37f4-4aad-825e-d0dae350248a",
+							"id": "1f20290d-6c6b-482e-9682-ad3a6e514cf4",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -7561,7 +7561,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "84afe87b-1cd5-4738-bd08-ddeea8f18157",
+							"id": "d8d53cfb-77e2-4ac8-b32f-3484d68902ec",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -7638,7 +7638,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "793e5e5f-ddc8-4275-a8bd-997710510062",
+							"id": "c11034d1-d825-42f1-91dc-c4ab31ea1b47",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -7710,7 +7710,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "1f8ea39d-b8bc-4ce1-ac4a-75508e922ba8",
+							"id": "9e751d56-e66f-4869-a991-d3c48d1ebd5d",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -7794,7 +7794,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "f4b0841a-c461-498d-bdfb-5c0aeb00e082",
+							"id": "7ec7ad4d-5e27-4126-b426-9206b9a79fe1",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -7877,7 +7877,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "faa0f3c2-067d-49c4-b9be-698d987fd5ff",
+							"id": "47463d69-08ec-44e8-9b49-b1353d22cc1f",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -7940,12 +7940,12 @@
 				{
 					"name": "nativequerytransaction",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequerytransaction",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryTransaction",
 						"method": "GET",
 						"header": [
 							{
 								"key": "query",
-								"value": "[{\"param\":[],\"data\":{\"query\":\"UPDATE User Set username = 'ratata' where username = '?'\",\"queryMode\":\"U\"}},{\"param\":[],\"data\":{\"query\":\"UPDATE User Set username = 'ratata' where username = 'alex'\",\"queryMode\":\"U\"}}]",
+								"value": "[{\"param\":[],\"data\":{\"query\":\"UPDATE User Set username = 'ratata' where username = '?'\",\"queryMode\":\"M\"}},{\"param\":[],\"data\":{\"query\":\"UPDATE User Set username = 'ratata' where username = 'alex'\",\"queryMode\":\"M\"}}]",
 								"description": ""
 							}
 						],
@@ -7957,7 +7957,7 @@
 					},
 					"response": [
 						{
-							"id": "59abd27a-6e5b-42f8-85da-f19e1bb84c15",
+							"id": "23d5343f-112f-468a-b2a7-43c2ba496d52",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -8039,7 +8039,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "3c3c7ba0-7a46-40be-9e83-c7f96c1b53b2",
+							"id": "52738dec-d3d5-45f4-909f-ee8f6f53d52d",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -8116,7 +8116,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "5b3300da-eb93-4abe-baf5-76caca5b4634",
+							"id": "96c2a402-52de-4728-ad88-168a1477eeef",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -8188,7 +8188,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "1429c828-4c1f-4431-a084-d7fc7e615914",
+							"id": "ba477f68-bc26-440c-acac-d4cd1550cc0d",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -8272,7 +8272,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "cb08e931-7f68-4c02-ac9a-5d448d130e40",
+							"id": "8a7fb1c3-27f6-470f-a10a-9124a962cff5",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -8355,7 +8355,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "79085739-bbe3-419c-a468-4cd303d7b815",
+							"id": "d47dc0d6-72ba-4b8d-aee9-f0386372a37d",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -8412,7 +8412,7 @@
 				{
 					"name": "nativequerytransaction",
 					"request": {
-						"url": "http://localhost:8080/demoSpringMvc4/nativequerytransaction",
+						"url": "http://localhost:8080/demoSpringMvc4/nativeQueryTransaction",
 						"method": "POST",
 						"header": [
 							{
@@ -8423,13 +8423,13 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n  {\r\n    \"param\": [\r\n      \r\n    ],\r\n    \"data\": {\r\n      \"query\": \"UPDATE User Set username = 'ratata' where username = '?'\",\r\n      \"queryMode\": \"U\"\r\n    }\r\n  },\r\n  {\r\n    \"param\": [\r\n      \r\n    ],\r\n    \"data\": {\r\n      \"query\": \"UPDATE User Set username = 'ratata' where username = 'alex'\",\r\n      \"queryMode\": \"U\"\r\n    }\r\n  }\r\n]"
+							"raw": "[\r\n  {\r\n    \"param\": [\r\n      \r\n    ],\r\n    \"data\": {\r\n      \"query\": \"UPDATE User Set username = 'ratata' where username = '?'\",\r\n      \"queryMode\": \"M\"\r\n    }\r\n  },\r\n  {\r\n    \"param\": [\r\n      \r\n    ],\r\n    \"data\": {\r\n      \"query\": \"UPDATE User Set username = 'ratata' where username = 'alex'\",\r\n      \"queryMode\": \"M\"\r\n    }\r\n  }\r\n]"
 						},
 						"description": ""
 					},
 					"response": [
 						{
-							"id": "d75de7c3-42cc-4290-8447-e46c216327d6",
+							"id": "0647e35d-0e3b-42a3-8a56-b8b2797990e8",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -8511,7 +8511,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "015581ff-e240-483b-a3ee-e2737085c382",
+							"id": "ec0a902e-0320-4cf7-a6dc-4f58cea7752b",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -8588,7 +8588,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "e2f99934-894a-4770-ae18-683d20e6d68f",
+							"id": "f7c954cc-7018-44e8-974f-621932633865",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -8660,7 +8660,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "8a197e88-6199-445a-8661-8e405e69f346",
+							"id": "65de527f-9fa9-447d-82ba-61a69ba4f281",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -8744,7 +8744,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "df47ac81-4b26-409c-b25d-5482d74c43ec",
+							"id": "6e60db67-0e9f-44c9-8bd9-5903400061a6",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -8827,7 +8827,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "aa81641b-d915-46f7-9fcf-0a65f77f5700",
+							"id": "1b4ef889-51c2-4659-9e45-d88865d4bc96",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -8891,7 +8891,7 @@
 					"name": "lock",
 					"request": {
 						"url": "http://localhost:8080/demoSpringMvc4/lock",
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "password",
@@ -8902,9 +8902,17 @@
 								"key": "hint",
 								"value": "ten tui",
 								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
 							}
 						],
-						"body": {},
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"/nativeQueryTransaction_GET\": false,\n  \"/updateQueryList\": false,\n  \"/saveObject\": false,\n  \"/nativeQueryTransaction_POST\": false,\n  \"/nativeQueryJson_POST\": false,\n  \"/directQuery\": false,\n  \"/nativeQueryJson_GET\": false,\n  \"/saveQueryList\": false,\n  \"/getQueryList\": false,\n  \"/customQuery\": false,\n  \"/saveNestedObject\": false\n}"
+						},
 						"description": ""
 					},
 					"response": []
@@ -8913,6 +8921,23 @@
 					"name": "unlock",
 					"request": {
 						"url": "http://localhost:8080/demoSpringMvc4/unlock",
+						"method": "GET",
+						"header": [
+							{
+								"key": "key",
+								"value": "8bcce1093f17c9634b5c59edb0b5cdd5",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "lock status",
+					"request": {
+						"url": "http://localhost:8080/demoSpringMvc4/lockStatus",
 						"method": "GET",
 						"header": [
 							{

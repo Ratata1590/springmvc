@@ -29,4 +29,5 @@ public interface Const {
 	public static final String LINK_QUERY_QUERYNOTEXIST = "query not exist";
 	public static final String LINK_QUERY_QUERYLISTEMPTY = "please insert query list first";
 	public static final String LINK_QUERY_INITFILENAME = "initQueryList.txt";
+	public static final String LOCK_MESSAGE = "this endpoint is locked";
 }

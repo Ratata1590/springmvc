@@ -2,9 +2,13 @@ package com.ratata.nativeQueryRest.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LockUtil {
 	private static boolean lockFlag = false;
+
+	public static Map<String, Boolean> lockList = new HashMap<String, Boolean>();
 
 	public static boolean isLockFlag() {
 		return lockFlag;
@@ -42,5 +46,19 @@ public class LockUtil {
 			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
 		}
 		return sb.toString();
+	}
+
+	public static void initLockList() {
+		LockUtil.lockList.put("/directQuery", false);
+		LockUtil.lockList.put("/saveObject", false);
+		LockUtil.lockList.put("/saveNestedObject", false);
+		LockUtil.lockList.put("/nativeQueryJson_POST", false);
+		LockUtil.lockList.put("/nativeQueryJson_GET", false);
+		LockUtil.lockList.put("/nativeQueryTransaction_GET", false);
+		LockUtil.lockList.put("/nativeQueryTransaction_POST", false);
+		LockUtil.lockList.put("/saveQueryList", false);
+		LockUtil.lockList.put("/updateQueryList", false);
+		LockUtil.lockList.put("/getQueryList", false);
+		LockUtil.lockList.put("/customQuery", false);
 	}
 }

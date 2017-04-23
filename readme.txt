@@ -266,6 +266,6 @@ crud bunk mode
 
 multithread
 
-lock feature list
+[x]lock feature list
 
 validate query
