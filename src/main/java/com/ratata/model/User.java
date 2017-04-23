@@ -26,13 +26,13 @@ public class User implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private long id;
+	private int id;
 
 	@Column
 	private String username;
 
 	@Version
-	private long version;
+	private int version;
 
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
@@ -47,11 +47,11 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -63,11 +63,11 @@ public class User implements Serializable {
 		this.username = username;
 	}
 
-	public long getVersion() {
+	public int getVersion() {
 		return version;
 	}
 
-	public void setVersion(long version) {
+	public void setVersion(int version) {
 		this.version = version;
 	}
 

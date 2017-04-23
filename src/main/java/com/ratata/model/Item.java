@@ -24,7 +24,7 @@ public class Item implements Serializable {
 
 	@Id
 	@GeneratedValue
-	private long id;
+	private int id;
 
 	@Column
 	private String data;
@@ -46,11 +46,11 @@ public class Item implements Serializable {
 		this.user = user;
 	}
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -158,7 +158,7 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 				return node.asDouble();
 			}
 			if (node.numberType().equals(NumberType.INT)) {
-				return node.asLong();
+				return node.asInt();
 			}
 			if (node.numberType().equals(NumberType.LONG)) {
 				return node.asLong();
