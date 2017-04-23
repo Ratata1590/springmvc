@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
-import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -80,7 +79,10 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 			}
 		}
 
-		queryObj.setLockMode(resolveLockMode(lockModeType));
+		// TODO: check no transation while lock
+		// if (!lockModeType.equals(0)) {
+		// queryObj.setLockMode(resolveLockMode(lockModeType));
+		// }
 
 		if (!(param.size() == 0)) {
 			for (int i = 0; i < param.size(); i++) {
@@ -110,26 +112,26 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 		return queryObj.getResultList();
 	}
 
-	private LockModeType resolveLockMode(Integer lockModeType) {
-		switch (lockModeType) {
-		case 1:
-			return LockModeType.OPTIMISTIC;
-		case 2:
-			return LockModeType.OPTIMISTIC_FORCE_INCREMENT;
-		case 3:
-			return LockModeType.PESSIMISTIC_FORCE_INCREMENT;
-		case 4:
-			return LockModeType.PESSIMISTIC_READ;
-		case 5:
-			return LockModeType.PESSIMISTIC_WRITE;
-		case 6:
-			return LockModeType.READ;
-		case 7:
-			return LockModeType.WRITE;
-		default:
-			return LockModeType.NONE;
-		}
-	}
+	// private LockModeType resolveLockMode(Integer lockModeType) {
+	// switch (lockModeType) {
+	// case 1:
+	// return LockModeType.OPTIMISTIC;
+	// case 2:
+	// return LockModeType.OPTIMISTIC_FORCE_INCREMENT;
+	// case 3:
+	// return LockModeType.PESSIMISTIC_FORCE_INCREMENT;
+	// case 4:
+	// return LockModeType.PESSIMISTIC_READ;
+	// case 5:
+	// return LockModeType.PESSIMISTIC_WRITE;
+	// case 6:
+	// return LockModeType.READ;
+	// case 7:
+	// return LockModeType.WRITE;
+	// default:
+	// return LockModeType.NONE;
+	// }
+	// }
 
 	private Object resolveParam(JsonNode node) {
 		if (node.isArray()) {
