@@ -41,11 +41,12 @@ public class NativeQueryEndpointController {
 			@RequestHeader(required = false, defaultValue = "L") String queryMode,
 			@RequestHeader(required = false, defaultValue = "[]") String param,
 			@RequestHeader(required = false, defaultValue = "true") Boolean isNative,
+			@RequestHeader(required = false, defaultValue = "0") Integer lockMode,
 			@RequestHeader(required = false, defaultValue = "0") Integer offset,
 			@RequestHeader(required = false, defaultValue = "0") Integer limit) throws Exception {
 		ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
 		return nativeQueryDAO.nativeQuery(query, className, Arrays.asList(resultSet), queryMode, paramNode, isNative,
-				offset, limit);
+				lockMode, offset, limit);
 	}
 
 	@RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
@@ -62,9 +63,25 @@ public class NativeQueryEndpointController {
 	}
 
 	// ------------------------------NativeQueryDynamicPojoDAO
-	@RequestMapping(value = "/nativequery", method = RequestMethod.POST)
-	public Object nativeQueryWithDynamicPoJo(@RequestBody JsonNode pojo) throws Exception {
+	@RequestMapping(value = "/nativequeryjson", method = RequestMethod.POST)
+	public Object nativeQueryWithDynamicPoJoPost(@RequestBody JsonNode pojo) throws Exception {
 		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(pojo);
+	}
+
+	@RequestMapping(value = "/nativequeryjson", method = RequestMethod.GET)
+	public Object nativeQueryWithDynamicPoJoGet(@RequestHeader String query) throws Exception {
+		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(UtilNativeQuery.mapper.readTree(query));
+	}
+
+	// ------------------------------NativeQueryTransaction
+	@RequestMapping(value = "/nativequerytransaction", method = RequestMethod.GET)
+	public Object nativeQueryTransactionGet(@RequestHeader String query) throws Exception {
+		return nativeQueryDynamicPojoDAO.transationNativeQuery(query);
+	}
+
+	@RequestMapping(value = "/nativequerytransaction", method = RequestMethod.POST)
+	public Object nativeQueryTransactionPost(@RequestBody ArrayNode query) throws Exception {
+		return nativeQueryDynamicPojoDAO.transationNativeQuery(query);
 	}
 
 	// ------------------------------CustomQueryListDAO

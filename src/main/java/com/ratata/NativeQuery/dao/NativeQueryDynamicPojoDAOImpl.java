@@ -1,7 +1,11 @@
 package com.ratata.NativeQuery.dao;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map.Entry;
+
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -32,6 +36,20 @@ public class NativeQueryDynamicPojoDAOImpl implements NativeQueryDynamicPojoDAO 
 		}
 		processDynamicPojo(node, param);
 		return node;
+	}
+
+	@Transactional
+	public List<Object> transationNativeQuery(String query) throws Exception {
+		return transationNativeQuery((ArrayNode) UtilNativeQuery.mapper.readTree(query));
+	}
+
+	@Transactional
+	public List<Object> transationNativeQuery(ArrayNode query) throws Exception {
+		List<Object> result = new ArrayList<Object>();
+		for (JsonNode qr : query) {
+			result.add(nativeWithDynamicPojo(qr));
+		}
+		return result;
 	}
 
 	public void processDynamicPojo(JsonNode node, ArrayNode param) throws Exception {
@@ -100,4 +118,5 @@ public class NativeQueryDynamicPojoDAOImpl implements NativeQueryDynamicPojoDAO 
 		return UtilNativeQuery.mapper
 				.valueToTree(nativeQueryDAO.processQueryObject(node, (ArrayNode) paramArray.get(objectNodeNumber)));
 	}
+
 }

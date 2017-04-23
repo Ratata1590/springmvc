@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -31,8 +32,8 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 	@Transactional
 	@SuppressWarnings("unchecked")
 	public Object nativeQuery(String query, String className, List<String> resultSet, String queryMode, ArrayNode param,
-			Boolean isNative, Integer offset, Integer limit) throws Exception {
-		Object result = returnResult(query, className, param, offset, limit, queryMode, isNative);
+			Boolean isNative, Integer lockModeType, Integer offset, Integer limit) throws Exception {
+		Object result = returnResult(query, className, param, offset, limit, queryMode, isNative, lockModeType);
 
 		if (resultSet.isEmpty()) {
 			return result;
@@ -63,7 +64,7 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 	}
 
 	private Object returnResult(String query, String className, ArrayNode param, Integer offset, Integer limit,
-			String queryMode, Boolean isNative) throws Exception {
+			String queryMode, Boolean isNative, Integer lockModeType) throws Exception {
 		Query queryObj;
 		if (isNative) {
 			if (!className.isEmpty()) {
@@ -78,14 +79,19 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 				queryObj = em.createQuery(query);
 			}
 		}
+
+		queryObj.setLockMode(resolveLockMode(lockModeType));
+
 		if (!(param.size() == 0)) {
 			for (int i = 0; i < param.size(); i++) {
 				queryObj.setParameter(i, resolveParam(param.get(i)));
 			}
 		}
+
 		if (!offset.equals(0)) {
 			queryObj.setFirstResult(offset);
 		}
+
 		if (!offset.equals(0)) {
 			queryObj.setMaxResults(limit);
 		}
@@ -97,10 +103,32 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 				return null;
 			}
 		}
+
 		if (queryMode.equals(Const.QUERYMODE_UPDATE)) {
 			return queryObj.executeUpdate();
 		}
 		return queryObj.getResultList();
+	}
+
+	private LockModeType resolveLockMode(Integer lockModeType) {
+		switch (lockModeType) {
+		case 1:
+			return LockModeType.OPTIMISTIC;
+		case 2:
+			return LockModeType.OPTIMISTIC_FORCE_INCREMENT;
+		case 3:
+			return LockModeType.PESSIMISTIC_FORCE_INCREMENT;
+		case 4:
+			return LockModeType.PESSIMISTIC_READ;
+		case 5:
+			return LockModeType.PESSIMISTIC_WRITE;
+		case 6:
+			return LockModeType.READ;
+		case 7:
+			return LockModeType.WRITE;
+		default:
+			return LockModeType.NONE;
+		}
 	}
 
 	private Object resolveParam(JsonNode node) {
@@ -149,30 +177,31 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 				: true;
 		String queryMode = queryObject.has(Const.PARAM_QUERYMODE) ? queryObject.get(Const.PARAM_QUERYMODE).asText()
 				: "L";
+		Integer lockModeType = queryObject.has(Const.LOCKMODETYPE) ? queryObject.get(Const.LOCKMODETYPE).asInt() : 0;
 		List<String> resultSet = UtilNativeQuery
 				.arrayNodeToListString((ArrayNode) queryObject.get(Const.PARAM_RESULTSET));
 
 		if (queryObject.has(Const.PARAM_INSIDEOBJECT)) {
 			JsonNode insideObject = queryObject.get(Const.PARAM_INSIDEOBJECT);
-			return nestedNativeQuery(query, resultSet, queryMode, param, isNative, insideObject);
+			return nestedNativeQuery(query, resultSet, queryMode, param, isNative, lockModeType, insideObject);
 		}
 		String className = queryObject.has(Const.PARAM_CLASSNAME) ? queryObject.get(Const.PARAM_CLASSNAME).asText()
 				: "";
 		Integer offset = queryObject.has(Const.PARAM_OFFSET) ? queryObject.get(Const.PARAM_OFFSET).asInt() : 0;
 		Integer limit = queryObject.has(Const.PARAM_LIMIT) ? queryObject.get(Const.PARAM_LIMIT).asInt() : 0;
-		return nativeQuery(query, className, resultSet, queryMode, param, isNative, offset, limit);
+		return nativeQuery(query, className, resultSet, queryMode, param, isNative, lockModeType, offset, limit);
 	}
 
 	@SuppressWarnings("unchecked")
 	private Object nestedNativeQuery(String query, List<String> resultSet, String queryMode, ArrayNode param,
-			Boolean isNative, JsonNode insideObject) throws Exception {
+			Boolean isNative, Integer lockModeType, JsonNode insideObject) throws Exception {
 		if (queryMode.equals(Const.QUERYMODE_SINGLE)) {
 			Map<String, Object> rootResult = (Map<String, Object>) nativeQuery(query, "", resultSet, queryMode, param,
-					isNative, 0, 0);
+					isNative, lockModeType, 0, 0);
 			return processSingleNestedNode(rootResult, insideObject);
 		}
 		List<Map<String, Object>> rootResultList = (List<Map<String, Object>>) nativeQuery(query, "", resultSet,
-				queryMode, param, isNative, 0, 0);
+				queryMode, param, isNative, lockModeType, 0, 0);
 		List<Object> result = new ArrayList<Object>();
 		for (Map<String, Object> item : rootResultList) {
 			result.add(processSingleNestedNode(item, insideObject));
