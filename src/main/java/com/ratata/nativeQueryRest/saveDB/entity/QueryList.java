@@ -1,4 +1,4 @@
-package com.ratata.NativeQuery.entity;
+package com.ratata.nativeQueryRest.saveDB.entity;
 
 import java.io.Serializable;
 

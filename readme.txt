@@ -260,3 +260,12 @@ update linked Object
 			}
 	]
 }
+
+// todo list:
+crud bunk mode
+
+multithread
+
+lock feature list
+
+validate query

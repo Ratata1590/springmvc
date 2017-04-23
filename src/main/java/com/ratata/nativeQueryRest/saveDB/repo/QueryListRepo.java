@@ -1,4 +1,4 @@
-package com.ratata.NativeQuery.repo;
+package com.ratata.nativeQueryRest.saveDB.repo;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.ratata.NativeQuery.entity.QueryList;
+import com.ratata.nativeQueryRest.saveDB.entity.QueryList;
 
 public interface QueryListRepo extends JpaRepository<QueryList, Long> {
 

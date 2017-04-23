@@ -51,7 +51,7 @@
 					},
 					"response": [
 						{
-							"id": "79b36765-d3f8-45d9-8167-000d2612064b",
+							"id": "9a3596ee-2a95-4053-a895-cc1a9d480ab0",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -174,7 +174,7 @@
 					},
 					"response": [
 						{
-							"id": "fdd682f8-f165-466d-b727-1242a8043097",
+							"id": "125c2d99-4b96-4e18-ba06-03bb80e984a5",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -256,7 +256,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "00df9075-cb10-448d-a148-e43dd7d4e1ea",
+							"id": "217d206c-4777-49cb-a0b6-956461fb5acf",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -374,7 +374,7 @@
 					},
 					"response": [
 						{
-							"id": "99d02c2c-bad3-47f6-8b41-53d4332709bc",
+							"id": "85de77c7-14b9-4d64-bd7b-176c0d86a016",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -456,7 +456,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "66ce08f7-d991-4ee6-9dd8-12d738858a08",
+							"id": "8d25a4e5-fab6-4bac-a022-b09b8f2bcb51",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -533,7 +533,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "5f801351-bd57-421e-8e06-b4642f359899",
+							"id": "b36a6c1e-26cd-427e-87a1-2c920124b83a",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -651,7 +651,7 @@
 					},
 					"response": [
 						{
-							"id": "2eee2ac7-2d6c-4915-8690-e85a2e45714b",
+							"id": "d3812ec6-7647-44a3-833d-b5b4fb929359",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -733,7 +733,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "925e7092-71f0-4505-bcc1-5cafade4559a",
+							"id": "f8726933-c571-4153-a5c8-852088829a2a",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -810,7 +810,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "076ea380-992c-4bf7-aab4-16ba248fa95a",
+							"id": "ce044218-fe87-4d3d-97ca-d9aba5e286f1",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -882,7 +882,368 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "950397d5-7e8f-42be-ba5f-580814d38437",
+							"id": "994583c7-c981-4010-8135-7764c622bc33",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "param",
+										"value": "[2]",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": "The mime type of this content"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:41:57 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": "A name for the server"
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": "The form of encoding used to safely transfer the entity to the user. Currently defined methods are: chunked, compress, deflate, gzip, identity."
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
+						}
+					]
+				},
+				{
+					"name": "query with named param",
+					"request": {
+						"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=:theid",
+						"method": "GET",
+						"header": [
+							{
+								"key": "resultSet",
+								"value": "theId,theUsername,theVersion",
+								"description": ""
+							},
+							{
+								"key": "queryMode",
+								"value": "S",
+								"description": ""
+							},
+							{
+								"key": "isNative",
+								"value": "true",
+								"description": ""
+							},
+							{
+								"key": "offset",
+								"value": "0",
+								"description": ""
+							},
+							{
+								"key": "limit",
+								"value": "0",
+								"description": ""
+							},
+							{
+								"key": "param",
+								"value": "{\"theid\":1}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "15b05d47-71a3-4827-a120-640312d839c3",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "className",
+										"value": "com.ratata.model.User",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:32:23 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
+						},
+						{
+							"id": "f36f4fe5-11b5-427d-b195-6c7b1dc79f11",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:35:47 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 50,
+							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
+						},
+						{
+							"id": "2c917e3e-e5d2-4af8-9947-6b3490494353",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:38:37 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 21,
+							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
+						},
+						{
+							"id": "119af658-aadc-4b74-8234-219687076226",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -1012,7 +1373,7 @@
 					},
 					"response": [
 						{
-							"id": "512193c3-2c8b-4dfe-b63b-0603a9ee8a35",
+							"id": "3eecadac-1789-467f-af9b-40bf7bc407f9",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -1094,7 +1455,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "79b4789f-6eff-4a66-bd84-4fbd452c35f9",
+							"id": "e39d1b07-abc3-41b4-a261-1895019a67e5",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -1171,7 +1532,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "5c1c5be4-0aab-46fb-a213-17311006af2b",
+							"id": "8959d62b-7611-4b18-bb4f-9da91b3600c2",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -1243,7 +1604,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "f9f27081-2401-44af-9891-3e9c0b28fce8",
+							"id": "27b03184-3405-4f43-98e9-edee260bd857",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -1327,7 +1688,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "182c4a60-1780-4e67-9d75-d3f797f67ec5",
+							"id": "ec5df6f1-d473-44b1-b729-79e2f499927a",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -1437,7 +1798,7 @@
 					},
 					"response": [
 						{
-							"id": "15883b96-990d-4a72-ad80-1e8924ea8cc7",
+							"id": "68f66aa7-0da5-42d1-821e-e6736d143988",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -1519,7 +1880,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "8a768b9f-ae85-4954-91af-02928b0a2d92",
+							"id": "859c235e-bd88-424e-9699-138aa72bc3cc",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -1596,7 +1957,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "d9b0fb40-d543-4d7a-91b4-3a542976fad9",
+							"id": "7445f6a0-a170-41b4-a13e-5311916be8a4",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -1668,7 +2029,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "d85e4b6f-cb3d-43b3-9ff1-9ce9f81b6f37",
+							"id": "233a2c5e-7f6f-4a4c-aee1-533fe96ceeef",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -1752,7 +2113,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "63a5c676-ab34-49e8-b35c-4b851ca972a8",
+							"id": "8379d24c-43d7-4646-8b4f-90e23b96f970",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -1835,7 +2196,479 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "6e534dc1-4210-4f31-ab7d-4f3a6c342701",
+							"id": "9d6d00e4-9102-43f3-9d21-ed056f156bae",
+							"name": "Save User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
+								"method": "POST",
+								"header": [
+									{
+										"key": "className",
+										"value": "com.ratata.model.User",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"username\":\"hellno\",\r\n   \"version\":0,\r\n   \"items\":[\r\n      {\r\n         \"data\":\"alan\",\r\n         \"inneritems\":[\r\n            {\r\n               \"data\":\"blabla\"\r\n            },\r\n            {\r\n               \"data\":\"blabla2\"\r\n            }\r\n         ]\r\n      },\r\n      {\r\n         \"data\":\"alan\",\r\n         \"inneritems\":[\r\n            {\r\n               \"data\":\"blabla3\"\r\n            },\r\n            {\r\n               \"data\":\"blabla4\"\r\n            }\r\n         ]\r\n      }\r\n   ]\r\n}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plainText",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Length",
+									"key": "Content-Length",
+									"value": "0",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 15:12:27 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": "A name for the server"
+								}
+							],
+							"cookie": [],
+							"responseTime": 39,
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "nativequeryjson dynPoJo Single named param",
+					"request": {
+						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"param\":{\"theIdList\":[1,2]},\r\n\t\"data\":{\r\n\t\t\"query\":\"Select i.data,i.id from Item i where i.id in (:theIdList)\",\r\n\t\t\"resultSet\":[\"thedata\",\"theid\"]\r\n\t}\r\n}"
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "a872be82-ee53-4c32-92cd-0fece3994e61",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "className",
+										"value": "com.ratata.model.User",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:32:23 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
+						},
+						{
+							"id": "664e4240-10a1-4e55-a6c9-b07079ef782b",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:35:47 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 50,
+							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
+						},
+						{
+							"id": "f6b58e58-8d7c-4e9e-841f-e6a7c71e9c69",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:38:37 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 21,
+							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
+						},
+						{
+							"id": "03d4dadb-0d39-4f8c-a348-5c48c594e4e3",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "param",
+										"value": "[2]",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:41:57 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
+						},
+						{
+							"id": "47acaea9-e708-4588-ac84-67a643d315ab",
+							"name": "InnerItem",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "innerItemId,innerItemData,userId",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "false",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "param",
+										"value": "[1]",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 15:05:06 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 26,
+							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
+						},
+						{
+							"id": "363db687-aadd-4e13-a7f3-f327ebd65a2a",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -1909,7 +2742,7 @@
 					},
 					"response": [
 						{
-							"id": "623982af-b157-436b-8567-7c8c19735d0a",
+							"id": "3d5e6bb8-fbdd-4d0d-8436-740300fbbf06",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -1991,7 +2824,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "cd422df2-ecdc-4497-95a6-7d3ce06a0101",
+							"id": "2eacd136-d71f-4a09-b39c-c78a680e31c0",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -2068,7 +2901,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "a98d57b6-cbb8-4d3f-a82f-7fff2b95ef97",
+							"id": "a3c8c319-1490-4701-a4c9-f33819ba5f16",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -2140,7 +2973,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "7e6a6151-eba7-4d79-b6aa-55d24d9f02b6",
+							"id": "fcdab157-5feb-4b62-89ef-78f9c28baeef",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -2224,7 +3057,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "599fa5b7-446e-4627-981a-16b98acf0b26",
+							"id": "961f9d00-cd2f-4b55-b2df-d839193a2f47",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -2307,7 +3140,479 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "273631ad-485f-486c-9b1e-078ff7816f4d",
+							"id": "c7db67d1-14ee-4d28-ade5-458a97ceace5",
+							"name": "Save User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
+								"method": "POST",
+								"header": [
+									{
+										"key": "className",
+										"value": "com.ratata.model.User",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"username\":\"hellno\",\r\n   \"version\":0,\r\n   \"items\":[\r\n      {\r\n         \"data\":\"alan\",\r\n         \"inneritems\":[\r\n            {\r\n               \"data\":\"blabla\"\r\n            },\r\n            {\r\n               \"data\":\"blabla2\"\r\n            }\r\n         ]\r\n      },\r\n      {\r\n         \"data\":\"alan\",\r\n         \"inneritems\":[\r\n            {\r\n               \"data\":\"blabla3\"\r\n            },\r\n            {\r\n               \"data\":\"blabla4\"\r\n            }\r\n         ]\r\n      }\r\n   ]\r\n}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plainText",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Length",
+									"key": "Content-Length",
+									"value": "0",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 15:12:27 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": "A name for the server"
+								}
+							],
+							"cookie": [],
+							"responseTime": 39,
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "nativequeryjson customPojo named param",
+					"request": {
+						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"param\":{\"hello\":{\"theid\":1}},\r\n   \"data\":{\r\n      \"data1\":{\r\n         \"query\":\"Select * from User a where a.id =1\",\r\n         \"className\":\"com.ratata.model.User\",\r\n         \"queryMode\":\"S\"\r\n      },\r\n      \"data2\":{\r\n      \t\"queryName\":\"hello\",\r\n         \"query\":\"Select i.data,i.id from Item i where i.id = :theid\",\r\n         \"resultSet\":[\r\n            \"thedata\",\r\n            \"theid\"\r\n         ],\r\n         \"queryMode\":\"S\"\r\n      },\r\n      \"data3\":{\r\n         \"query\":\"Select * from User\"\r\n      },\r\n      \"data4\":{\r\n         \"someData\":4,\r\n         \"deepper\":[\r\n            {\r\n               \"query\":\"Select * from User\",\r\n               \"className\":\"com.ratata.model.User\",\r\n               \"mergeArray\":true\r\n            },\r\n            [\r\n               4,\r\n               3\r\n            ],\r\n            {\r\n               \"query\":\"Select * from Item\",\r\n               \"className\":\"com.ratata.model.Item\",\r\n               \"mergeArray\":true\r\n            }\r\n         ]\r\n      }\r\n   }\r\n}"
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "d656fe0e-5f0a-4613-81d8-fe7a8d03c260",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "className",
+										"value": "com.ratata.model.User",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:32:23 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
+						},
+						{
+							"id": "3e9fd8b2-53ae-4e47-9b10-4d75d39a9c41",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:35:47 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 50,
+							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
+						},
+						{
+							"id": "4890c9eb-0848-41a3-8107-b11f5d18d255",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:38:37 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 21,
+							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
+						},
+						{
+							"id": "d7bf88bb-4422-4979-a77b-c7759cc10df6",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "param",
+										"value": "[2]",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:41:57 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
+						},
+						{
+							"id": "c9e0ea43-6919-4ea2-b761-fcccc9b604ec",
+							"name": "InnerItem",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "innerItemId,innerItemData,userId",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "false",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "param",
+										"value": "[1]",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 15:05:06 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 26,
+							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
+						},
+						{
+							"id": "ab9159e5-ad05-4dcd-ac11-e705a7021c9a",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -2375,13 +3680,13 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n   \"param\":[],\r\n   \"data\":{\r\n      \"query\":\"Select a.id,a.data,a.userId from Item a where a.id=1\",\r\n      \"resultSet\":[\r\n         \"theid\",\r\n         \"theusername\",\r\n         \"userId\"\r\n      ],\r\n      \"queryMode\":\"S\",\r\n      \"insideObject\":{\r\n         \"userList\":{\r\n            \"param\":[\r\n               \"userId\"\r\n            ],\r\n            \"data\":{\r\n               \"query\":\"select a.id,a.username from User a where a.id!=?0\",\r\n               \"resultSet\":[\r\n                  \"id\",\r\n                  \"username\"\r\n               ]\r\n            }\r\n         }\r\n      }\r\n   }\r\n}"
+							"raw": "{\r\n   \"param\":[],\r\n   \"data\":{\r\n      \"query\":\"Select a.id,a.data,a.userId from Item a where a.id=1\",\r\n      \"resultSet\":[\r\n         \"theid\",\r\n         \"theusername\",\r\n         \"userId\"\r\n      ],\r\n      \"queryMode\":\"S\",\r\n      \"insideObject\":{\r\n         \"userList\":{\r\n            \"passParam\":[\r\n               \"userId\"\r\n            ],\r\n            \"data\":{\r\n               \"query\":\"select a.id,a.username from User a where a.id!=?0\",\r\n               \"resultSet\":[\r\n                  \"id\",\r\n                  \"username\"\r\n               ]\r\n            }\r\n         }\r\n      }\r\n   }\r\n}"
 						},
 						"description": ""
 					},
 					"response": [
 						{
-							"id": "ecdacced-68ee-411e-8286-d184c611eb87",
+							"id": "181639ef-aa21-4c46-96d5-ca4c6c776bf2",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -2463,7 +3768,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "11e059e2-8bde-4c9e-b03d-dcbcfa75b5a0",
+							"id": "1ebe8879-2910-4040-8f04-d3d79b5d9cee",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -2540,7 +3845,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "fda420de-e2ad-4091-9f74-552566cdb110",
+							"id": "2f9290b9-a9f6-4958-b7f2-9894ed342309",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -2612,7 +3917,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "dd09016b-1cac-4dee-88e6-7f21763db870",
+							"id": "925e9afe-ead1-44de-8e8d-8446f229cee2",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -2696,7 +4001,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "d3c86e5b-a589-4ae6-af4f-038d8783898d",
+							"id": "84cc3521-d7ae-44fd-a729-215e17a4103c",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -2779,7 +4084,479 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "bcbdbe7c-45f7-4b89-aad9-b5637a00ad2f",
+							"id": "f6518a78-22ff-40d1-92e6-b6d149225dd4",
+							"name": "Save User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
+								"method": "POST",
+								"header": [
+									{
+										"key": "className",
+										"value": "com.ratata.model.User",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n   \"username\":\"hellno\",\r\n   \"version\":0,\r\n   \"items\":[\r\n      {\r\n         \"data\":\"alan\",\r\n         \"inneritems\":[\r\n            {\r\n               \"data\":\"blabla\"\r\n            },\r\n            {\r\n               \"data\":\"blabla2\"\r\n            }\r\n         ]\r\n      },\r\n      {\r\n         \"data\":\"alan\",\r\n         \"inneritems\":[\r\n            {\r\n               \"data\":\"blabla3\"\r\n            },\r\n            {\r\n               \"data\":\"blabla4\"\r\n            }\r\n         ]\r\n      }\r\n   ]\r\n}"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "plainText",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Length",
+									"key": "Content-Length",
+									"value": "0",
+									"description": "The length of the response body in octets (8-bit bytes)"
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 15:12:27 GMT",
+									"description": "The date and time that the message was sent"
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": "A name for the server"
+								}
+							],
+							"cookie": [],
+							"responseTime": 39,
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "nativequeryjson nested cusChild named param",
+					"request": {
+						"url": "http://localhost:8080/demoSpringMvc4/nativequeryjson",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"param\":[],\r\n   \"data\":{\r\n      \"query\":\"Select a.id,a.data,a.userId from Item a where a.id=1\",\r\n      \"resultSet\":[\r\n         \"theid\",\r\n         \"theusername\",\r\n         \"userId\"\r\n      ],\r\n      \"queryMode\":\"S\",\r\n      \"insideObject\":{\r\n         \"userList\":{\r\n            \"passParam\":{\r\n               \"theid\":\"userId\"\r\n            },\r\n            \"data\":{\r\n               \"query\":\"select a.id,a.username from User a where a.id!=:theid\",\r\n               \"resultSet\":[\r\n                  \"id\",\r\n                  \"username\"\r\n               ]\r\n            }\r\n         }\r\n      }\r\n   }\r\n}"
+						},
+						"description": ""
+					},
+					"response": [
+						{
+							"id": "ad2f693b-d992-445e-a6e3-465ab09cfd3f",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "className",
+										"value": "com.ratata.model.User",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:32:23 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
+						},
+						{
+							"id": "43393055-a043-4226-a901-a8cd142fbade",
+							"name": "UserList",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:35:47 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 50,
+							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
+						},
+						{
+							"id": "1827f240-6041-4ff6-a49c-175c1770683e",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:38:37 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 21,
+							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
+						},
+						{
+							"id": "cb9b1195-09de-476a-8d61-be5a2b8f5487",
+							"name": "User",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "theId,theUsername,theVersion",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "S",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "true",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "param",
+										"value": "[2]",
+										"type": "text",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 14:41:57 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 27,
+							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
+						},
+						{
+							"id": "d6de635e-a128-42c2-bead-5c5197125641",
+							"name": "InnerItem",
+							"originalRequest": {
+								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
+								"method": "GET",
+								"header": [
+									{
+										"key": "resultSet",
+										"value": "innerItemId,innerItemData,userId",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "queryMode",
+										"value": "L",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "isNative",
+										"value": "false",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "offset",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "limit",
+										"value": "0",
+										"enabled": true,
+										"warning": ""
+									},
+									{
+										"key": "param",
+										"value": "[1]",
+										"enabled": true,
+										"warning": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": " {   \"username\": \"hellno\",\r\n    \"version\": 0,\r\n    \"items\": [\r\n      {\r\n      \t\"id\":2,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla\"\r\n        },{\r\n        \t\"data\":\"blabla2\"\r\n        }]\r\n      },\r\n      {\r\n      \t\"id\": 4,\r\n        \"data\": \"alan\",\r\n        \"inneritems\":[{\r\n        \t\"data\":\"blabla3\"\r\n        },{\r\n        \t\"data\":\"blabla4\"\r\n        }]\r\n      }\r\n    ]\r\n  }"
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"_postman_previewtype": "text",
+							"header": [
+								{
+									"name": "Content-Type",
+									"key": "Content-Type",
+									"value": "application/json;charset=UTF-8",
+									"description": ""
+								},
+								{
+									"name": "Date",
+									"key": "Date",
+									"value": "Fri, 21 Apr 2017 15:05:06 GMT",
+									"description": ""
+								},
+								{
+									"name": "Server",
+									"key": "Server",
+									"value": "Apache-Coyote/1.1",
+									"description": ""
+								},
+								{
+									"name": "Transfer-Encoding",
+									"key": "Transfer-Encoding",
+									"value": "chunked",
+									"description": ""
+								}
+							],
+							"cookie": [],
+							"responseTime": 26,
+							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
+						},
+						{
+							"id": "20cbdfaf-1d05-4f6f-af8d-f477aad5e470",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -2853,7 +4630,7 @@
 					},
 					"response": [
 						{
-							"id": "7390276a-eebe-4925-bfd5-9e666240409c",
+							"id": "c5cb16bf-324a-4205-9fbf-2623a01a1ef9",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -2935,7 +4712,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "50d0f634-30ab-4504-a0aa-c411843c27d9",
+							"id": "f60f91fb-96fd-4464-b222-669c3ce3916f",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -3012,7 +4789,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "d27d0481-4952-4315-9640-4f02fc06d5f6",
+							"id": "369a2feb-9725-436e-9eb2-20c27b8a29b4",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -3084,7 +4861,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "ca0f14e0-cf3b-4df4-81d7-d6e0667f61d8",
+							"id": "b0d729dd-5840-46b4-bce7-404d247c6471",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -3168,7 +4945,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "c095740f-3615-4595-90e7-2ce1a8f524d0",
+							"id": "56dcef32-a6a3-49d1-b2e7-2f06c59441f9",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -3251,7 +5028,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "137a68ff-2fb5-4cf1-9f49-447f7f2605fb",
+							"id": "fb42e092-ad50-47ad-a0cb-1f34b07b8099",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -3336,7 +5113,7 @@
 					},
 					"response": [
 						{
-							"id": "7aef349b-7dcb-46d8-a916-aca1cf1d4fdd",
+							"id": "505ba7bf-f9ec-46f8-a8c7-d85ec4aca499",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -3418,7 +5195,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "e1d26332-309e-479a-8393-f7598c70f1fb",
+							"id": "ca396cf7-a05c-4272-a50b-43ac351bc255",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -3495,7 +5272,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "c2b06f33-1981-4db9-9150-b5aa5ad55eb7",
+							"id": "41c67eed-af59-4bd8-83a2-8b93f858170f",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -3567,7 +5344,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "3b3504a4-2bcd-47c8-8582-6a696f7c0212",
+							"id": "826f1c8f-575a-4fc9-85a0-24c1eac42285",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -3651,7 +5428,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "ff7aed48-26ab-4c13-930e-07fd69437334",
+							"id": "05525428-da3b-4e16-87b3-56e6648c85cb",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -3734,7 +5511,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "1184d0af-e53f-4e8d-ba89-db9c7d5dc842",
+							"id": "5c2767d5-585d-48cb-8443-00fab8163a5b",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -3808,7 +5585,7 @@
 					},
 					"response": [
 						{
-							"id": "3d061af7-e566-4551-b50c-8fce3613ade4",
+							"id": "8ad8ccf5-cca5-4b84-9007-4e727c4136b5",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -3890,7 +5667,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "179e3f37-ad4d-4a15-9f1b-f792d420c257",
+							"id": "db65c191-43a0-4241-9397-ca9fb38f45be",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -3967,7 +5744,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "064480e3-c85a-4a4e-9bd0-b910d6885936",
+							"id": "d1bc521b-ac82-494f-93df-bcdb83452122",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -4039,7 +5816,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "a9778c04-ebf2-4cc4-b171-7b755badf0bb",
+							"id": "9855e40b-224a-4c9f-afbc-625e5f5dc634",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -4123,7 +5900,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "3e22529b-147b-43be-9167-a7cb2532ec85",
+							"id": "828bf2d5-168a-43b0-9fcd-45e81e413e5b",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -4206,7 +5983,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "5e611ca8-bcb0-4d50-b8bb-29fbac83f325",
+							"id": "d02b623b-be1f-4de8-8a94-7ad7b11a3e35",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -4286,7 +6063,7 @@
 					},
 					"response": [
 						{
-							"id": "f541e3e2-dfe9-4691-91d3-ed3b1c26e5fe",
+							"id": "70bdee71-3b98-463d-b395-00788e3d38fd",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -4368,7 +6145,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "3731ae91-baa9-41a8-a8e0-36e6a0c147cd",
+							"id": "410984d6-acd5-44df-9f65-80115b767dba",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -4445,7 +6222,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "e46bfa03-54c8-4824-b0a8-ccdb4a1e0de2",
+							"id": "37ad03ba-3640-433b-9909-803e02f0deb5",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -4517,7 +6294,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "79cd3a77-a3a9-4259-9026-38f08d0d73a2",
+							"id": "2370c7b1-45b5-4f43-a012-57d47417d6e2",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -4601,7 +6378,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "bf3f2ee1-cf96-4784-8ae5-03e2579e85fc",
+							"id": "0efa4d05-f672-4549-a324-adbdd8f1574e",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -4684,7 +6461,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "1d798526-fb14-489f-9cb9-1c5d84a030ae",
+							"id": "5490232d-efe5-41c8-b0fb-4b40419dce0b",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -4758,7 +6535,7 @@
 					},
 					"response": [
 						{
-							"id": "aa046724-deb3-49e3-8367-4ce1359f0735",
+							"id": "37f217e9-9ac3-4be0-993d-778f5a13ada9",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -4840,7 +6617,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "276ee38d-3205-44fa-9ee7-65a5f6d665fb",
+							"id": "7502a85f-faa1-441c-9fb2-f9632cf71752",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -4917,7 +6694,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "ed0cede8-a7c7-4094-b064-9921e3d85ef1",
+							"id": "988e06fb-3c7f-425e-9ed0-81617f6478d2",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -4989,7 +6766,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "0d6fd947-ac2c-486e-8bcb-f27cf73ad589",
+							"id": "32c5d2c5-1c70-429f-99cc-d9c2d24e5b22",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -5073,7 +6850,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "82ff9dc4-8ec9-48f0-8283-98fc4cd1b081",
+							"id": "fdc364f1-6479-4717-a8f2-dfa5257132e6",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -5156,7 +6933,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "cca4656a-7b8f-4f3c-95ce-3ca00b1caee2",
+							"id": "8d2ff8a7-8b7b-4d76-8862-ae1fcb6dac01",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -5230,7 +7007,7 @@
 					},
 					"response": [
 						{
-							"id": "ded9d573-7de0-4f96-9773-a11878f0af1c",
+							"id": "7f870aa1-58c1-438f-aeea-c547d682d1f6",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -5312,7 +7089,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "f79f30fe-b8b8-46a4-ab73-c3d5f8270d9e",
+							"id": "8bcb9284-d4bd-4e95-8304-164c4623b8ef",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -5389,7 +7166,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "8626d968-e4eb-49af-a3f3-3383f515a4e8",
+							"id": "cbedadb0-95b0-4f8c-8c88-6a7912e39a23",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -5461,7 +7238,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "fc8d48fc-f406-4e1f-ad26-3b6869176795",
+							"id": "f53a572b-ac81-4c5c-8a4d-4bc1b6605052",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -5545,7 +7322,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "916d2391-f006-4a21-8397-29a4ccb88809",
+							"id": "32a2e0d1-7b04-4e87-b730-1518e3dd1f8f",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -5628,7 +7405,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "21428042-f824-4b77-8fea-43c47306b087",
+							"id": "7617ae43-aa08-4daf-8378-64c9814d5fec",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -5702,7 +7479,7 @@
 					},
 					"response": [
 						{
-							"id": "e273ae49-c969-4748-9ccc-d9b4c39dac75",
+							"id": "ee411cb8-37f4-4aad-825e-d0dae350248a",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -5784,7 +7561,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "c20efed1-fcdc-4abc-b655-f45f6866feb2",
+							"id": "84afe87b-1cd5-4738-bd08-ddeea8f18157",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -5861,7 +7638,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "e67c906f-a391-4f31-828b-168e16ad169c",
+							"id": "793e5e5f-ddc8-4275-a8bd-997710510062",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -5933,7 +7710,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "45b56fe1-4c96-424b-9602-35c093f2683c",
+							"id": "1f8ea39d-b8bc-4ce1-ac4a-75508e922ba8",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -6017,7 +7794,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "717bab1d-96bc-4f78-9558-0d02bc30a7cc",
+							"id": "f4b0841a-c461-498d-bdfb-5c0aeb00e082",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -6100,7 +7877,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "73f5d72f-f951-4d4d-8812-4d5babbfb8bd",
+							"id": "faa0f3c2-067d-49c4-b9be-698d987fd5ff",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -6180,7 +7957,7 @@
 					},
 					"response": [
 						{
-							"id": "cc7edc5d-988e-4a5f-bc06-4b8a67f1b68d",
+							"id": "59abd27a-6e5b-42f8-85da-f19e1bb84c15",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -6262,7 +8039,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "3a9985d4-abe5-4ca3-b92b-a408e0c08c3d",
+							"id": "3c3c7ba0-7a46-40be-9e83-c7f96c1b53b2",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -6339,7 +8116,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "ce7a1da5-1d2c-4245-8b4a-dc2d676a7489",
+							"id": "5b3300da-eb93-4abe-baf5-76caca5b4634",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -6411,7 +8188,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "eefce013-5462-4c68-9c95-4efaa9c1b02a",
+							"id": "1429c828-4c1f-4431-a084-d7fc7e615914",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -6495,7 +8272,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "f2ec73ce-aacd-45b8-9880-de6b1b45b047",
+							"id": "cb08e931-7f68-4c02-ac9a-5d448d130e40",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -6578,7 +8355,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "cfd01777-8df4-4bfd-b223-98a94a4df214",
+							"id": "79085739-bbe3-419c-a468-4cd303d7b815",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",
@@ -6652,7 +8429,7 @@
 					},
 					"response": [
 						{
-							"id": "338699b3-623b-4085-908a-c124a1fbc144",
+							"id": "d75de7c3-42cc-4290-8447-e46c216327d6",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select * from User;",
@@ -6734,7 +8511,7 @@
 							"body": "[{\"id\":1,\"username\":\"?\",\"version\":0,\"items\":[{\"id\":2,\"data\":\"alan3\",\"inneritems\":[]},{\"id\":0,\"data\":\"alan1\",\"inneritems\":[]}]},{\"id\":2,\"username\":\"alex\",\"version\":0,\"items\":[{\"id\":1,\"data\":\"alan2\",\"inneritems\":[]}]},{\"id\":3,\"username\":\"nick\",\"version\":0,\"items\":[]},{\"id\":4,\"username\":\"alan\",\"version\":0,\"items\":[]}]"
 						},
 						{
-							"id": "9ef32522-94bc-454f-b44e-d3eb1287c87c",
+							"id": "015581ff-e240-483b-a3ee-e2737085c382",
 							"name": "UserList",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a;",
@@ -6811,7 +8588,7 @@
 							"body": "[{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0},{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0},{\"theUsername\":\"nick\",\"theId\":3,\"theVersion\":0},{\"theUsername\":\"alan\",\"theId\":4,\"theVersion\":0}]"
 						},
 						{
-							"id": "a5676137-82af-4e41-8114-db5ae994e1ba",
+							"id": "e2f99934-894a-4770-ae18-683d20e6d68f",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=1;",
@@ -6883,7 +8660,7 @@
 							"body": "{\"theUsername\":\"?\",\"theId\":1,\"theVersion\":0}"
 						},
 						{
-							"id": "0e809165-4c92-4b82-8a3e-9f1ac301dd1f",
+							"id": "8a197e88-6199-445a-8661-8e405e69f346",
 							"name": "User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.username,a.version from User a where a.id=?0",
@@ -6967,7 +8744,7 @@
 							"body": "{\"theUsername\":\"alex\",\"theId\":2,\"theVersion\":0}"
 						},
 						{
-							"id": "2fba0d3a-c798-4d8e-b8af-252325ff39ff",
+							"id": "df47ac81-4b26-409c-b25d-5482d74c43ec",
 							"name": "InnerItem",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/nativequery?query=select a.id,a.data,a.item.user.id from InnerItem a where  a.id=?0",
@@ -7050,7 +8827,7 @@
 							"body": "[{\"innerItemId\":1,\"userId\":1,\"innerItemData\":\"alan3\"}]"
 						},
 						{
-							"id": "82f5f4b5-2938-49ba-8128-7ea5ee332188",
+							"id": "aa81641b-d915-46f7-9fcf-0a65f77f5700",
 							"name": "Save User",
 							"originalRequest": {
 								"url": " http://localhost:8080/demoSpringMvc4/SaveObject",

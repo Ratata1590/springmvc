@@ -1,4 +1,4 @@
-package com.ratata.NativeQuery.dao;
+package com.ratata.nativeQueryRest.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -19,32 +20,31 @@ import com.fasterxml.jackson.core.JsonParser.NumberType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.NativeQuery.Util.Const;
-import com.ratata.NativeQuery.Util.UtilNativeQuery;
+import com.ratata.nativeQueryRest.pojo.NativeQueryParam;
+import com.ratata.nativeQueryRest.utils.Const;
+import com.ratata.nativeQueryRest.utils.Mapper;
 
 @Component
-public class NativeQueryDAOImpl implements NativeQueryDAO {
-
+public class CoreDAOimpl implements CoreDAO {
 	@PersistenceContext
 	private EntityManager em;
 
 	@Transactional
 	@SuppressWarnings("unchecked")
-	public Object nativeQuery(String query, String className, List<String> resultSet, String queryMode, ArrayNode param,
-			Boolean isNative, Integer lockModeType, Integer offset, Integer limit) throws Exception {
-		Object result = returnResult(query, className, param, offset, limit, queryMode, isNative, lockModeType);
+	public Object nativeQuery(NativeQueryParam nativeQueryParam) throws Exception {
+		Object result = returnResult(nativeQueryParam);
 
-		if (resultSet.isEmpty()) {
+		if (nativeQueryParam.getResultSet() == null || nativeQueryParam.getResultSet().size() == 0) {
 			return result;
 		}
-		if (queryMode.equals(Const.QUERYMODE_SINGLE)) {
+		if (nativeQueryParam.getQueryMode().equals(Const.QUERYMODE_SINGLE)) {
 			if (result == null) {
 				return null;
 			}
 			Object[] record = (Object[]) result;
 			Map<String, Object> resultMap = new HashMap<String, Object>();
 			for (int i = 0; i < record.length; i++) {
-				resultMap.put(resultSet.get(i), record[i]);
+				resultMap.put(nativeQueryParam.getResultSet().get(i).asText(), record[i]);
 			}
 			return resultMap;
 		} else {
@@ -53,7 +53,7 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 				int i = 0;
 				Map<String, Object> resultMap = new HashMap<String, Object>();
 				while (i < record.length) {
-					resultMap.put(resultSet.get(i), record[i]);
+					resultMap.put(nativeQueryParam.getResultSet().get(i).asText(), record[i]);
 					i++;
 				}
 				resultReturn.add(resultMap);
@@ -62,20 +62,20 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 		}
 	}
 
-	private Object returnResult(String query, String className, ArrayNode param, Integer offset, Integer limit,
-			String queryMode, Boolean isNative, Integer lockModeType) throws Exception {
+	private Object returnResult(NativeQueryParam nativeQueryParam) throws Exception {
 		Query queryObj;
-		if (isNative) {
-			if (!className.isEmpty()) {
-				queryObj = em.createNativeQuery(query, Class.forName(className));
+		if (nativeQueryParam.getIsNative()) {
+			if (!nativeQueryParam.getClassName().isEmpty()) {
+				queryObj = em.createNativeQuery(nativeQueryParam.getQuery(),
+						Class.forName(nativeQueryParam.getClassName()));
 			} else {
-				queryObj = em.createNativeQuery(query);
+				queryObj = em.createNativeQuery(nativeQueryParam.getQuery());
 			}
 		} else {
-			if (!className.isEmpty()) {
-				queryObj = em.createQuery(query, Class.forName(className));
+			if (!nativeQueryParam.getClassName().isEmpty()) {
+				queryObj = em.createQuery(nativeQueryParam.getQuery(), Class.forName(nativeQueryParam.getClassName()));
 			} else {
-				queryObj = em.createQuery(query);
+				queryObj = em.createQuery(nativeQueryParam.getQuery());
 			}
 		}
 
@@ -84,21 +84,29 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 		// queryObj.setLockMode(resolveLockMode(lockModeType));
 		// }
 
-		if (!(param.size() == 0)) {
-			for (int i = 0; i < param.size(); i++) {
-				queryObj.setParameter(i, resolveParam(param.get(i)));
+		if (nativeQueryParam.getParam() != null && nativeQueryParam.getParam().isArray()) {
+			for (int i = 0; i < nativeQueryParam.getParam().size(); i++) {
+				queryObj.setParameter(i, resolveParam(nativeQueryParam.getParam().get(i)));
 			}
 		}
 
-		if (!offset.equals(0)) {
-			queryObj.setFirstResult(offset);
+		if (nativeQueryParam.getParam() != null && nativeQueryParam.getParam().isObject()) {
+			Iterator<Entry<String, JsonNode>> iter = nativeQueryParam.getParam().fields();
+			while (iter.hasNext()) {
+				Entry<String, JsonNode> item = iter.next();
+				queryObj.setParameter(item.getKey(), resolveParam(item.getValue()));
+			}
 		}
 
-		if (!offset.equals(0)) {
-			queryObj.setMaxResults(limit);
+		if (!nativeQueryParam.getOffset().equals(0)) {
+			queryObj.setFirstResult(nativeQueryParam.getOffset());
 		}
 
-		if (queryMode.equals(Const.QUERYMODE_SINGLE)) {
+		if (!nativeQueryParam.getLimit().equals(0)) {
+			queryObj.setMaxResults(nativeQueryParam.getLimit());
+		}
+
+		if (nativeQueryParam.getQueryMode().equals(Const.QUERYMODE_SINGLE)) {
 			try {
 				return queryObj.getSingleResult();
 			} catch (NoResultException e) {
@@ -106,7 +114,7 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 			}
 		}
 
-		if (queryMode.equals(Const.QUERYMODE_UPDATE)) {
+		if (nativeQueryParam.getQueryMode().equals(Const.QUERYMODE_MODIFY)) {
 			return queryObj.executeUpdate();
 		}
 		return queryObj.getResultList();
@@ -173,37 +181,22 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 		return node;
 	}
 
-	public Object processQueryObject(JsonNode queryObject, ArrayNode param) throws Exception {
-		String query = queryObject.get(Const.PARAM_QUERY).asText("");
-		Boolean isNative = queryObject.has(Const.PARAM_ISNATIVE) ? queryObject.get(Const.PARAM_ISNATIVE).asBoolean()
-				: true;
-		String queryMode = queryObject.has(Const.PARAM_QUERYMODE) ? queryObject.get(Const.PARAM_QUERYMODE).asText()
-				: "L";
-		Integer lockModeType = queryObject.has(Const.LOCKMODETYPE) ? queryObject.get(Const.LOCKMODETYPE).asInt() : 0;
-		List<String> resultSet = UtilNativeQuery
-				.arrayNodeToListString((ArrayNode) queryObject.get(Const.PARAM_RESULTSET));
-
+	public Object processQueryObject(JsonNode queryObject, JsonNode param) throws Exception {
+		NativeQueryParam nativeQueryParam = new NativeQueryParam(queryObject, param);
 		if (queryObject.has(Const.PARAM_INSIDEOBJECT)) {
 			JsonNode insideObject = queryObject.get(Const.PARAM_INSIDEOBJECT);
-			return nestedNativeQuery(query, resultSet, queryMode, param, isNative, lockModeType, insideObject);
+			return nestedNativeQuery(nativeQueryParam, insideObject);
 		}
-		String className = queryObject.has(Const.PARAM_CLASSNAME) ? queryObject.get(Const.PARAM_CLASSNAME).asText()
-				: "";
-		Integer offset = queryObject.has(Const.PARAM_OFFSET) ? queryObject.get(Const.PARAM_OFFSET).asInt() : 0;
-		Integer limit = queryObject.has(Const.PARAM_LIMIT) ? queryObject.get(Const.PARAM_LIMIT).asInt() : 0;
-		return nativeQuery(query, className, resultSet, queryMode, param, isNative, lockModeType, offset, limit);
+		return nativeQuery(nativeQueryParam);
 	}
 
 	@SuppressWarnings("unchecked")
-	private Object nestedNativeQuery(String query, List<String> resultSet, String queryMode, ArrayNode param,
-			Boolean isNative, Integer lockModeType, JsonNode insideObject) throws Exception {
-		if (queryMode.equals(Const.QUERYMODE_SINGLE)) {
-			Map<String, Object> rootResult = (Map<String, Object>) nativeQuery(query, "", resultSet, queryMode, param,
-					isNative, lockModeType, 0, 0);
+	private Object nestedNativeQuery(NativeQueryParam nativeQueryParam, JsonNode insideObject) throws Exception {
+		if (nativeQueryParam.getQueryMode().equals(Const.QUERYMODE_SINGLE)) {
+			Map<String, Object> rootResult = (Map<String, Object>) nativeQuery(nativeQueryParam);
 			return processSingleNestedNode(rootResult, insideObject);
 		}
-		List<Map<String, Object>> rootResultList = (List<Map<String, Object>>) nativeQuery(query, "", resultSet,
-				queryMode, param, isNative, lockModeType, 0, 0);
+		List<Map<String, Object>> rootResultList = (List<Map<String, Object>>) nativeQuery(nativeQueryParam);
 		List<Object> result = new ArrayList<Object>();
 		for (Map<String, Object> item : rootResultList) {
 			result.add(processSingleNestedNode(item, insideObject));
@@ -215,29 +208,40 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 		Iterator<String> obj = ((ObjectNode) insideObject).fieldNames();
 		while (obj.hasNext()) {
 			String key = obj.next();
-			rootResult.put(key,
-					processQueryObject(insideObject.get(key).get(Const.PARAM_SINGLEREQUEST_DATA), resolveParamArrayNode(
-							rootResult, (ArrayNode) insideObject.get(key).get(Const.PARAM_SINGLEREQUEST_PARAM))));
+			rootResult.put(key, processQueryObject(insideObject.get(key).get(Const.PARAM_DATA),
+					resolvePassParam(rootResult, insideObject.get(key).get(Const.PARAM_PASSPARAM))));
 		}
 		return rootResult;
 	}
 
-	public ArrayNode resolveParamArrayNode(Map<String, Object> rootResult, ArrayNode arrayNodeConfig) {
-		LinkedList<Object> resultParam = new LinkedList<Object>();
-		for (JsonNode config : arrayNodeConfig) {
-			resultParam.addLast(rootResult.get(config.asText()));
+	@SuppressWarnings("unchecked")
+	private JsonNode resolvePassParam(Map<String, Object> rootResult, JsonNode arrayNodeConfig) {
+		Object resultParam = null;
+		if (arrayNodeConfig.isArray()) {
+			resultParam = new LinkedList<Object>();
+			for (JsonNode config : arrayNodeConfig) {
+				((LinkedList<Object>) resultParam).addLast(rootResult.get(config.asText()));
+			}
 		}
-		return (ArrayNode) UtilNativeQuery.mapper.valueToTree(resultParam);
+		if (arrayNodeConfig.isObject()) {
+			resultParam = new HashMap<String, Object>();
+			Iterator<Entry<String, JsonNode>> iter = arrayNodeConfig.fields();
+			while (iter.hasNext()) {
+				Entry<String, JsonNode> item = iter.next();
+				((Map<String, Object>) resultParam).put(item.getKey(), rootResult.get(item.getValue().asText()));
+			}
+		}
+		return Mapper.mapper.valueToTree(resultParam);
 	}
 
 	@Transactional
 	public void saveObject(JsonNode obj, String className) throws Exception {
 		if (!obj.isArray()) {
-			em.persist(UtilNativeQuery.mapper.convertValue(obj, Class.forName(className)));
+			em.persist(Mapper.mapper.convertValue(obj, Class.forName(className)));
 		} else {
 			ArrayNode listNode = (ArrayNode) obj;
 			for (JsonNode node : listNode) {
-				em.persist(UtilNativeQuery.mapper.convertValue(node, Class.forName(className)));
+				em.persist(Mapper.mapper.convertValue(node, Class.forName(className)));
 			}
 		}
 	}
@@ -257,7 +261,7 @@ public class NativeQueryDAOImpl implements NativeQueryDAO {
 
 	private void resolveLinkedObject(JsonNode node) throws Exception {
 		String className = node.get("className").asText();
-		Object parent = em.find(Class.forName(className), node.get("id").asLong());
+		Object parent = em.find(Class.forName(className), node.get("id").asInt());
 		ArrayNode childList = (ArrayNode) node.get("childList");
 		for (JsonNode child : childList) {
 			StringBuilder query = new StringBuilder();

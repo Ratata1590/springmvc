@@ -1,4 +1,4 @@
-package com.ratata.NativeQuery.dao;
+package com.ratata.nativeQueryRest.dao;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -13,34 +13,31 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.NativeQuery.Util.Const;
-import com.ratata.NativeQuery.Util.UtilNativeQuery;
+import com.ratata.nativeQueryRest.pojo.QueryListHolder;
+import com.ratata.nativeQueryRest.utils.Const;
+import com.ratata.nativeQueryRest.utils.Mapper;
 
 @Component
-public class NativeQueryDynamicPojoDAOImpl implements NativeQueryDynamicPojoDAO {
-
+public class DynamicDTODAOimpl implements DynamicDTODAO {
 	@Autowired
-	private NativeQueryDAO nativeQueryDAO;
-
-	@Autowired
-	NativeQueryLinkQueryDAO nativeQueryLinkQueryDAO;
+	private CoreDAO coreDAO;
 
 	public Object nativeWithDynamicPojo(JsonNode pojo) throws Exception {
 		return nativeWithDynamicPojo(pojo.get(Const.PARAM_SINGLEREQUEST_DATA),
-				(ArrayNode) pojo.get(Const.PARAM_SINGLEREQUEST_PARAM));
+				pojo.get(Const.PARAM_SINGLEREQUEST_PARAM));
 	}
 
-	public Object nativeWithDynamicPojo(JsonNode node, ArrayNode param) throws Exception {
+	public Object nativeWithDynamicPojo(JsonNode node, JsonNode param) throws Exception {
 		if (node.has(Const.PARAM_QUERY)) {
-			return nativeQueryDAO.processQueryObject(node, param);
+			return coreDAO.processQueryObject(node, param);
 		}
-		processDynamicPojo(node, param);
+		checkNode(node, param);
 		return node;
 	}
 
 	@Transactional
 	public List<Object> transationNativeQuery(String query) throws Exception {
-		return transationNativeQuery((ArrayNode) UtilNativeQuery.mapper.readTree(query));
+		return transationNativeQuery((ArrayNode) Mapper.mapper.readTree(query));
 	}
 
 	@Transactional
@@ -52,12 +49,7 @@ public class NativeQueryDynamicPojoDAOImpl implements NativeQueryDynamicPojoDAO 
 		return result;
 	}
 
-	public void processDynamicPojo(JsonNode node, ArrayNode param) throws Exception {
-		int objectNodeNumber = 0;
-		checkNode(node, param, objectNodeNumber);
-	}
-
-	public void checkNode(JsonNode node, ArrayNode paramArray, Integer objectNodeNumber) throws Exception {
+	private void checkNode(JsonNode node, JsonNode paramArray) throws Exception {
 		Iterator<Entry<String, JsonNode>> nodeIter = node.fields();
 		while (nodeIter.hasNext()) {
 			Entry<String, JsonNode> entry = (Entry<String, JsonNode>) nodeIter.next();
@@ -67,32 +59,32 @@ public class NativeQueryDynamicPojoDAOImpl implements NativeQueryDynamicPojoDAO 
 				for (int i = 0; i < innerNode.size(); i++) {
 					JsonNode tnode = innerNode.get(i);
 					if (tnode.has(Const.LINK_QUERY)) {
-						processMergeArray(tnode, innerNode, i, processQueryLink(tnode, paramArray, objectNodeNumber));
-						objectNodeNumber++;
+						processMergeArray(tnode, innerNode, i, processQueryLink(tnode, tnode.has(Const.PARAM_QUERYNAME)
+								? paramArray.get(tnode.get(Const.PARAM_QUERYNAME).asText()) : null));
 						continue;
 					}
 					if (tnode.has(Const.PARAM_QUERY)) {
-						processMergeArray(tnode, innerNode, i, processQueryNode(tnode, paramArray, objectNodeNumber));
-						objectNodeNumber++;
+						processMergeArray(tnode, innerNode, i, processQueryNode(tnode, tnode.has(Const.PARAM_QUERYNAME)
+								? paramArray.get(tnode.get(Const.PARAM_QUERYNAME).asText()) : null));
 						continue;
 					}
-					checkNode(tnode, paramArray, objectNodeNumber);
+					checkNode(tnode, paramArray);
 				}
 				break;
 			case OBJECT:
 				if (innerNode.has(Const.LINK_QUERY)) {
 					((ObjectNode) node).replace(entry.getKey(),
-							processQueryLink(innerNode, paramArray, objectNodeNumber));
-					objectNodeNumber++;
+							processQueryLink(innerNode, innerNode.has(Const.PARAM_QUERYNAME)
+									? paramArray.get(innerNode.get(Const.PARAM_QUERYNAME).asText()) : null));
 					break;
 				}
 				if (innerNode.has(Const.PARAM_QUERY)) {
 					((ObjectNode) node).replace(entry.getKey(),
-							processQueryNode(innerNode, paramArray, objectNodeNumber));
-					objectNodeNumber++;
+							processQueryNode(innerNode, innerNode.has(Const.PARAM_QUERYNAME)
+									? paramArray.get(innerNode.get(Const.PARAM_QUERYNAME).asText()) : null));
 					break;
 				}
-				checkNode(innerNode, paramArray, objectNodeNumber);
+				checkNode(innerNode, paramArray);
 			default:
 				break;
 			}
@@ -108,15 +100,12 @@ public class NativeQueryDynamicPojoDAOImpl implements NativeQueryDynamicPojoDAO 
 		}
 	}
 
-	private JsonNode processQueryLink(JsonNode node, ArrayNode paramArray, Integer objectNodeNumber) throws Exception {
-		return UtilNativeQuery.mapper.valueToTree(nativeQueryDAO.processQueryObject(
-				nativeQueryLinkQueryDAO.getQueryList().get(node.get(Const.LINK_QUERY).asText()),
-				(ArrayNode) paramArray.get(objectNodeNumber)));
+	private JsonNode processQueryLink(JsonNode node, JsonNode param) throws Exception {
+		return Mapper.mapper.valueToTree(
+				coreDAO.processQueryObject(QueryListHolder.queryList.get(node.get(Const.LINK_QUERY).asText()), param));
 	}
 
-	private JsonNode processQueryNode(JsonNode node, ArrayNode paramArray, Integer objectNodeNumber) throws Exception {
-		return UtilNativeQuery.mapper
-				.valueToTree(nativeQueryDAO.processQueryObject(node, (ArrayNode) paramArray.get(objectNodeNumber)));
+	private JsonNode processQueryNode(JsonNode node, JsonNode param) throws Exception {
+		return Mapper.mapper.valueToTree(coreDAO.processQueryObject(node, param));
 	}
-
 }

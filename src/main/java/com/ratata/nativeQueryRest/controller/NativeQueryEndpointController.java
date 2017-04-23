@@ -1,7 +1,6 @@
-package com.ratata.NativeQuery.controller;
+package com.ratata.nativeQueryRest.controller;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Arrays;
 
 import javax.annotation.PostConstruct;
 
@@ -16,22 +15,24 @@ import org.springframework.web.bind.annotation.RestController;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.ratata.NativeQuery.Util.LockUtil;
-import com.ratata.NativeQuery.Util.UtilNativeQuery;
-import com.ratata.NativeQuery.dao.NativeQueryDAO;
-import com.ratata.NativeQuery.dao.NativeQueryDynamicPojoDAO;
-import com.ratata.NativeQuery.dao.NativeQueryLinkQueryDAO;
+import com.ratata.nativeQueryRest.dao.CoreDAO;
+import com.ratata.nativeQueryRest.dao.DynamicDTODAO;
+import com.ratata.nativeQueryRest.dao.LinkQueryDAO;
+import com.ratata.nativeQueryRest.pojo.NativeQueryParam;
+import com.ratata.nativeQueryRest.pojo.QueryListHolder;
+import com.ratata.nativeQueryRest.utils.LockUtil;
+import com.ratata.nativeQueryRest.utils.Mapper;
 
 @RestController
 public class NativeQueryEndpointController {
 	@Autowired
-	private NativeQueryDAO nativeQueryDAO;
+	private CoreDAO nativeQueryDAO;
 
 	@Autowired
-	private NativeQueryDynamicPojoDAO nativeQueryDynamicPojoDAO;
+	private DynamicDTODAO nativeQueryDynamicPojoDAO;
 
 	@Autowired
-	private NativeQueryLinkQueryDAO nativeQueryLinkQueryDAO;
+	private LinkQueryDAO nativeQueryLinkQueryDAO;
 
 	// ------------------------------NativeQueryDAO
 	@RequestMapping(value = "/nativequery", method = RequestMethod.GET)
@@ -44,9 +45,8 @@ public class NativeQueryEndpointController {
 			@RequestHeader(required = false, defaultValue = "0") Integer lockMode,
 			@RequestHeader(required = false, defaultValue = "0") Integer offset,
 			@RequestHeader(required = false, defaultValue = "0") Integer limit) throws Exception {
-		ArrayNode paramNode = ((ArrayNode) UtilNativeQuery.mapper.readTree(param));
-		return nativeQueryDAO.nativeQuery(query, className, Arrays.asList(resultSet), queryMode, paramNode, isNative,
-				lockMode, offset, limit);
+		return nativeQueryDAO.nativeQuery(
+				new NativeQueryParam(query, className, resultSet, queryMode, param, isNative, lockMode, offset, limit));
 	}
 
 	@RequestMapping(value = "/SaveObject", method = RequestMethod.POST)
@@ -70,7 +70,7 @@ public class NativeQueryEndpointController {
 
 	@RequestMapping(value = "/nativequeryjson", method = RequestMethod.GET)
 	public Object nativeQueryWithDynamicPoJoGet(@RequestHeader String query) throws Exception {
-		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(UtilNativeQuery.mapper.readTree(query));
+		return nativeQueryDynamicPojoDAO.nativeWithDynamicPojo(Mapper.mapper.readTree(query));
 	}
 
 	// ------------------------------NativeQueryTransaction
@@ -89,25 +89,25 @@ public class NativeQueryEndpointController {
 	public Object SaveQueryList(@RequestBody ObjectNode queryList) throws Exception {
 		nativeQueryLinkQueryDAO.saveQueryList(queryList);
 		nativeQueryLinkQueryDAO.saveQueryListToDB();
-		return nativeQueryLinkQueryDAO.getQueryList();
+		return QueryListHolder.queryList;
 	}
 
 	@RequestMapping(value = "/UpdateQueryList", method = RequestMethod.POST)
 	public Object UpdateQueryList(@RequestBody ObjectNode queryList) throws Exception {
 		nativeQueryLinkQueryDAO.updateQueryList(queryList);
 		nativeQueryLinkQueryDAO.updateQueryListToDB();
-		return nativeQueryLinkQueryDAO.getQueryList();
+		return QueryListHolder.queryList;
 	}
 
 	@RequestMapping(value = "/GetQueryList", method = RequestMethod.GET)
 	public Object GetQueryList() {
-		return nativeQueryLinkQueryDAO.getQueryList();
+		return QueryListHolder.queryList;
 	}
 
 	@RequestMapping(value = "/CustomQuery", method = RequestMethod.GET)
 	public Object queryWithParam(@RequestParam String queryName, @RequestHeader(defaultValue = "[]") String param)
 			throws Exception {
-		return nativeQueryLinkQueryDAO.processCustomQuery(queryName, param);
+		return nativeQueryLinkQueryDAO.processLinkQuery(queryName, param);
 	}
 
 	// @Scheduled(fixedRate = 10000)
