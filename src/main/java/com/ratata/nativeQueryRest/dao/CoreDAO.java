@@ -11,7 +11,7 @@ public interface CoreDAO {
 	public Object processQueryObject(JsonNode queryObject, JsonNode param) throws Exception;
 
 	public Object processSingleNestedNode(Map<String, Object> rootResult, JsonNode insideObject) throws Exception;
-	
+
 	public void saveObject(JsonNode obj, String className) throws Exception;
 
 	public void saveLinkedObject(JsonNode obj) throws Exception;
