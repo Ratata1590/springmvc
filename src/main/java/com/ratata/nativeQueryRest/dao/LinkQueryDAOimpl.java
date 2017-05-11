@@ -20,115 +20,127 @@ import com.ratata.nativeQueryRest.utils.Mapper;
 
 @Component
 public class LinkQueryDAOimpl implements LinkQueryDAO {
-	@Autowired
-	private CoreDAO coreDAO;
 
-	@Autowired
-	private QueryListRepo queryListRepo;
+  private boolean updateFromDB = false;
 
-	@Autowired
-	private DynamicDTODAO dynamicDTODAO;
+  @Autowired
+  private CoreDAO coreDAO;
 
-	public void saveQueryList(Object query) {
-		QueryListHolder.queryList = Mapper.mapper.convertValue(query, Mapper.typeRef);
-	}
+  @Autowired
+  private QueryListRepo queryListRepo;
 
-	public void saveQueryListFromFile() throws Exception {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(Const.LINK_QUERY_INITFILENAME).getFile());
-		saveQueryList(Mapper.mapper.readTree(file));
-	}
+  @Autowired
+  private DynamicDTODAO dynamicDTODAO;
 
-	public void persistQueryListToDB() throws Exception {
-		Iterator<String> iter = QueryListHolder.queryList.keySet().iterator();
-		while (iter.hasNext()) {
-			String key = iter.next();
-			QueryList query = queryListRepo.findQueryByKey(key);
-			if (query != null) {
-				continue;
-			}
-			query = new QueryList();
-			query.setQueryName(key);
-			query.setQueryData(Mapper.mapper.writeValueAsString(QueryListHolder.queryList.get(key)));
-			queryListRepo.save(query);
-		}
-	}
+  public void saveQueryList(Object query) {
+    QueryListHolder.queryList = Mapper.mapper.convertValue(query, Mapper.typeRef);
+  }
 
-	public void saveQueryListToDB() throws Exception {
-		Iterator<String> iter = QueryListHolder.queryList.keySet().iterator();
-		while (iter.hasNext()) {
-			String key = iter.next();
-			QueryList query = queryListRepo.findQueryByKey(key);
-			if (query == null) {
-				query = new QueryList();
-			}
-			query.setQueryName(key);
-			query.setQueryData(Mapper.mapper.writeValueAsString(QueryListHolder.queryList.get(key)));
-			queryListRepo.save(query);
-		}
-	}
+  public void saveQueryListFromFile() throws Exception {
+    ClassLoader classLoader = getClass().getClassLoader();
+    File file = new File(classLoader.getResource(Const.LINK_QUERY_INITFILENAME).getFile());
+    saveQueryList(Mapper.mapper.readTree(file));
+  }
 
-	@Transactional
-	public void updateQueryListToDB() throws Exception {
-		Iterator<String> iter = QueryListHolder.queryList.keySet().iterator();
-		List<String> listName = queryListRepo.getAllqueryName();
-		for (String name : listName) {
-			if (!QueryListHolder.queryList.containsKey(name)) {
-				queryListRepo.deleteQueryByqueryName(name);
-			}
-		}
-		while (iter.hasNext()) {
-			String key = iter.next();
-			QueryList query = queryListRepo.findQueryByKey(key);
-			if (query == null) {
-				query = new QueryList();
-			}
-			query.setQueryName(key);
-			query.setQueryData(Mapper.mapper.writeValueAsString(QueryListHolder.queryList.get(key)));
-			queryListRepo.save(query);
-		}
-	}
+  public void persistQueryListToDB() throws Exception {
+    Iterator<String> iter = QueryListHolder.queryList.keySet().iterator();
+    while (iter.hasNext()) {
+      String key = iter.next();
+      QueryList query = queryListRepo.findQueryByKey(key);
+      if (query != null) {
+        continue;
+      }
+      query = new QueryList();
+      query.setQueryName(key);
+      query.setQueryData(Mapper.mapper.writeValueAsString(QueryListHolder.queryList.get(key)));
+      queryListRepo.save(query);
+    }
+  }
 
-	public void syncQueryListfromDB() {
-		List<QueryList> queryListDB = queryListRepo.findAll();
-		for (QueryList query : queryListDB) {
-			try {
-				QueryListHolder.queryList.put(query.getQueryName(), Mapper.mapper.readTree(query.getQueryData()));
-			} catch (Exception e) {
-				QueryListHolder.queryList.put(query.getQueryName(),
-						Mapper.mapper.createArrayNode().add("Invalid query from DB"));
-			}
-		}
-	}
+  public void saveQueryListToDB() throws Exception {
+    Iterator<String> iter = QueryListHolder.queryList.keySet().iterator();
+    while (iter.hasNext()) {
+      String key = iter.next();
+      QueryList query = queryListRepo.findQueryByKey(key);
+      if (query == null) {
+        query = new QueryList();
+      }
+      query.setQueryName(key);
+      query.setQueryData(Mapper.mapper.writeValueAsString(QueryListHolder.queryList.get(key)));
+      queryListRepo.save(query);
+    }
+  }
 
-	public void updateQueryList(ObjectNode query) {
-		Iterator<Entry<String, JsonNode>> nodeEntry = query.fields();
-		while (nodeEntry.hasNext()) {
-			Entry<String, JsonNode> entry = (Entry<String, JsonNode>) nodeEntry.next();
-			if (entry.getValue().isNull() && QueryListHolder.queryList.containsKey(entry.getKey())) {
-				QueryListHolder.queryList.remove(entry.getKey());
-				continue;
-			}
-			QueryListHolder.queryList.put(entry.getKey(), entry.getValue());
-		}
-	}
+  @Transactional
+  public void updateQueryListToDB() throws Exception {
+    Iterator<String> iter = QueryListHolder.queryList.keySet().iterator();
+    List<String> listName = queryListRepo.getAllqueryName();
+    for (String name : listName) {
+      if (!QueryListHolder.queryList.containsKey(name)) {
+        queryListRepo.deleteQueryByqueryName(name);
+      }
+    }
+    while (iter.hasNext()) {
+      String key = iter.next();
+      QueryList query = queryListRepo.findQueryByKey(key);
+      if (query == null) {
+        query = new QueryList();
+      }
+      query.setQueryName(key);
+      query.setQueryData(Mapper.mapper.writeValueAsString(QueryListHolder.queryList.get(key)));
+      queryListRepo.save(query);
+    }
+  }
 
-	public Object processLinkQuery(String queryName, String param) throws Exception {
-		if (QueryListHolder.queryList.isEmpty()) {
-			return Const.LINK_QUERY_QUERYLISTEMPTY;
-		}
-		return processLinkQuery(queryName, Mapper.mapper.readTree(param));
-	}
+  public void syncQueryListfromDB() {
+    List<QueryList> queryListDB = queryListRepo.findAll();
+    for (QueryList query : queryListDB) {
+      try {
+        QueryListHolder.queryList.put(query.getQueryName(),
+            Mapper.mapper.readTree(query.getQueryData()));
+      } catch (Exception e) {
+        QueryListHolder.queryList.put(query.getQueryName(),
+            Mapper.mapper.createArrayNode().add("Invalid query from DB"));
+      }
+    }
+  }
 
-	public Object processLinkQuery(String queryName, JsonNode param) throws Exception {
-		JsonNode queryObject = QueryListHolder.queryList.get(queryName);
-		if (queryObject == null) {
-			return Const.LINK_QUERY_QUERYNOTEXIST;
-		}
-		if (queryObject.has(Const.PARAM_QUERY)) {
-			return coreDAO.processQueryObject(queryObject, param);
-		}
-		return dynamicDTODAO.nativeWithDynamicPojo((ObjectNode) queryObject.deepCopy(), param);
-	}
+  public void updateQueryList(ObjectNode query) {
+    Iterator<Entry<String, JsonNode>> nodeEntry = query.fields();
+    while (nodeEntry.hasNext()) {
+      Entry<String, JsonNode> entry = (Entry<String, JsonNode>) nodeEntry.next();
+      if (entry.getValue().isNull() && QueryListHolder.queryList.containsKey(entry.getKey())) {
+        QueryListHolder.queryList.remove(entry.getKey());
+        continue;
+      }
+      QueryListHolder.queryList.put(entry.getKey(), entry.getValue());
+    }
+  }
+
+  public Object processLinkQuery(String queryName, String param) throws Exception {
+    if (QueryListHolder.queryList.isEmpty()) {
+      return Const.LINK_QUERY_QUERYLISTEMPTY;
+    }
+    return processLinkQuery(queryName, Mapper.mapper.readTree(param));
+  }
+
+  public Object processLinkQuery(String queryName, JsonNode param) throws Exception {
+    JsonNode queryObject = QueryListHolder.queryList.get(queryName);
+    if (queryObject == null) {
+      return Const.LINK_QUERY_QUERYNOTEXIST;
+    }
+    if (queryObject.has(Const.PARAM_QUERY)) {
+      return coreDAO.processQueryObject(queryObject, param);
+    }
+    return dynamicDTODAO.nativeWithDynamicPojo((ObjectNode) queryObject.deepCopy(), param);
+  }
+
+  public boolean isUpdateFromDB() {
+    return updateFromDB;
+  }
+
+  public void setUpdateFromDB(boolean updateFromDB) {
+    this.updateFromDB = updateFromDB;
+  }
 
 }

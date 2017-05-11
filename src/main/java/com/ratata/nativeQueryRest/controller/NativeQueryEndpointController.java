@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -28,151 +29,162 @@ import com.ratata.nativeQueryRest.utils.Mapper;
 
 @RestController
 public class NativeQueryEndpointController {
-	@Autowired
-	private CoreDAO coreDAO;
+  @Autowired
+  private CoreDAO coreDAO;
 
-	@Autowired
-	private DynamicDTODAO dynamicDTODAO;
+  @Autowired
+  private DynamicDTODAO dynamicDTODAO;
 
-	@Autowired
-	private LinkQueryDAO linkQueryDAO;
+  @Autowired
+  private LinkQueryDAO linkQueryDAO;
 
-	// ------------------------------NativeQueryDAO
-	@RequestMapping(value = "/directQuery", method = RequestMethod.GET)
-	public Object nativeQuery(@RequestParam String query,
-			@RequestHeader(required = false, defaultValue = "") String className,
-			@RequestHeader(required = false, defaultValue = "") String[] resultSet,
-			@RequestHeader(required = false, defaultValue = "L") String queryMode,
-			@RequestHeader(required = false, defaultValue = "{}") String param,
-			@RequestHeader(required = false, defaultValue = "true") Boolean isNative,
-			@RequestHeader(required = false, defaultValue = "0") Integer lockMode,
-			@RequestHeader(required = false, defaultValue = "0") Integer offset,
-			@RequestHeader(required = false, defaultValue = "0") Integer limit) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/directQuery")) {
-			return Const.LOCK_MESSAGE;
-		}
-		return coreDAO.nativeQuery(
-				new NativeQueryParam(query, className, resultSet, queryMode, param, isNative, lockMode, offset, limit));
-	}
+  // ------------------------------NativeQueryDAO
+  @RequestMapping(value = "/directQuery", method = RequestMethod.GET)
+  public Object nativeQuery(@RequestParam String query,
+      @RequestHeader(required = false, defaultValue = "") String className,
+      @RequestHeader(required = false, defaultValue = "") String[] resultSet,
+      @RequestHeader(required = false, defaultValue = "L") String queryMode,
+      @RequestHeader(required = false, defaultValue = "{}") String param,
+      @RequestHeader(required = false, defaultValue = "true") Boolean isNative,
+      @RequestHeader(required = false, defaultValue = "0") Integer lockMode,
+      @RequestHeader(required = false, defaultValue = "0") Integer offset,
+      @RequestHeader(required = false, defaultValue = "0") Integer limit) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/directQuery")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return coreDAO.nativeQuery(new NativeQueryParam(query, className, resultSet, queryMode, param,
+        isNative, lockMode, offset, limit));
+  }
 
-	@RequestMapping(value = "/saveObject", method = RequestMethod.POST)
-	public String saveData(@RequestBody JsonNode obj, @RequestHeader String className) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveObject")) {
-			return Const.LOCK_MESSAGE;
-		}
-		coreDAO.saveObject(obj, className);
-		return null;
-	}
+  @RequestMapping(value = "/saveObject", method = RequestMethod.POST)
+  public String saveData(@RequestBody JsonNode obj, @RequestHeader String className)
+      throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveObject")) {
+      return Const.LOCK_MESSAGE;
+    }
+    coreDAO.saveObject(obj, className);
+    return null;
+  }
 
-	@RequestMapping(value = "/saveNestedObject", method = RequestMethod.POST)
-	public String saveLinkedData(@RequestBody JsonNode obj) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveNestedObject")) {
-			return Const.LOCK_MESSAGE;
-		}
-		coreDAO.saveLinkedObject(obj);
-		return null;
-	}
+  @RequestMapping(value = "/saveNestedObject", method = RequestMethod.POST)
+  public String saveLinkedData(@RequestBody JsonNode obj) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveNestedObject")) {
+      return Const.LOCK_MESSAGE;
+    }
+    coreDAO.saveLinkedObject(obj);
+    return null;
+  }
 
-	// ------------------------------NativeQueryDynamicPojoDAO
-	@RequestMapping(value = "/nativeQueryJson", method = RequestMethod.POST)
-	public Object nativeQueryWithDynamicPoJoPost(@RequestBody JsonNode pojo) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryJson_POST")) {
-			return Const.LOCK_MESSAGE;
-		}
-		return dynamicDTODAO.nativeWithDynamicPojo(pojo);
-	}
+  // ------------------------------NativeQueryDynamicPojoDAO
+  @RequestMapping(value = "/nativeQueryJson", method = RequestMethod.POST)
+  public Object nativeQueryWithDynamicPoJoPost(@RequestBody JsonNode pojo) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryJson_POST")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return dynamicDTODAO.nativeWithDynamicPojo(pojo);
+  }
 
-	@RequestMapping(value = "/nativeQueryJson", method = RequestMethod.GET)
-	public Object nativeQueryWithDynamicPoJoGet(@RequestHeader String query) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryJson_GET")) {
-			return Const.LOCK_MESSAGE;
-		}
-		return dynamicDTODAO.nativeWithDynamicPojo(Mapper.mapper.readTree(query));
-	}
+  @RequestMapping(value = "/nativeQueryJson", method = RequestMethod.GET)
+  public Object nativeQueryWithDynamicPoJoGet(@RequestHeader String query) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryJson_GET")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return dynamicDTODAO.nativeWithDynamicPojo(Mapper.mapper.readTree(query));
+  }
 
-	// ------------------------------NativeQueryTransaction
-	@RequestMapping(value = "/nativeQueryTransaction", method = RequestMethod.GET)
-	public Object nativeQueryTransactionGet(@RequestHeader String query) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryTransaction_GET")) {
-			return Const.LOCK_MESSAGE;
-		}
-		return dynamicDTODAO.transationNativeQuery(query);
-	}
+  // ------------------------------NativeQueryTransaction
+  @RequestMapping(value = "/nativeQueryTransaction", method = RequestMethod.GET)
+  public Object nativeQueryTransactionGet(@RequestHeader String query) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryTransaction_GET")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return dynamicDTODAO.transationNativeQuery(query);
+  }
 
-	@RequestMapping(value = "/nativeQueryTransaction", method = RequestMethod.POST)
-	public Object nativeQueryTransactionPost(@RequestBody ArrayNode query) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryTransaction_POST")) {
-			return Const.LOCK_MESSAGE;
-		}
-		return dynamicDTODAO.transationNativeQuery(query);
-	}
+  @RequestMapping(value = "/nativeQueryTransaction", method = RequestMethod.POST)
+  public Object nativeQueryTransactionPost(@RequestBody ArrayNode query) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/nativeQueryTransaction_POST")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return dynamicDTODAO.transationNativeQuery(query);
+  }
 
-	// ------------------------------CustomQueryListDAO
-	@RequestMapping(value = "/saveQueryList", method = RequestMethod.POST)
-	public Object SaveQueryList(@RequestBody ObjectNode queryList) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveQueryList")) {
-			return Const.LOCK_MESSAGE;
-		}
-		linkQueryDAO.saveQueryList(queryList);
-		linkQueryDAO.saveQueryListToDB();
-		return QueryListHolder.queryList;
-	}
+  // ------------------------------CustomQueryListDAO
+  @RequestMapping(value = "/saveQueryList", method = RequestMethod.POST)
+  public Object SaveQueryList(@RequestBody ObjectNode queryList) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveQueryList")) {
+      return Const.LOCK_MESSAGE;
+    }
+    linkQueryDAO.saveQueryList(queryList);
+    linkQueryDAO.saveQueryListToDB();
+    return QueryListHolder.queryList;
+  }
 
-	@RequestMapping(value = "/updateQueryList", method = RequestMethod.POST)
-	public Object UpdateQueryList(@RequestBody ObjectNode queryList) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/updateQueryList")) {
-			return Const.LOCK_MESSAGE;
-		}
-		linkQueryDAO.updateQueryList(queryList);
-		linkQueryDAO.updateQueryListToDB();
-		return QueryListHolder.queryList;
-	}
+  @RequestMapping(value = "/updateQueryList", method = RequestMethod.POST)
+  public Object UpdateQueryList(@RequestBody ObjectNode queryList) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/updateQueryList")) {
+      return Const.LOCK_MESSAGE;
+    }
+    linkQueryDAO.updateQueryList(queryList);
+    linkQueryDAO.updateQueryListToDB();
+    return QueryListHolder.queryList;
+  }
 
-	@RequestMapping(value = "/getQueryList", method = RequestMethod.GET)
-	public Object GetQueryList() {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/getQueryList")) {
-			return Const.LOCK_MESSAGE;
-		}
-		return QueryListHolder.queryList;
-	}
+  @RequestMapping(value = "/getQueryList", method = RequestMethod.GET)
+  public Object GetQueryList() {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/getQueryList")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return QueryListHolder.queryList;
+  }
 
-	@RequestMapping(value = "/customQuery/{queryName}", method = RequestMethod.GET)
-	public Object queryWithParam(@PathVariable("queryName") String queryName,
-			@RequestHeader(defaultValue = "{}") String param) throws Exception {
-		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/customQuery")) {
-			return Const.LOCK_MESSAGE;
-		}
-		return linkQueryDAO.processLinkQuery(queryName, param);
-	}
+  @RequestMapping(value = "/customQuery/{queryName}", method = RequestMethod.GET)
+  public Object queryWithParam(@PathVariable("queryName") String queryName,
+      @RequestHeader(defaultValue = "{}") String param) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/customQuery")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return linkQueryDAO.processLinkQuery(queryName, param);
+  }
 
-	// @Scheduled(fixedRate = 10000)
-	public void SyncDbQueryList() {
-		linkQueryDAO.syncQueryListfromDB();
-	}
+  @RequestMapping(value = "/updateFromDb", method = RequestMethod.GET)
+  public boolean configFromDB(@RequestParam(required = false) Boolean option) {
+    if (option != null) {
+      linkQueryDAO.setUpdateFromDB(option);
+    }
+    return linkQueryDAO.isUpdateFromDB();
+  }
 
-	@PostConstruct
-	public void InitQueryList() throws Exception {
-		linkQueryDAO.saveQueryListFromFile();
-		linkQueryDAO.persistQueryListToDB();
-		LockUtil.initLockList();
-	}
+  @Scheduled(fixedRate = 10000)
+  public void SyncDbQueryList() {
+    if (linkQueryDAO.isUpdateFromDB()) {
+      linkQueryDAO.syncQueryListfromDB();
+    }
+  }
 
-	// ------------------------------LockUtil
-	@RequestMapping(value = "/lock", method = RequestMethod.POST)
-	public String lockOption(@RequestHeader String password, @RequestHeader String hint,
-			@RequestBody Map<String, Boolean> lockOption) throws NoSuchAlgorithmException {
-		LockUtil.lockList = lockOption;
-		return LockUtil.lock(password, hint);
-	}
+  @PostConstruct
+  public void InitQueryList() throws Exception {
+    linkQueryDAO.saveQueryListFromFile();
+    linkQueryDAO.persistQueryListToDB();
+    LockUtil.initLockList();
+  }
 
-	@RequestMapping(value = "/unlock", method = RequestMethod.GET)
-	public String unlockOption(@RequestHeader String key) {
-		return LockUtil.unlock(key);
-	}
+  // ------------------------------LockUtil
+  @RequestMapping(value = "/lock", method = RequestMethod.POST)
+  public String lockOption(@RequestHeader String password, @RequestHeader String hint,
+      @RequestBody Map<String, Boolean> lockOption) throws NoSuchAlgorithmException {
+    LockUtil.lockList = lockOption;
+    return LockUtil.lock(password, hint);
+  }
 
-	@RequestMapping(value = "/lockStatus", method = RequestMethod.GET)
-	public Object getLockStatus() throws NoSuchAlgorithmException {
-		return LockUtil.lockList;
-	}
+  @RequestMapping(value = "/unlock", method = RequestMethod.GET)
+  public String unlockOption(@RequestHeader String key) {
+    return LockUtil.unlock(key);
+  }
+
+  @RequestMapping(value = "/lockStatus", method = RequestMethod.GET)
+  public Object getLockStatus() throws NoSuchAlgorithmException {
+    return LockUtil.lockList;
+  }
 
 }
