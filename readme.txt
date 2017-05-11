@@ -10,7 +10,7 @@ POST http://localhost:8080/demoSpringMvc4/nativequery
 	}
 }
 
-GET http://localhost:8080/demoSpringMvc4/nativequery?query=UPDATE User Set username = 'ratata' where username = '?';&queryMode=U
+GET http://localhost:8080/demoSpringMvc4/nativequery?query=UPDATE User Set username = 'ratata' where username = '?';&queryMode=M
  
 POST http://localhost:8080/demoSpringMvc4/nativequery
 {

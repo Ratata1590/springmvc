@@ -1,0 +1,128 @@
+cheatsheet
+==============================================
+path /directQuery
+----------------------------------------------
+Method: GET
+
+QueryParam:
+	query[*]
+
+Headers:
+	className / resultSet
+	queryMode 
+		default: L
+		options: S | L | M
+	param
+		default: {}
+		options: {"paramName":value} | [value]
+	isNative (native or jpa)
+		default: true
+		options: true | false
+	lockMode [not yet]
+	offset
+		default: 0
+	limit
+		default: 0
+----------------------------------------------query set----------------------------------------------
+className set:
+	native:
+		directQuery?query=select * from User;
+			isNative: true
+			className: com.ratata.model.User
+or
+	jpa:
+		directQuery?query=select a from User a
+			isNative: false
+			className: com.ratata.model.User
+----------------------------------------------
+resultSet set:
+	native:
+		directQuery?query=select a.id,a.username,a.version from User a;
+			isNative: true
+			resultSet: theId,theUsername,theVersion
+or
+	jpa:
+		directQuery?query=select a.id,a.username,a.version from User a
+			isNative: false
+			resultSet: theId,theUsername,theVersion
+----------------------------------------------
+modify set:
+	native:
+		directQuery?query=insert into User values (8,'aaa',5);
+			isNative: true
+			queryMode: M
+or
+	jpa:
+		use saveObject instead
+==============================================
+path /saveObject
+----------------------------------------------
+Method: POST
+
+Headers:
+	className (classname of the root class)
+	Content-Type: application/json
+RequestBody:
+	json without id
+==============================================
+path /saveNestedObject
+----------------------------------------------
+Method: POST
+
+Headers:
+	Content-Type: application/json
+RequestBody:
+[
+   {
+      "id":3,
+      "className":"com.ratata.model.User",
+      "childList":[
+         {
+            "idList":"0,1",
+            "className":"com.ratata.model.Item",
+            "parentKey":"user"
+         }
+      ]
+   },
+   {
+      "id":1,
+      "className":"com.ratata.model.User",
+      "childList":[
+         {
+            "idList":"3,4",
+            "className":"com.ratata.model.Item",
+            "parentKey":"user"
+         }
+      ]
+   }
+]
+==============================================
+path /nativeQueryJson
+----------------------------------------------
+Method: POST
+
+Headers:
+	Content-Type: application/json
+RequestBody:
+{
+  "param":[[1,2]],
+  "data":{
+    "query":"Select i.data,i.id from Item i where i.id in (?0)",
+    "resultSet":["thedata","theid"]
+  }
+}
+or
+{
+  "param":{"theIdList":[1,2]},
+  "data":{
+    "query":"Select i.data,i.id from Item i where i.id in (:theIdList)",
+    "resultSet":["thedata","theid"]
+  }
+}
+==============================================
+path /customQuery/{queryName}
+----------------------------------------------
+Method: GET
+
+Headers:
+	param

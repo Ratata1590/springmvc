@@ -39,7 +39,7 @@
 			],
 			"insideObject": {
 				"ItemList": {
-					"param": [
+					"passParam": [
 						"theid"
 					],
 					"data": {
