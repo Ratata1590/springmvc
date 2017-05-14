@@ -60,5 +60,6 @@ public class LockUtil {
 		LockUtil.lockList.put("/updateQueryList", false);
 		LockUtil.lockList.put("/getQueryList", false);
 		LockUtil.lockList.put("/customQuery", false);
+		LockUtil.lockList.put("/tableFieldsToResultset", false);
 	}
 }

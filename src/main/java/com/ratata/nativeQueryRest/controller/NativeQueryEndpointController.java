@@ -192,6 +192,9 @@ public class NativeQueryEndpointController {
 	@RequestMapping(value = "/tableFieldsToResultset", method = RequestMethod.GET)
 	public Object getColumnsAsResultset(@RequestParam String queryShow,
 			@RequestParam(required = false, defaultValue = "0") Integer fieldNumber) throws Exception {
+		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/tableFieldsToResultset")) {
+			return Const.LOCK_MESSAGE;
+		}
 		NativeQueryParam query = new NativeQueryParam();
 		query.setQuery(queryShow);
 		List<Object[]> result = (List<Object[]>) coreDAO.nativeQuery(query);
