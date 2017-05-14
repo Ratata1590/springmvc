@@ -14,5 +14,7 @@ public interface CoreDAO {
 
 	public void saveObject(JsonNode obj, String className) throws Exception;
 
-	public void saveLinkedObject(JsonNode obj) throws Exception;
+	public Object saveLinkedObject(JsonNode obj) throws Exception;
+	
+	public Object saveunLinkedObject(JsonNode obj) throws Exception;
 }

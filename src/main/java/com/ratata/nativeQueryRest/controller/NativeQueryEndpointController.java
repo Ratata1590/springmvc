@@ -116,12 +116,20 @@ public class NativeQueryEndpointController {
 	}
 
 	@RequestMapping(value = "/saveNestedObject", method = RequestMethod.POST)
-	public String saveLinkedData(@RequestBody JsonNode obj) throws Exception {
+	public Object saveLinkedData(@RequestBody JsonNode obj) throws Exception {
 		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveNestedObject")) {
 			return Const.LOCK_MESSAGE;
 		}
-		coreDAO.saveLinkedObject(obj);
-		return null;
+
+		return coreDAO.saveLinkedObject(obj);
+	}
+
+	@RequestMapping(value = "/saveunNestedObject", method = RequestMethod.POST)
+	public Object saveunLinkedData(@RequestBody JsonNode obj) throws Exception {
+		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/saveNestedObject")) {
+			return Const.LOCK_MESSAGE;
+		}
+		return coreDAO.saveunLinkedObject(obj);
 	}
 
 	// ------------------------------NativeQueryDynamicPojoDAO

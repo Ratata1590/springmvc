@@ -259,32 +259,90 @@ public class CoreDAOimpl implements CoreDAO {
 	}
 
 	@Transactional
-	public void saveLinkedObject(JsonNode node) throws Exception {
+	public Object saveLinkedObject(JsonNode node) throws Exception {
 		if (node.isArray()) {
 			node = (ArrayNode) node;
+			ArrayNode result = Mapper.mapper.createArrayNode();
 			for (JsonNode innerNode : node) {
-				resolveLinkedObject(innerNode);
+				result.add(resolveLinkedObject(innerNode));
 			}
+			return result;
 		}
 		if (node.isObject()) {
-			resolveLinkedObject(node);
+			return resolveLinkedObject(node);
 		}
+		return null;
 	}
 
-	private void resolveLinkedObject(JsonNode node) throws Exception {
+	private JsonNode resolveLinkedObject(JsonNode node) throws Exception {
 		String className = node.get("className").asText();
 		Object parent = em.find(Class.forName(className), node.get("id").asInt());
 		ArrayNode childList = (ArrayNode) node.get("childList");
+
+		ArrayNode result = Mapper.mapper.createArrayNode();
 		for (JsonNode child : childList) {
+			ArrayNode idList = (ArrayNode) child.get("idList");
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < idList.size(); i++) {
+				sb.append(idList.get(i).asText());
+				if (i == idList.size() - 1) {
+					break;
+				}
+				sb.append(",");
+			}
 			StringBuilder query = new StringBuilder();
 			query.append("UPDATE ");
 			query.append(child.get("className").asText());
 			query.append(" a SET a.");
 			query.append(child.get("parentKey").asText());
 			query.append(" =:parent WHERE a.id IN (");
-			query.append(child.get("idList").asText());
-			query.append(")");
-			em.createQuery(query.toString()).setParameter("parent", parent).executeUpdate();
+			query.append(sb.toString());
+			query.append(") and (");
+			query.append(child.get("parentKey").asText());
+			query.append(" != :parent or ");
+			query.append(child.get("parentKey").asText());
+			query.append(" = null)");
+			result.add(em.createQuery(query.toString()).setParameter("parent", parent).executeUpdate());
 		}
+		return result;
+	}
+
+	@Transactional
+	public Object saveunLinkedObject(JsonNode node) throws Exception {
+		if (node.isArray()) {
+			node = (ArrayNode) node;
+			ArrayNode result = Mapper.mapper.createArrayNode();
+			for (JsonNode innerNode : node) {
+				result.add(resolveunLinkedObject(innerNode));
+			}
+			return result;
+		}
+		if (node.isObject()) {
+			return resolveunLinkedObject(node);
+		}
+		return null;
+	}
+
+	private Integer resolveunLinkedObject(JsonNode node) throws Exception {
+		ArrayNode idList = (ArrayNode) node.get("idList");
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < idList.size(); i++) {
+			sb.append(idList.get(i).asText());
+			if (i == idList.size() - 1) {
+				break;
+			}
+			sb.append(",");
+		}
+		StringBuilder query = new StringBuilder();
+		query.append("UPDATE ");
+		query.append(node.get("className").asText());
+		query.append(" a SET a.");
+		query.append(node.get("parentKey").asText());
+		query.append(" = null WHERE a.id IN (");
+		query.append(sb.toString());
+		query.append(") and ");
+		query.append(node.get("parentKey").asText());
+		query.append(" != null");
+		return em.createQuery(query.toString()).executeUpdate();
 	}
 }

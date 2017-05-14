@@ -27,7 +27,7 @@ public class InnerItem implements Serializable {
 
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "itemId", nullable = false)
+	@JoinColumn(name = "itemId")
 	private Item item;
 
 	public Item getItem() {

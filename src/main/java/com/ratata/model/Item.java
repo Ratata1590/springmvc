@@ -32,7 +32,7 @@ public class Item implements Serializable {
 
 	@JsonBackReference
 	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "userId", nullable = false)
+	@JoinColumn(name = "userId")
 	private User user;
 
 	@JsonManagedReference
