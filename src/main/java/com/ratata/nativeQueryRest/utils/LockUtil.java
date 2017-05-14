@@ -61,5 +61,9 @@ public class LockUtil {
 		LockUtil.lockList.put("/getQueryList", false);
 		LockUtil.lockList.put("/customQuery", false);
 		LockUtil.lockList.put("/tableFieldsToResultset", false);
+		LockUtil.lockList.put("/directQueryToQueryObject", false);
+		LockUtil.lockList.put("/getEntityMapDetail", false);
+		LockUtil.lockList.put("/getEntityMap", false);
+		LockUtil.lockList.put("/initObject", false);
 	}
 }

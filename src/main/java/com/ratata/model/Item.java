@@ -1,6 +1,7 @@
 package com.ratata.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,7 +37,7 @@ public class Item implements Serializable {
 
 	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "item", fetch = FetchType.EAGER)
-	private Set<InnerItem> inneritems;
+	private Set<InnerItem> inneritems = new HashSet<InnerItem>();
 
 	public User getUser() {
 		return user;

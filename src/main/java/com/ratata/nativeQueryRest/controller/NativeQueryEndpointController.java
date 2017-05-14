@@ -1,5 +1,6 @@
 package com.ratata.nativeQueryRest.controller;
 
+import java.lang.reflect.Field;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,54 @@ public class NativeQueryEndpointController {
 		}
 		return coreDAO.nativeQuery(
 				new NativeQueryParam(query, className, resultSet, queryMode, param, isNative, lockMode, offset, limit));
+	}
+
+	@RequestMapping(value = "/directQueryToQueryObject", method = RequestMethod.GET)
+	public Object directQueryToQueryObject(@RequestParam String query,
+			@RequestHeader(required = false, defaultValue = "") String className,
+			@RequestHeader(required = false, defaultValue = "") String[] resultSet,
+			@RequestHeader(required = false, defaultValue = "L") String queryMode,
+			@RequestHeader(required = false, defaultValue = "{}") String param,
+			@RequestHeader(required = false, defaultValue = "true") Boolean isNative,
+			@RequestHeader(required = false, defaultValue = "0") Integer lockMode,
+			@RequestHeader(required = false, defaultValue = "0") Integer offset,
+			@RequestHeader(required = false, defaultValue = "0") Integer limit) throws Exception {
+		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/directQueryToQueryObject")) {
+			return Const.LOCK_MESSAGE;
+		}
+		return new NativeQueryParam(query, className, resultSet, queryMode, param, isNative, lockMode, offset, limit);
+	}
+
+	// entity map
+	@RequestMapping(value = "/getEntityMapDetail", method = RequestMethod.GET)
+	public Object getEntityMapDetail(@RequestParam String className) throws Exception {
+		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/getEntityMapDetail")) {
+			return Const.LOCK_MESSAGE;
+		}
+		return Class.forName(className).getDeclaredFields();
+	}
+
+	@RequestMapping(value = "/getEntityMap", method = RequestMethod.GET)
+	public Object getEntityMap(@RequestParam String className) throws Exception {
+		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/getEntityMap")) {
+			return Const.LOCK_MESSAGE;
+		}
+		ObjectNode node = Mapper.mapper.createObjectNode();
+		Field[] fields = Class.forName(className).getDeclaredFields();
+		for (Field field : fields) {
+			node.put(field.getName(), field.getAnnotatedType().getType().getTypeName());
+		}
+		return node;
+	}
+
+	@RequestMapping(value = "/initObject", method = RequestMethod.GET)
+	public Object initData(@RequestHeader String className) throws Exception {
+		if (LockUtil.isLockFlag() && LockUtil.lockList.get("/initObject")) {
+			return Const.LOCK_MESSAGE;
+		}
+		ObjectNode node = Mapper.mapper.valueToTree(Class.forName(className).newInstance());
+		node.remove("id");
+		return node;
 	}
 
 	@RequestMapping(value = "/saveObject", method = RequestMethod.POST)
