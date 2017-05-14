@@ -281,28 +281,11 @@ public class CoreDAOimpl implements CoreDAO {
 
 		ArrayNode result = Mapper.mapper.createArrayNode();
 		for (JsonNode child : childList) {
-			ArrayNode idList = (ArrayNode) child.get("idList");
-			StringBuilder sb = new StringBuilder();
-			for (int i = 0; i < idList.size(); i++) {
-				sb.append(idList.get(i).asText());
-				if (i == idList.size() - 1) {
-					break;
-				}
-				sb.append(",");
-			}
-			StringBuilder query = new StringBuilder();
-			query.append("UPDATE ");
-			query.append(child.get("className").asText());
-			query.append(" a SET a.");
-			query.append(child.get("parentKey").asText());
-			query.append(" =:parent WHERE a.id IN (");
-			query.append(sb.toString());
-			query.append(") and (");
-			query.append(child.get("parentKey").asText());
-			query.append(" != :parent or ");
-			query.append(child.get("parentKey").asText());
-			query.append(" = null)");
-			result.add(em.createQuery(query.toString()).setParameter("parent", parent).executeUpdate());
+			String query = String.format(
+					"UPDATE %1$s a SET a.%2$s =:parent WHERE a.id IN (%3$s) and (a.%2$s !=:parent or a.%2$s = null)",
+					child.get("className").asText(), child.get("parentKey").asText(),
+					arrayNodeToString((ArrayNode) child.get("idList")));
+			result.add(em.createQuery(query).setParameter("parent", parent).executeUpdate());
 		}
 		return result;
 	}
@@ -324,7 +307,13 @@ public class CoreDAOimpl implements CoreDAO {
 	}
 
 	private Integer resolveunLinkedObject(JsonNode node) throws Exception {
-		ArrayNode idList = (ArrayNode) node.get("idList");
+		String query = String.format("UPDATE %1$s a SET a.%2$s = null WHERE a.id IN (%3$s) and a.%2$s != null",
+				node.get("className").asText(), node.get("parentKey").asText(),
+				arrayNodeToString((ArrayNode) node.get("idList")));
+		return em.createQuery(query.toString()).executeUpdate();
+	}
+
+	private String arrayNodeToString(ArrayNode idList) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < idList.size(); i++) {
 			sb.append(idList.get(i).asText());
@@ -333,16 +322,6 @@ public class CoreDAOimpl implements CoreDAO {
 			}
 			sb.append(",");
 		}
-		StringBuilder query = new StringBuilder();
-		query.append("UPDATE ");
-		query.append(node.get("className").asText());
-		query.append(" a SET a.");
-		query.append(node.get("parentKey").asText());
-		query.append(" = null WHERE a.id IN (");
-		query.append(sb.toString());
-		query.append(") and ");
-		query.append(node.get("parentKey").asText());
-		query.append(" != null");
-		return em.createQuery(query.toString()).executeUpdate();
+		return sb.toString();
 	}
 }
