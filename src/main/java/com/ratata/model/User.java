@@ -17,6 +17,7 @@ import javax.persistence.Version;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
 @Entity
@@ -78,5 +79,14 @@ public class User implements Serializable {
 
 	public void setItems(Set<Item> items) {
 		this.items = items;
+	}
+
+	public void updateByJsonNode(ObjectNode node) {
+		if (node.has("username")) {
+			setUsername(node.get("username").asText());
+		}
+		if (node.has("version")) {
+			setVersion(node.get("version").asInt());
+		}
 	}
 }

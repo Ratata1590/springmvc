@@ -12,6 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Entity
 @Table
@@ -54,4 +55,9 @@ public class InnerItem implements Serializable {
 		this.data = data;
 	}
 
+	public void updateByJsonNode(ObjectNode node) {
+		if (node.has("username")) {
+			setData(node.get("data").asText());
+		}
+	}
 }

@@ -50,7 +50,6 @@ public class LockUtil {
 
 	public static void initLockList() {
 		LockUtil.lockList.put("/directQuery", false);
-		LockUtil.lockList.put("/saveObject", false);
 		LockUtil.lockList.put("/saveNestedObject", false);
 		LockUtil.lockList.put("/nativeQueryJson_POST", false);
 		LockUtil.lockList.put("/nativeQueryJson_GET", false);
@@ -65,5 +64,8 @@ public class LockUtil {
 		LockUtil.lockList.put("/getEntityMapDetail", false);
 		LockUtil.lockList.put("/getEntityMap", false);
 		LockUtil.lockList.put("/initObject", false);
+		LockUtil.lockList.put("/saveObject", false);
+		LockUtil.lockList.put("/linkObject", false);
+		LockUtil.lockList.put("/updateObject", false);
 	}
 }
