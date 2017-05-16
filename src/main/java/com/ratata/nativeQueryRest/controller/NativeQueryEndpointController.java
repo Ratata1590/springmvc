@@ -175,7 +175,9 @@ public class NativeQueryEndpointController {
       return Const.LOCK_MESSAGE;
     }
     linkQueryDAO.saveQueryList(queryList);
-    linkQueryDAO.saveQueryListToDB();
+    if (linkQueryDAO.isUpdateFromDB()) {
+      linkQueryDAO.saveQueryListToDB();
+    }
     return QueryListHolder.queryList;
   }
 
@@ -185,7 +187,9 @@ public class NativeQueryEndpointController {
       return Const.LOCK_MESSAGE;
     }
     linkQueryDAO.updateQueryList(queryList);
-    linkQueryDAO.updateQueryListToDB();
+    if (linkQueryDAO.isUpdateFromDB()) {
+      linkQueryDAO.updateQueryListToDB();
+    }
     return QueryListHolder.queryList;
   }
 
@@ -224,7 +228,9 @@ public class NativeQueryEndpointController {
   @PostConstruct
   public void InitQueryList() throws Exception {
     linkQueryDAO.saveQueryListFromFile();
-    linkQueryDAO.persistQueryListToDB();
+    if (linkQueryDAO.isUpdateFromDB()) {
+      linkQueryDAO.persistQueryListToDB();
+    }
     LockUtil.initLockList();
   }
 
