@@ -50,4 +50,7 @@ public interface Const {
 	public static final String UPDATEOBJECT_UPDATEMETHOD = "updateByJsonNode";
 	public static final String UPDATEOBJECT_STATUS = "status";
 	public static final String UPDATEOBJECT_SUCCESS = "success";
+	
+	public static final String INITOBJECT_PARAM_CLASSNAME = "className";
+	public static final String INITOBJECT_PARAM_ID = "id";
 }
