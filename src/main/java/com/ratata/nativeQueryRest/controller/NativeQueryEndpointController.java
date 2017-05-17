@@ -124,6 +124,14 @@ public class NativeQueryEndpointController {
     }
     return coreDAO.updateObject(node);
   }
+  
+  @RequestMapping(value = "/deleteObject", method = RequestMethod.POST)
+  public Object deleteObject(@RequestBody JsonNode node) throws Exception {
+    if (LockUtil.isLockFlag() && LockUtil.lockList.get("/deleteObject")) {
+      return Const.LOCK_MESSAGE;
+    }
+    return coreDAO.deleteObject(node);
+  }
 
   @RequestMapping(value = "/tableFieldsToResultset", method = RequestMethod.GET)
   public Object tableFieldsToResultset(@RequestParam String queryShow,

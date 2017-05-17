@@ -19,74 +19,76 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = User.class)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id",
+    scope = User.class)
 @Entity
 @Table
 public class User implements Serializable {
 
-	private static final long serialVersionUID = 6541162783907686900L;
+  private static final long serialVersionUID = 6541162783907686900L;
 
-	@Id
-	@GeneratedValue
-	private int id;
+  @Id
+  @GeneratedValue
+  private int id;
 
-	@Column
-	private String username;
+  @Column
+  private String username;
 
-	@Version
-	private int version;
+  @Version
+  private int version;
 
-	@JsonManagedReference
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.EAGER)
-	private Set<Item> items = new HashSet<Item>();
+  @JsonManagedReference
+  @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},
+      mappedBy = "user", fetch = FetchType.EAGER)
+  private Set<Item> items = new HashSet<Item>();
 
-	public User() {
-		super();
-	}
+  public User() {
+    super();
+  }
 
-	public User(String username) {
-		super();
-		this.username = username;
-	}
+  public User(String username) {
+    super();
+    this.username = username;
+  }
 
-	public int getId() {
-		return id;
-	}
+  public int getId() {
+    return id;
+  }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+  public void setId(int id) {
+    this.id = id;
+  }
 
-	public String getUsername() {
-		return username;
-	}
+  public String getUsername() {
+    return username;
+  }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-	public int getVersion() {
-		return version;
-	}
+  public int getVersion() {
+    return version;
+  }
 
-	public void setVersion(int version) {
-		this.version = version;
-	}
+  public void setVersion(int version) {
+    this.version = version;
+  }
 
-	public Set<Item> getItems() {
-		return items;
-	}
+  public Set<Item> getItems() {
+    return items;
+  }
 
-	public void setItems(Set<Item> items) {
-		this.items = items;
-	}
+  public void setItems(Set<Item> items) {
+    this.items = items;
+  }
 
-	public void updateByJsonNode(ObjectNode node) {
-		if (node.has("username")) {
-			setUsername(node.get("username").asText());
-		}
-		if (node.has("version")) {
-			setVersion(node.get("version").asInt());
-		}
-	}
+  public void updateByJsonNode(ObjectNode node) {
+    if (node.has("username")) {
+      setUsername(node.get("username").asText());
+    }
+    if (node.has("version")) {
+      setVersion(node.get("version").asInt());
+    }
+  }
 }

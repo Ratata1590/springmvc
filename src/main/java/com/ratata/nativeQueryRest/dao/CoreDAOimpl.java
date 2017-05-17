@@ -348,6 +348,39 @@ public class CoreDAOimpl implements CoreDAO {
     }
   }
 
+  // ===========================================deleteObject===========================================
+  @Transactional
+  public JsonNode deleteObject(JsonNode node) throws Exception {
+    if (node.isObject()) {
+      return resolveDeleteObject((ObjectNode) node);
+    }
+
+    if (node.isArray()) {
+      ArrayNode result = Mapper.mapper.createArrayNode();
+      node = (ArrayNode) node;
+      for (JsonNode innerNode : node) {
+        result.add(resolveDeleteObject((ObjectNode) innerNode));
+      }
+      return result;
+    }
+    return null;
+  }
+
+  private JsonNode resolveDeleteObject(ObjectNode node) {
+    try {
+      Object object = em.find(Class.forName(node.get(Const.DELETEOBJECT_CLASSNAME).asText()),
+          node.get(Const.DELETEOBJECT_ID).asInt());
+      if (object != null) {
+        em.remove(object);
+      }
+      ObjectNode result = Mapper.mapper.createObjectNode();
+      result.put(Const.DELETEOBJECT_STATUS, Const.DELETEOBJECT_SUCCESS);
+      return result;
+    } catch (Exception e) {
+      return createErrorObject(e);
+    }
+  }
+
   // ===========================================linkObject===========================================
   @Transactional
   public Object linkObject(JsonNode node) {

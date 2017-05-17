@@ -67,5 +67,6 @@ public class LockUtil {
 		LockUtil.lockList.put("/saveObject", false);
 		LockUtil.lockList.put("/linkObject", false);
 		LockUtil.lockList.put("/updateObject", false);
+		LockUtil.lockList.put("/deleteObject", false);
 	}
 }

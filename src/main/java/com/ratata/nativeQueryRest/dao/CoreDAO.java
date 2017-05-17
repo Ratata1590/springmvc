@@ -22,6 +22,8 @@ public interface CoreDAO {
 
   public JsonNode updateObject(JsonNode node) throws Exception;
 
+  public JsonNode deleteObject(JsonNode node) throws Exception;
+
   public Object linkObject(JsonNode obj);
 
   public String tableFieldsToResultset(String queryShow, Integer fieldNumber) throws Exception;
