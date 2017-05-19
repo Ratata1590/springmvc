@@ -124,7 +124,7 @@ public class NativeQueryEndpointController {
     }
     return coreDAO.updateObject(node);
   }
-  
+
   @RequestMapping(value = "/deleteObject", method = RequestMethod.POST)
   public Object deleteObject(@RequestBody JsonNode node) throws Exception {
     if (LockUtil.isLockFlag() && LockUtil.lockList.get("/deleteObject")) {
@@ -235,9 +235,17 @@ public class NativeQueryEndpointController {
 
   @PostConstruct
   public void InitQueryList() throws Exception {
-    linkQueryDAO.saveQueryListFromFile();
-    if (linkQueryDAO.isUpdateFromDB()) {
-      linkQueryDAO.persistQueryListToDB();
+    try {
+      linkQueryDAO.saveQueryListFromFile();
+    } catch (Exception e) {
+      System.out.println("no query list file found");
+    }
+    try {
+      if (linkQueryDAO.isUpdateFromDB()) {
+        linkQueryDAO.persistQueryListToDB();
+      }
+    } catch (Exception e) {
+      System.out.println("unable to use database QUERYLIST");
     }
     LockUtil.initLockList();
   }
