@@ -3,6 +3,7 @@ package com.ratata.ObjectEndpoint.controller;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.ratata.ObjectEndpoint.pojo.ActionObjectType;
 import com.ratata.ObjectEndpoint.pojo.ObjectContainer;
 import com.ratata.ObjectEndpoint.utils.ObjectContainerUtil;
 import com.ratata.nativeQueryRest.utils.Mapper;
@@ -62,6 +65,36 @@ public class ObjectEndpoint {
       templistObject.add(objc);
     }
     return templistObject;
+  }
+
+  @RequestMapping(value = "/resolveAction", method = RequestMethod.POST)
+  public Object resolveAction(@RequestBody JsonNode actionNode) {
+    if (actionNode.isArray()) {
+      LinkedList<Object> result = new LinkedList<Object>();
+      for (JsonNode node : actionNode) {
+        result.add(resolveActionNode(node));
+      }
+      return result;
+    }
+    return resolveActionNode(actionNode);
+  }
+
+  private Object resolveActionNode(JsonNode node) {
+    switch (node.get(ActionObjectType.ACTIONTYPE).asInt()) {
+      case ActionObjectType.CONSTRUCTOR:
+        node = ((ObjectNode) node);
+        node.
+        return null;
+      case ActionObjectType.METHOD:
+        return null;
+      case ActionObjectType.PROPERTY:
+        return null;
+      case ActionObjectType.LINK:
+        return null;
+      case ActionObjectType.CONVERT:
+        return null;
+    }
+    return Mapper.mapper.convertValue(node, Object.class);
   }
 
   // @RequestMapping(value = "/createObject", method = RequestMethod.POST)
