@@ -26,7 +26,7 @@ public class ObjectEndpoint {
 	@RequestMapping(value = "/createDataObject", method = RequestMethod.POST)
 	public Object createDataObject(@RequestBody JsonNode dataObj) {
 		ObjectContainer data = Mapper.mapper.convertValue(dataObj, ObjectContainer.class);
-		String objectId = data.getObjType() + ":" + data.hashCode();
+		String objectId = genObjectId(data);
 		listObject.put(objectId, data);
 		return objectId;
 	}
@@ -42,12 +42,29 @@ public class ObjectEndpoint {
 				paramObjectList.add(listObject.get(paramObject[i]).getObj());
 			}
 		}
-		Object obj = Class.forName(className).getConstructor(paramTypeList.get(0)).newInstance(paramObjectList.get(0));
-		String objectId = obj.getClass().getTypeName() + ":" + obj.hashCode();
-
-		ObjectContainer objc = new ObjectContainer();
-		objc.setObj(obj);
-		listObject.put(objectId, objc);
+		Object obj = Class.forName(className).getConstructor(paramTypeList.toArray(new Class<?>[paramTypeList.size()]))
+				.newInstance(paramObjectList.toArray(new Object[paramObjectList.size()]));
+		String objectId = genObjectId(obj);
+		listObject.put(objectId, new ObjectContainer(obj));
 		return objectId;
+	}
+
+	@RequestMapping(value = "/callMethodObject", method = RequestMethod.POST)
+	public Object callMethodObject(@RequestBody JsonNode dataObj,
+			@RequestHeader(defaultValue = "false") Boolean storeReturn,
+			@RequestHeader(required=true) String objectId,
+			@RequestHeader(required=true) String methodName){
+		List<Class<?>> paramTypeList = new ArrayList<Class<?>>();
+		Object obj = listObject.get(objectId);
+		obj.getClass().getMethod(methodName, new Class<?>[paramTypeList.size()]).invoke(obj,);
+		
+		if(storeReturn){
+			return 
+		}
+		return objectId;
+	}
+
+	private String genObjectId(Object obj) {
+		return obj.getClass().getTypeName() + ":" + obj.hashCode();
 	}
 }

@@ -5,6 +5,14 @@ public class ObjectContainer {
 
 	private String objType;
 
+	public ObjectContainer() {
+	}
+
+	public ObjectContainer(Object obj) {
+		super();
+		setObj(obj);
+	}
+
 	public String getObjType() {
 		return objType;
 	}
