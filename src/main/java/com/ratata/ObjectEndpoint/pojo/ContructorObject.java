@@ -19,6 +19,4 @@ public class ContructorObject {
   public void setParam(Object param) {
     this.param = param;
   }
-
-
 }

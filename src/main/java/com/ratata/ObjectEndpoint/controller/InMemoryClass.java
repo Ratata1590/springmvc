@@ -11,51 +11,54 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.ratata.ObjectEndpoint.pojo.ObjectContainer;
+import com.ratata.nativeQueryRest.utils.Mapper;
 
 @RestController
 public class InMemoryClass {
-  public static Map<String, Class<?>> classList = new HashMap<String, Class<?>>();
+	public static Map<String, Class<?>> classList = new HashMap<String, Class<?>>();
 
-  public static Map<String, Object> instanceList = new HashMap<String, Object>();
+	public static Map<String, Object> instanceList = new HashMap<String, Object>();
 
-  @RequestMapping(value = "/createClass", method = RequestMethod.POST)
-  public void createClass(@RequestBody String classbody, @RequestHeader String className)
-      throws Exception {
-    classList.put(className, InMemoryJavaCompiler.compile(className, classbody));
-  }
+	@RequestMapping(value = "/checkDataType", method = RequestMethod.POST)
+	public Object checkDataType(@RequestBody JsonNode dataObj) {
+		return new ObjectContainer(Mapper.mapper.convertValue(dataObj, Object.class));
+	}
 
-  @RequestMapping(value = "/callStaticMethod", method = RequestMethod.POST)
-  public Object callMethod(@RequestHeader(required = true) String methodName,
-      @RequestHeader(required = true) String className, @RequestBody JsonNode param)
-      throws Exception {
-    return classList.get(className).getMethod(methodName).invoke(param);
-  }
+	@RequestMapping(value = "/createClass", method = RequestMethod.POST)
+	public void createClass(@RequestBody String classbody, @RequestHeader String className) throws Exception {
+		classList.put(className, InMemoryJavaCompiler.compile(className, classbody));
+	}
 
-  @RequestMapping(value = "/classList", method = RequestMethod.GET)
-  public Object callMethod() throws Exception {
-    return classList;
-  }
+	@RequestMapping(value = "/callStaticMethod", method = RequestMethod.POST)
+	public Object callMethod(@RequestHeader(required = true) String methodName,
+			@RequestHeader(required = true) String className, @RequestBody JsonNode param) throws Exception {
+		return classList.get(className).getMethod(methodName).invoke(null, param);
+	}
 
-  @RequestMapping(value = "/newInstance", method = RequestMethod.GET)
-  public String newClass(@RequestHeader String className) throws Exception {
-    Object ob = classList.get(className).newInstance();
-    classList.get(className).getField("classLoader").set(ob,
-        Thread.currentThread().getContextClassLoader());
-    String instanceId = className + ":" + ob.hashCode();
-    instanceList.put(instanceId, ob);
-    return instanceId;
-  }
+	@RequestMapping(value = "/classList", method = RequestMethod.GET)
+	public Object callMethod() throws Exception {
+		return classList;
+	}
 
-  @RequestMapping(value = "/instanceList", method = RequestMethod.GET)
-  public Object instanceList() throws Exception {
-    return instanceList.keySet();
-  }
+	@RequestMapping(value = "/newInstance", method = RequestMethod.GET)
+	public String newClass(@RequestHeader String className) throws Exception {
+		Object ob = classList.get(className).getConstructor(ClassLoader.class)
+				.newInstance(Thread.currentThread().getContextClassLoader());
+		String instanceId = className + ":" + ob.hashCode();
+		instanceList.put(instanceId, ob);
+		return instanceId;
+	}
 
-  @RequestMapping(value = "/callInstanceMethod", method = RequestMethod.POST)
-  public Object callInstanceMethod(@RequestHeader(required = true) String instanceId,
-      @RequestHeader(required = true) String methodName, @RequestBody JsonNode param)
-      throws Exception {
-    Object ob = instanceList.get(instanceId);
-    return ob.getClass().getMethod(methodName).invoke(ob);
-  }
+	@RequestMapping(value = "/instanceList", method = RequestMethod.GET)
+	public Object instanceList() throws Exception {
+		return instanceList.keySet();
+	}
+
+	@RequestMapping(value = "/callInstanceMethod", method = RequestMethod.POST)
+	public Object callInstanceMethod(@RequestHeader(required = true) String instanceId,
+			@RequestHeader(required = true) String methodName, @RequestBody JsonNode param) throws Exception {
+		Object ob = instanceList.get(instanceId);
+		return ob.getClass().getMethod(methodName).invoke(ob);
+	}
 }
