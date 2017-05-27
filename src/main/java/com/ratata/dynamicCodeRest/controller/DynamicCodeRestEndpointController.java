@@ -17,7 +17,7 @@ import com.ratata.dynamicCodeRest.utils.DynamicCodeUtil;
 import com.ratata.dynamicCodeRest.utils.ShareResourceFromSpringInterface;
 
 @RestController
-public class InMemoryClass {
+public class DynamicCodeRestEndpointController {
 	@Autowired
 	private ShareResourceFromSpringInterface shareResourceFromSpring;
 

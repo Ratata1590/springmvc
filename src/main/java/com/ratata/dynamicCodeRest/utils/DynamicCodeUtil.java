@@ -5,9 +5,6 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.stereotype.Component;
-
-@Component
 public class DynamicCodeUtil {
 	public static final String SPECIAL_CHAR = "$";
 	public static final String SPECIAL_METHOD_CHAR = "$M_";
