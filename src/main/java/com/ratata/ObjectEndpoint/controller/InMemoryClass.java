@@ -1,7 +1,7 @@
 package com.ratata.ObjectEndpoint.controller;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.mdkt.compiler.InMemoryJavaCompiler;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,49 +16,80 @@ import com.ratata.nativeQueryRest.utils.Mapper;
 
 @RestController
 public class InMemoryClass {
-	public static Map<String, Class<?>> classList = new HashMap<String, Class<?>>();
+  public static Map<String, Class<?>> classList = new ConcurrentHashMap<String, Class<?>>();
 
-	public static Map<String, Object> instanceList = new HashMap<String, Object>();
+  public static Map<String, Object> objList = new ConcurrentHashMap<String, Object>();
 
-	@RequestMapping(value = "/checkDataType", method = RequestMethod.POST)
-	public Object checkDataType(@RequestBody JsonNode dataObj) {
-		return new ObjectContainer(Mapper.mapper.convertValue(dataObj, Object.class));
-	}
+  @RequestMapping(value = "/checkDataType", method = RequestMethod.POST)
+  public Object checkDataType(@RequestBody JsonNode dataObj) {
+    return new ObjectContainer(Mapper.mapper.convertValue(dataObj, Object.class));
+  }
 
-	@RequestMapping(value = "/createClass", method = RequestMethod.POST)
-	public void createClass(@RequestBody String classbody, @RequestHeader String className) throws Exception {
-		classList.put(className, InMemoryJavaCompiler.compile(className, classbody));
-	}
+  @RequestMapping(value = "/newClass", method = RequestMethod.POST)
+  public void newClass(@RequestBody String classbody, @RequestHeader String className)
+      throws Exception {
+    classList.put(className, InMemoryJavaCompiler.compile(className, classbody));
+    System.gc();
+  }
 
-	@RequestMapping(value = "/callStaticMethod", method = RequestMethod.POST)
-	public Object callMethod(@RequestHeader(required = true) String methodName,
-			@RequestHeader(required = true) String className, @RequestBody JsonNode param) throws Exception {
-		return classList.get(className).getMethod(methodName).invoke(null, param);
-	}
+  @RequestMapping(value = "/removeClass", method = RequestMethod.GET)
+  public void removeClass(@RequestHeader String className) throws Exception {
+    classList.remove(className);
+    for (String obj : objList.keySet()) {
+      if (obj.startsWith(className + ":")) {
+        objList.remove(obj);
+      }
+    }
+    System.gc();
+  }
 
-	@RequestMapping(value = "/classList", method = RequestMethod.GET)
-	public Object callMethod() throws Exception {
-		return classList;
-	}
+  @RequestMapping(value = "/callClassMethod", method = RequestMethod.POST)
+  public Object callClassMethod(@RequestHeader(required = true) String methodName,
+      @RequestHeader(required = true) String className, @RequestBody Object... param)
+      throws Exception {
+    return classList.get(className).getMethod(methodName, revolseObjectParamType(param))
+        .invoke(null, param);
+  }
 
-	@RequestMapping(value = "/newInstance", method = RequestMethod.GET)
-	public String newClass(@RequestHeader String className) throws Exception {
-		Object ob = classList.get(className).getConstructor(ClassLoader.class)
-				.newInstance(Thread.currentThread().getContextClassLoader());
-		String instanceId = className + ":" + ob.hashCode();
-		instanceList.put(instanceId, ob);
-		return instanceId;
-	}
+  @RequestMapping(value = "/classList", method = RequestMethod.GET)
+  public Object classList() throws Exception {
+    return classList.keySet();
+  }
 
-	@RequestMapping(value = "/instanceList", method = RequestMethod.GET)
-	public Object instanceList() throws Exception {
-		return instanceList.keySet();
-	}
+  @RequestMapping(value = "/newObj", method = RequestMethod.GET)
+  public String newObj(@RequestHeader String className) throws Exception {
+    Object ob = classList.get(className).getConstructor(ClassLoader.class, Map.class, Map.class)
+        .newInstance(Thread.currentThread().getContextClassLoader(), classList, objList);
+    String instanceId = className + ":" + ob.hashCode();
+    objList.put(instanceId, ob);
+    System.gc();
+    return instanceId;
+  }
 
-	@RequestMapping(value = "/callInstanceMethod", method = RequestMethod.POST)
-	public Object callInstanceMethod(@RequestHeader(required = true) String instanceId,
-			@RequestHeader(required = true) String methodName, @RequestBody JsonNode param) throws Exception {
-		Object ob = instanceList.get(instanceId);
-		return ob.getClass().getMethod(methodName).invoke(ob);
-	}
+  @RequestMapping(value = "/removeObj", method = RequestMethod.GET)
+  public void removeObj(@RequestHeader(required = true) String instanceId) throws Exception {
+    objList.remove(instanceId);
+    System.gc();
+  }
+
+  @RequestMapping(value = "/objList", method = RequestMethod.GET)
+  public Object objList() throws Exception {
+    return objList.keySet();
+  }
+
+  @RequestMapping(value = "/callObjMethod", method = RequestMethod.POST)
+  public Object callObjMethod(@RequestHeader(required = true) String instanceId,
+      @RequestHeader(required = true) String methodName, @RequestBody Object... param)
+      throws Exception {
+    Object obj = objList.get(instanceId);
+    return obj.getClass().getMethod(methodName, revolseObjectParamType(param)).invoke(obj, param);
+  }
+
+  private Class<?>[] revolseObjectParamType(Object... param) {
+    Class<?>[] classTypeList = new Class<?>[param.length];
+    for (int i = 0; i < param.length; i++) {
+      classTypeList[i] = param.getClass();
+    }
+    return classTypeList;
+  }
 }
