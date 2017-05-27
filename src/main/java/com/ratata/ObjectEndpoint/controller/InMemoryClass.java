@@ -29,6 +29,7 @@ public class InMemoryClass {
   public void newClass(@RequestBody String classbody, @RequestHeader String className)
       throws Exception {
     Class<?> theClass = InMemoryJavaCompiler.compile(className, classbody);
+    theClass.getMethod("loadAllClass").invoke(null);
     if (classList.containsKey(className)) {
       removeClass(className);
     }
