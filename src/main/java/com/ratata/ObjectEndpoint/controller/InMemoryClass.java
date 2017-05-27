@@ -28,10 +28,11 @@ public class InMemoryClass {
   @RequestMapping(value = "/newClass", method = RequestMethod.POST)
   public void newClass(@RequestBody String classbody, @RequestHeader String className)
       throws Exception {
+    Class<?> theClass = InMemoryJavaCompiler.compile(className, classbody);
     if (classList.containsKey(className)) {
       removeClass(className);
     }
-    classList.put(className, InMemoryJavaCompiler.compile(className, classbody));
+    classList.put(className, theClass);
     System.gc();
   }
 
@@ -39,7 +40,7 @@ public class InMemoryClass {
   public void removeClass(@RequestHeader String className) throws Exception {
     classList.remove(className);
     for (String obj : objList.keySet()) {
-      if (obj.startsWith(className + ":")) {
+      if (obj.startsWith(className.concat(":"))) {
         objList.remove(obj);
       }
     }
