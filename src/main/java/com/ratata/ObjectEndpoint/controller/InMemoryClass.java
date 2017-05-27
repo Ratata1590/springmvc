@@ -28,6 +28,9 @@ public class InMemoryClass {
   @RequestMapping(value = "/newClass", method = RequestMethod.POST)
   public void newClass(@RequestBody String classbody, @RequestHeader String className)
       throws Exception {
+    if (classList.containsKey(className)) {
+      removeClass(className);
+    }
     classList.put(className, InMemoryJavaCompiler.compile(className, classbody));
     System.gc();
   }
