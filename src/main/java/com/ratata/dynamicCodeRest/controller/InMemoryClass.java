@@ -1,4 +1,4 @@
-package com.ratata.ObjectEndpoint.controller;
+package com.ratata.dynamicCodeRest.controller;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.ratata.ObjectEndpoint.pojo.DynamicCodeUtil;
-import com.ratata.ObjectEndpoint.pojo.ObjectContainer;
-import com.ratata.ObjectEndpoint.pojo.ShareResourceFromSpringInterface;
-import com.ratata.nativeQueryRest.utils.Mapper;
+import com.ratata.dynamicCodeRest.utils.DynamicCodeUtil;
+import com.ratata.dynamicCodeRest.utils.ShareResourceFromSpringInterface;
 
 @RestController
 public class InMemoryClass {
@@ -32,11 +29,6 @@ public class InMemoryClass {
 	public static Map<String, Class<?>> classList = new ConcurrentHashMap<String, Class<?>>();
 
 	public static Map<String, Object> objList = new ConcurrentHashMap<String, Object>();
-
-	@RequestMapping(value = "/checkDataType", method = RequestMethod.POST)
-	public Object checkDataType(@RequestBody JsonNode dataObj) {
-		return new ObjectContainer(Mapper.mapper.convertValue(dataObj, Object.class));
-	}
 
 	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
 	public void newClass(@RequestBody String classbody, @RequestHeader String className) throws Exception {
@@ -64,7 +56,8 @@ public class InMemoryClass {
 	@RequestMapping(value = "/callClassMethod", method = RequestMethod.POST)
 	public Object callClassMethod(@RequestHeader(required = true) String methodName,
 			@RequestHeader(required = true) String className, @RequestBody Object... param) throws Exception {
-		return classList.get(className).getMethod(methodName, revolseObjectParamType(param)).invoke(null, param);
+		return classList.get(className).getMethod(methodName, DynamicCodeUtil.revolseObjectParamType(param))
+				.invoke(null, param);
 	}
 
 	@RequestMapping(value = "/classList", method = RequestMethod.GET)
@@ -96,14 +89,7 @@ public class InMemoryClass {
 	public Object callObjMethod(@RequestHeader(required = true) String instanceId,
 			@RequestHeader(required = true) String methodName, @RequestBody Object... param) throws Exception {
 		Object obj = objList.get(instanceId);
-		return obj.getClass().getMethod(methodName, revolseObjectParamType(param)).invoke(obj, param);
+		return obj.getClass().getMethod(methodName, DynamicCodeUtil.revolseObjectParamType(param)).invoke(obj, param);
 	}
 
-	private Class<?>[] revolseObjectParamType(Object... param) {
-		Class<?>[] classTypeList = new Class<?>[param.length];
-		for (int i = 0; i < param.length; i++) {
-			classTypeList[i] = param[i].getClass();
-		}
-		return classTypeList;
-	}
 }

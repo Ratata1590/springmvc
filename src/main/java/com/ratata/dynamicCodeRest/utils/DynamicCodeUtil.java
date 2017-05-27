@@ -1,4 +1,4 @@
-package com.ratata.ObjectEndpoint.pojo;
+package com.ratata.dynamicCodeRest.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -14,10 +14,17 @@ public class DynamicCodeUtil {
 	public static final String SPECIAL_IMPORT_CHAR = "$C_";
 	public static final String SPECIAL_AUTOWIRE_CHAR = "$Sp_";
 
-	public static final List<String> UTILNAME_LIST = Arrays.asList(new String[] { "getBean", "newObj", "getStaticProp",
-			"setStaticProp", "callStaticMethod", "getObjProp", "setObjProp", "callObjMethod" });
+	public static final List<String> UTILNAME_LIST = Arrays.asList(new String[] { 
+			"getBean", 
+			"newObj", 
+			"getStaticProp",
+			"setStaticProp", 
+			"callStaticMethod", 
+			"getObjProp", 
+			"setObjProp", 
+			"callObjMethod" });
 
-	private static Class<?>[] revolseObjectParamType(Object... param) {
+	public static Class<?>[] revolseObjectParamType(Object... param) {
 		Class<?>[] classTypeList = new Class<?>[param.length];
 		for (int i = 0; i < param.length; i++) {
 			classTypeList[i] = param[i].getClass();

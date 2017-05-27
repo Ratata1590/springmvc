@@ -1,4 +1,4 @@
-package com.ratata.ObjectEndpoint.controller;
+package com.ratata.dynamicCodeRest.test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
