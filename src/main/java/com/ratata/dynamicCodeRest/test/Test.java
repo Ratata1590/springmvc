@@ -1,4 +1,4 @@
-package com.ratata.dynamicCodeRest.test;
+package com.ratata.model;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -82,11 +82,10 @@ public class Test {
   public static Object $C_JsonNode = "com.fasterxml.jackson.databind.JsonNode";
   public static Object $C_ArrayNode = "com.fasterxml.jackson.databind.node.ArrayNode";
   public static Object $C_Mapper = "com.ratata.nativeQueryRest.utils.Mapper";
-  public static Object $C_ShareResourceFromSpring = "com.ratata.ObjectEndpoint.controller.ShareResourceFromSpring";
   public static Object $C_NativeQueryParam = "com.ratata.nativeQueryRest.pojo.NativeQueryParam";
   public static Object $C_CoreDAO = "com.ratata.nativeQueryRest.dao.CoreDAO";
 
-  public static Object $CL_Hehe = "hello:threadExample.Hehe";
+  public static Object $C_Hehe = "hello:threadExample.Hehe";
 
   public static Object $Sp_CoreDAO = "com.ratata.nativeQueryRest.dao.CoreDAO";
   // main code
