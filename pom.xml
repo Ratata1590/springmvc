@@ -106,6 +106,12 @@
 			<artifactId>InMemoryJavaCompiler</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<!-- other compiler -->
+		<dependency>
+			<groupId>com.javax0</groupId>
+			<artifactId>jscc</artifactId>
+			<version>1.0.1</version>
+		</dependency>
 
 
 		<!-- https://mvnrepository.com/artifact/org.apache.maven/maven-aether-provider -->
