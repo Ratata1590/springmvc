@@ -39,7 +39,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 @RestController
 public class MavenRepoEndpointController {
@@ -67,18 +66,11 @@ public class MavenRepoEndpointController {
   public static final String defaultUrl = "http://repo1.maven.org/maven2/";
   public static final String defaultProxyProtocol = "http";
 
-  private final XmlMapper xmlMapper = new XmlMapper();
-
   private RepositorySystem repositorySystem;
   private DefaultRepositorySystemSession systemSession;
 
   public static final Map<String, JsonNode> configList = new HashMap<String, JsonNode>();
   public static final Map<String, ClassLoader> classLoaderList = new HashMap<String, ClassLoader>();
-
-  @RequestMapping(value = "/convertMavenToJson", method = RequestMethod.POST)
-  public Object convertMavenToJson(@RequestBody String mavenDependencies) throws Exception {
-    return xmlMapper.readTree(mavenDependencies);
-  }
 
   @RequestMapping(value = "/lookUpClass", method = RequestMethod.POST)
   public Object lookUpClass(@RequestBody(required = true) JsonNode classNameList,
