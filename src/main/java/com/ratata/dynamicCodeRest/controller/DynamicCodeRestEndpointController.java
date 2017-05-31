@@ -1,6 +1,7 @@
 package com.ratata.dynamicCodeRest.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -84,7 +85,9 @@ public class DynamicCodeRestEndpointController {
 		if (showSource) {
 			result.add(sourceCodeList);
 		}
-		result.add(classList.keySet());
+		String[] clazzList = classList.keySet().toArray(new String[classList.keySet().size()]);
+		Arrays.sort(clazzList);
+		result.add(clazzList);
 		return result;
 	}
 
@@ -105,7 +108,9 @@ public class DynamicCodeRestEndpointController {
 
 	@RequestMapping(value = "/objList", method = RequestMethod.GET)
 	public Object objList() throws Exception {
-		return objList.keySet();
+		String[] result = objList.keySet().toArray(new String[objList.keySet().size()]);
+		Arrays.sort(result);
+		return result;
 	}
 
 	@RequestMapping(value = "/callObjMethod", method = RequestMethod.POST)
