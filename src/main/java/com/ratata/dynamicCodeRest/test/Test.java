@@ -83,7 +83,7 @@ public class Test {
 	public static Object $C_CoreDAO = "com.ratata.nativeQueryRest.dao.CoreDAO";
 
 	public static Object $C_EmbeddedJettyMain = "hello:com.javacodegeeks.snippets.enterprise.embeddedjetty.EmbeddedJettyMain";
-	
+
 	public static Object $Sp_CoreDAO = "com.ratata.nativeQueryRest.dao.CoreDAO";
 	// main code
 
