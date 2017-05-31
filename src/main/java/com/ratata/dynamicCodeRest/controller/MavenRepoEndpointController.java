@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import java.util.Map;
 
 import javax.annotation.PostConstruct;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.maven.repository.internal.MavenRepositorySystemUtils;
 import org.eclipse.aether.DefaultRepositorySystemSession;
 import org.eclipse.aether.RepositorySystem;
@@ -62,11 +65,13 @@ public class MavenRepoEndpointController {
   public static final String keyVersion = "version";
 
   public static final String defaultId = "central";
+  public static final String defaultIdLocal = "local";
   public static final String defaultType = "default";
   public static final String defaultUrl = "http://repo1.maven.org/maven2/";
   public static final String defaultProxyProtocol = "http";
 
   private RepositorySystem repositorySystem;
+  private LocalRepository localRepo;
   private DefaultRepositorySystemSession systemSession;
 
   public static final Map<String, JsonNode> configList = new HashMap<String, JsonNode>();
@@ -94,6 +99,9 @@ public class MavenRepoEndpointController {
       @RequestHeader(required = true) String groupId,
       @RequestHeader(required = true) String artifactId,
       @RequestHeader(required = true) String version) throws Exception {
+    FileUtils.deleteDirectory(new File(localRepo.getBasedir().getPath().concat(File.separator).concat(groupId)
+            .concat(File.separator).concat(artifactId).concat(File.separator)
+            .concat(version)));
     File tempFile = File.createTempFile(file.getOriginalFilename(), "");
     file.transferTo(tempFile);
     Artifact jarArtifact =
@@ -102,6 +110,15 @@ public class MavenRepoEndpointController {
     install.addArtifact(jarArtifact);
     repositorySystem.install(systemSession, install);
     tempFile.delete();
+  }
+
+  @RequestMapping(value = "/getLocalMetadata", method = RequestMethod.GET)
+  public Object getMetadata(@RequestHeader(required = true) String groupId,
+      @RequestHeader(required = true) String artifactId) throws Exception {
+    File metaFile = new File(localRepo.getBasedir().getPath().concat(File.separator).concat(groupId)
+        .concat(File.separator).concat(artifactId).concat(File.separator)
+        .concat("maven-metadata-local.xml"));
+    return new String(Files.readAllBytes(Paths.get(metaFile.getPath())));
   }
 
   @RequestMapping(value = "/createClassLoader", method = RequestMethod.POST)
@@ -137,7 +154,7 @@ public class MavenRepoEndpointController {
     locator.addService(TransporterFactory.class, HttpTransporterFactory.class);
     repositorySystem = locator.getService(RepositorySystem.class);
     systemSession = MavenRepositorySystemUtils.newSession();
-    LocalRepository localRepo = new LocalRepository(ratataRepo);
+    localRepo = new LocalRepository(ratataRepo);
     System.out.println(localRepo.getBasedir().getAbsolutePath());
     systemSession.setLocalRepositoryManager(
         repositorySystem.newLocalRepositoryManager(systemSession, localRepo));
