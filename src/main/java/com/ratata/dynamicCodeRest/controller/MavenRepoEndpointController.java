@@ -48,6 +48,7 @@ public class MavenRepoEndpointController {
   public static final String ratataRepo = "/ratataRepo";
 
   public static final String keyName = "name";
+  public static final String keyParent = "parent";
   public static final String keyData = "data";
 
   public static final String keyId = "id";
@@ -63,6 +64,8 @@ public class MavenRepoEndpointController {
   public static final String keyGroupId = "groupId";
   public static final String keyArtifactId = "artifactId";
   public static final String keyVersion = "version";
+
+  public static final String defaultSystemName = "system";
 
   public static final String defaultId = "central";
   public static final String defaultIdLocal = "local";
@@ -99,9 +102,9 @@ public class MavenRepoEndpointController {
       @RequestHeader(required = true) String groupId,
       @RequestHeader(required = true) String artifactId,
       @RequestHeader(required = true) String version) throws Exception {
-    FileUtils.deleteDirectory(new File(localRepo.getBasedir().getPath().concat(File.separator).concat(groupId)
-            .concat(File.separator).concat(artifactId).concat(File.separator)
-            .concat(version)));
+    FileUtils.deleteDirectory(
+        new File(localRepo.getBasedir().getPath().concat(File.separator).concat(groupId)
+            .concat(File.separator).concat(artifactId).concat(File.separator).concat(version)));
     File tempFile = File.createTempFile(file.getOriginalFilename(), "");
     file.transferTo(tempFile);
     Artifact jarArtifact =
@@ -122,16 +125,34 @@ public class MavenRepoEndpointController {
   }
 
   @RequestMapping(value = "/createClassLoader", method = RequestMethod.POST)
-  public void createClassLoader(@RequestBody JsonNode mavenDependencies) throws Exception {
-    String classLoaderName = mavenDependencies.get(keyName).asText();
+  public void createClassLoader(@RequestHeader(required = true) String classLoaderName,
+      @RequestBody JsonNode mavenDependencies) throws Exception {
+    ClassLoader parent = null;
+    if (mavenDependencies.has(keyParent)) {
+      parent = resolveParentClassloader(mavenDependencies.get(keyParent).asText());
+    }
     URL[] urlList = mavenDependenciesToArtifactRequest(mavenDependencies.get(keyData));
-    ClassLoader classLoader = new URLClassLoader(urlList);
+    URLClassLoader classLoader;
+    if (parent != null) {
+      classLoader = new URLClassLoader(urlList, parent);
+      classLoaderName =
+          mavenDependencies.get(keyParent).asText().concat(":").concat(classLoaderName);
+    } else {
+      classLoader = new URLClassLoader(urlList);
+    }
     if (classLoaderList.containsKey(classLoaderName)) {
       removeClassLoader(classLoaderName);
     }
     classLoaderList.put(classLoaderName, classLoader);
     configList.put(classLoaderName, mavenDependencies);
     System.gc();
+  }
+
+  private ClassLoader resolveParentClassloader(String parentName) {
+    if (parentName.equals(defaultSystemName)) {
+      return Thread.currentThread().getContextClassLoader();
+    }
+    return classLoaderList.get(parentName);
   }
 
   @RequestMapping(value = "/removeClassLoader", method = RequestMethod.GET)
@@ -166,11 +187,9 @@ public class MavenRepoEndpointController {
       for (JsonNode node : data) {
         result.addAll(resolveSingleRepo(node));
       }
-
     } else {
       result = resolveSingleRepo(data);
     }
-
     return result.toArray(new URL[result.size()]);
   }
 
