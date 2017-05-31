@@ -1,5 +1,6 @@
 package com.ratata.dynamicCodeRest.controller;
 
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -27,12 +28,15 @@ public class DynamicCodeRestEndpointController {
 		shareResourceFromSpring.loadAllSharedObj();
 	}
 
+	public static Map<String, String> sourceCodeList = new ConcurrentHashMap<String, String>();
+
 	public static Map<String, Class<?>> classList = new ConcurrentHashMap<String, Class<?>>();
 
 	public static Map<String, DynamicObject> objList = new ConcurrentHashMap<String, DynamicObject>();
 
 	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
-	public void newClass(@RequestBody String classbody, @RequestHeader String className) throws Exception {
+	public void newClass(@RequestBody String classbody, @RequestHeader String className,
+			@RequestHeader(required = false, defaultValue = "true") Boolean saveSource) throws Exception {
 		Class<?> theClass = InMemoryJavaCompiler.compile(className, classbody);
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		DynamicCodeUtil.loadAllClass(theClass, classLoader);
@@ -40,12 +44,16 @@ public class DynamicCodeRestEndpointController {
 			removeClass(className);
 		}
 		classList.put(className, theClass);
+		if (saveSource) {
+			sourceCodeList.put(className, classbody);
+		}
 		System.gc();
 	}
 
 	@RequestMapping(value = "/removeClass", method = RequestMethod.GET)
 	public void removeClass(@RequestHeader String className) throws Exception {
 		classList.remove(className);
+		sourceCodeList.remove(className);
 		for (String obj : objList.keySet()) {
 			if (obj.startsWith(className.concat(DynamicObject.SEPARATOR))) {
 				objList.remove(obj);
@@ -70,8 +78,14 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/classList", method = RequestMethod.GET)
-	public Object classList() throws Exception {
-		return classList.keySet();
+	public Object classList(@RequestHeader(required = false, defaultValue = "false") Boolean showSource)
+			throws Exception {
+		ArrayList<Object> result = new ArrayList<Object>();
+		if (showSource) {
+			result.add(sourceCodeList);
+		}
+		result.add(classList.keySet());
+		return result;
 	}
 
 	@RequestMapping(value = "/newObj", method = RequestMethod.GET)
