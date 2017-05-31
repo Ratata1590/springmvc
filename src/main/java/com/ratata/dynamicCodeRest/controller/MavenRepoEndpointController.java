@@ -157,8 +157,12 @@ public class MavenRepoEndpointController {
 
   @RequestMapping(value = "/removeClassLoader", method = RequestMethod.GET)
   public void removeClassLoader(@RequestHeader String classLoaderName) throws Exception {
-    classLoaderList.remove(classLoaderName);
-    configList.remove(classLoaderName);
+    for (String cl : classLoaderList.keySet()) {
+      if (cl.startsWith(classLoaderName)) {
+        classLoaderList.remove(cl);
+        configList.remove(cl);
+      }
+    }
     System.gc();
   }
 
