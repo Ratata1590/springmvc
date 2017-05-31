@@ -11,18 +11,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.ratata.dynamicCodeRest.dynamicObject.ObjectContainer;
 import com.ratata.dynamicCodeRest.utils.ThreadUtils;
-import com.ratata.nativeQueryRest.utils.Mapper;
 
 @RestController
 public class GenToolDynamicCode {
 	public static final String importList = "importList";
 	public static final String autowireList = "autowireList";
 	public static final String importString = "import ";
+	public static final ObjectMapper mapper = new ObjectMapper();
 
 	@RequestMapping(value = "/checkInputType", method = RequestMethod.POST)
 	public Object checkInputType(@RequestBody Object data) {
@@ -70,10 +71,10 @@ public class GenToolDynamicCode {
 	 **/
 	@RequestMapping(value = "/convertJarListToJson", method = RequestMethod.POST)
 	public Object convertJarListToJson(@RequestBody String jarList) throws Exception {
-		ArrayNode result = Mapper.mapper.createArrayNode();
+		ArrayNode result = mapper.createArrayNode();
 		String[] lines = jarList.split("\r\n");
 		for (String line : lines) {
-			ObjectNode item = Mapper.mapper.createObjectNode();
+			ObjectNode item = mapper.createObjectNode();
 			String[] lineItems = line.split(",");
 			List<String> groupId = Arrays.asList(Arrays.copyOfRange(lineItems, 0, lineItems.length - 3));
 			item.put(MavenRepoEndpointController.keyGroupId, String.join(".", groupId));
@@ -93,7 +94,7 @@ public class GenToolDynamicCode {
 
 	@RequestMapping(value = "/freeMem", method = RequestMethod.GET)
 	public Object freeMem() throws Exception {
-		ObjectNode node = Mapper.mapper.createObjectNode();
+		ObjectNode node = mapper.createObjectNode();
 		node.put("total", String.valueOf(Runtime.getRuntime().totalMemory()) + "/"
 				+ String.valueOf(Runtime.getRuntime().maxMemory()));
 		node.put("freed", String.valueOf(Runtime.getRuntime().freeMemory()));
