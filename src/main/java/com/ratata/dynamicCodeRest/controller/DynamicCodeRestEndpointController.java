@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ratata.dynamicCodeRest.dynamicObject.DynamicObject;
 import com.ratata.dynamicCodeRest.utils.DynamicCodeUtil;
 import com.ratata.dynamicCodeRest.utils.ShareResourceFromSpringInterface;
 
@@ -28,7 +29,7 @@ public class DynamicCodeRestEndpointController {
 
 	public static Map<String, Class<?>> classList = new ConcurrentHashMap<String, Class<?>>();
 
-	public static Map<String, Object> objList = new ConcurrentHashMap<String, Object>();
+	public static Map<String, DynamicObject> objList = new ConcurrentHashMap<String, DynamicObject>();
 
 	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
 	public void newClass(@RequestBody String classbody, @RequestHeader String className) throws Exception {
@@ -46,7 +47,10 @@ public class DynamicCodeRestEndpointController {
 	public void removeClass(@RequestHeader String className) throws Exception {
 		classList.remove(className);
 		for (String obj : objList.keySet()) {
-			if (obj.startsWith(className.concat(":"))) {
+			if (obj.startsWith(className.concat(DynamicObject.SEPARATOR))) {
+				objList.remove(obj);
+			}
+			if (obj.startsWith(className.concat(DynamicObject.CLASS_SEPARATOR))) {
 				objList.remove(obj);
 			}
 		}
@@ -54,13 +58,15 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/callClassMethod", method = RequestMethod.POST)
-	public Object callClassMethod(@RequestHeader(required = true) String methodName,
-			@RequestHeader(required = true) String className, @RequestBody Object... param) throws Exception {
-		if (param == null) {
-			return classList.get(className).getMethod(methodName).invoke(null);
+	public Object callClassMethod(@RequestHeader(required = true) String className,
+			@RequestHeader(required = true) String methodName,
+			@RequestHeader(required = false, defaultValue = "false") Boolean save, @RequestBody Object... param)
+			throws Exception {
+		DynamicObject result = DynamicObject.callClassMethod(classList.get(className), methodName, param);
+		if (save && result != null) {
+			objList.put(result.getObjName(), result);
 		}
-		return classList.get(className).getMethod(methodName, DynamicCodeUtil.revolseObjectParamType(param))
-				.invoke(null, param);
+		return result;
 	}
 
 	@RequestMapping(value = "/classList", method = RequestMethod.GET)
@@ -72,7 +78,7 @@ public class DynamicCodeRestEndpointController {
 	public String newObj(@RequestHeader String className) throws Exception {
 		Object ob = classList.get(className).getConstructor().newInstance();
 		String instanceId = className + ":" + ob.hashCode();
-		objList.put(instanceId, ob);
+		objList.put(instanceId, new DynamicObject(ob, instanceId));
 		System.gc();
 		return instanceId;
 	}
@@ -90,12 +96,15 @@ public class DynamicCodeRestEndpointController {
 
 	@RequestMapping(value = "/callObjMethod", method = RequestMethod.POST)
 	public Object callObjMethod(@RequestHeader(required = true) String instanceId,
-			@RequestHeader(required = true) String methodName, @RequestBody Object... param) throws Exception {
-		Object obj = objList.get(instanceId);
-		if (param == null) {
-			return obj.getClass().getMethod(methodName).invoke(obj);
+			@RequestHeader(required = true) String methodName,
+			@RequestHeader(required = false, defaultValue = "false") Boolean save, @RequestBody Object... param)
+			throws Exception {
+		DynamicObject obj = objList.get(instanceId);
+		DynamicObject result = obj.callObjMethod(methodName, param);
+		if (save && result != null) {
+			objList.put(result.getObjName(), result);
 		}
-		return obj.getClass().getMethod(methodName, DynamicCodeUtil.revolseObjectParamType(param)).invoke(obj, param);
+		return result;
 	}
 
 }

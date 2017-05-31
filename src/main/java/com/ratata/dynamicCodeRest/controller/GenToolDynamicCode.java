@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+import com.ratata.dynamicCodeRest.dynamicObject.ObjectContainer;
 import com.ratata.dynamicCodeRest.utils.ThreadUtils;
 import com.ratata.nativeQueryRest.utils.Mapper;
 
@@ -22,6 +23,11 @@ public class GenToolDynamicCode {
 	public static final String importList = "importList";
 	public static final String autowireList = "autowireList";
 	public static final String importString = "import ";
+
+	@RequestMapping(value = "/checkInputType", method = RequestMethod.POST)
+	public Object checkInputType(@RequestBody Object data) {
+		return new ObjectContainer(data);
+	}
 
 	@RequestMapping(value = "/genDynamicCodeTemplate", method = RequestMethod.POST)
 	public String genDynamicCodeTemplate(@RequestBody JsonNode data) {

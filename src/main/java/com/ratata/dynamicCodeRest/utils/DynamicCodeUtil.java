@@ -71,6 +71,9 @@ public class DynamicCodeUtil {
 	}
 
 	public static Object newObj(Object theClass, Object... param) throws Exception {
+		if (param == null) {
+			return ((Class<?>) theClass).getConstructor().newInstance();
+		}
 		return ((Class<?>) theClass).getConstructor(revolseObjectParamType(param)).newInstance(param);
 	}
 

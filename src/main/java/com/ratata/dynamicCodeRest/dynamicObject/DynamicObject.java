@@ -1,8 +1,11 @@
 package com.ratata.dynamicCodeRest.dynamicObject;
 
+import com.ratata.dynamicCodeRest.utils.DynamicCodeUtil;
+
 public class DynamicObject {
 
 	public static final String SEPARATOR = ":";
+	public static final String CLASS_SEPARATOR = "$";
 	private Object obj;
 
 	private String objName;
@@ -12,33 +15,22 @@ public class DynamicObject {
 		this.objName = objName;
 	}
 
-	public final DynamicObject callMethod(String methodName, Object... param) throws Exception {
-		Object result;
-		if (param != null) {
-			result = obj.getClass().getMethod(methodName, revolseObjectParamType(param)).invoke(obj, param);
-		} else {
-			result = obj.getClass().getMethod(methodName).invoke(obj);
-		}
+	public final DynamicObject callObjMethod(String methodName, Object... param) throws Exception {
+		Object result = DynamicCodeUtil.callObjMethod(obj, methodName, param);
 		if (obj.equals(result) || result == null) {
 			return null;
 		}
 		return new DynamicObject(result, objName.concat(SEPARATOR).concat(String.valueOf(result.hashCode())));
 	}
 
-	public final Class<?>[] revolseObjectParamType(Object... param) {
-		Class<?>[] classTypeList = new Class<?>[param.length];
-		for (int i = 0; i < param.length; i++) {
-			classTypeList[i] = param[i].getClass();
+	public static final DynamicObject callClassMethod(Class<?> clazz, String methodName, Object... param)
+			throws Exception {
+		Object result = DynamicCodeUtil.callStaticMethod(clazz, methodName, param);
+		if (result == null) {
+			return null;
 		}
-		return classTypeList;
-	}
-
-	public Object getObjProp(String propName) throws Exception {
-		return obj.getClass().getDeclaredField(propName).get(obj);
-	}
-
-	public void setObjProp(String propName, Object value) throws Exception {
-		obj.getClass().getDeclaredField(propName).set(obj, value);
+		return new DynamicObject(result,
+				clazz.getName().concat(CLASS_SEPARATOR).concat(String.valueOf(result.hashCode())));
 	}
 
 	public String getObjName() {
