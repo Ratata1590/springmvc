@@ -1,9 +1,6 @@
 package com.ratata.dynamicCodeRest.controller;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.nio.file.Files;
@@ -78,26 +75,10 @@ public class MavenRepoEndpointController {
   private RepositorySystem repositorySystem;
   private LocalRepository localRepo;
   private DefaultRepositorySystemSession systemSession;
-
   public static final Map<String, JsonNode> configList = new HashMap<String, JsonNode>();
   public static final Map<String, ClassLoader> classLoaderList = new HashMap<String, ClassLoader>();
 
-  @RequestMapping(value = "/lookUpClass", method = RequestMethod.POST)
-  public Object lookUpClass(@RequestBody(required = true) JsonNode classNameList,
-      @RequestHeader String classLoaderName) throws Exception {
-    Map<String, Object> result = new HashMap<String, Object>();
-    ClassLoader theClassLoader = classLoaderList.get(classLoaderName);
-    for (JsonNode cln : classNameList) {
-      try {
-        Class<?> theClass = theClassLoader.loadClass(cln.asText());
-        result.put(cln.asText(), listClassItems(theClass));
-      } catch (Exception e) {
-        result.put(cln.asText(), false);
-      }
-    }
-    System.gc();
-    return result;
-  }
+
 
   @RequestMapping(value = "/uploadJarToRepo", method = RequestMethod.POST)
   public void uploadJarToRepo(@RequestBody(required = true) MultipartFile file,
@@ -234,39 +215,4 @@ public class MavenRepoEndpointController {
     return result;
   }
 
-  private Object listClassItems(Class<?> theClass) {
-    Map<String, Object> result = new HashMap<String, Object>();
-    List<Object> cnstList = new ArrayList<Object>();
-    for (Constructor<?> cnst : theClass.getDeclaredConstructors()) {
-      Map<String, Object> cnstDetail = new HashMap<String, Object>();
-      List<String> listParam = new ArrayList<String>();
-      for (Class<?> param : cnst.getParameterTypes()) {
-        listParam.add(param.getName());
-      }
-      cnstDetail.put(cnst.getName(), listParam);
-      cnstList.add(cnstDetail);
-    }
-    result.put("constructors", cnstList);
-
-    List<Object> fieldList = new ArrayList<Object>();
-    for (Field field : theClass.getDeclaredFields()) {
-      Map<String, Object> fieldDetail = new HashMap<String, Object>();
-      fieldDetail.put(field.getName(), field.getAnnotatedType().getType().getTypeName());
-      fieldList.add(fieldDetail);
-    }
-    result.put("fields", fieldList);
-
-    List<Object> methodList = new ArrayList<Object>();
-    for (Method method : theClass.getDeclaredMethods()) {
-      Map<String, Object> methodDetail = new HashMap<String, Object>();
-      List<String> listParam = new ArrayList<String>();
-      for (Class<?> param : method.getParameterTypes()) {
-        listParam.add(param.getName());
-      }
-      methodDetail.put(method.getName(), listParam);
-      methodList.add(methodDetail);
-    }
-    result.put("methods", methodList);
-    return result;
-  }
 }
