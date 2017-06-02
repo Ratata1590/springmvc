@@ -72,18 +72,11 @@ public class DynamicCodeRestEndpointController {
   @RequestMapping(value = "/callClassMethod", method = RequestMethod.POST)
   public Object callClassMethod(@RequestHeader(required = true) String className,
       @RequestHeader(required = true) String methodName,
-      @RequestHeader(required = false, defaultValue = "false") Boolean save,
       @RequestHeader(required = false, defaultValue = "false") Boolean download,
       HttpServletResponse response, @RequestBody Object... param) throws Exception {
-    DynamicObject result =
-        DynamicObject.callClassMethod(classList.get(className), methodName, param);
-    if (save && result != null) {
-      objList.put(result.getObjName(), result);
-    }
+    Object result = DynamicObject.callClassMethod(classList.get(className), methodName, param);
     if (download) {
-      response.setContentType("application/x-msdownload");
-      response.setHeader("Content-disposition", "attachment; filename=result");
-      IOUtils.copy((InputStream) result.getObj(), response.getOutputStream());
+      serveDownload(result, response);
       return null;
     }
     return result;
@@ -106,7 +99,7 @@ public class DynamicCodeRestEndpointController {
   @RequestMapping(value = "/newObj", method = RequestMethod.GET)
   public String newObj(@RequestHeader String className) throws Exception {
     Object ob = classList.get(className).getConstructor().newInstance();
-    String instanceId = className + ":" + ob.hashCode();
+    String instanceId = className + DynamicObject.SEPARATOR + ob.hashCode();
     objList.put(instanceId, new DynamicObject(ob, instanceId));
     System.gc();
     return instanceId;
@@ -128,21 +121,21 @@ public class DynamicCodeRestEndpointController {
   @RequestMapping(value = "/callObjMethod", method = RequestMethod.POST)
   public Object callObjMethod(@RequestHeader(required = true) String instanceId,
       @RequestHeader(required = true) String methodName,
-      @RequestHeader(required = false, defaultValue = "false") Boolean save,
       @RequestHeader(required = false, defaultValue = "false") Boolean download,
       HttpServletResponse response, @RequestBody Object... param) throws Exception {
     DynamicObject obj = objList.get(instanceId);
-    DynamicObject result = obj.callObjMethod(methodName, param);
-    if (save && result != null) {
-      objList.put(result.getObjName(), result);
-    }
+    Object result = obj.callObjMethod(methodName, param);
     if (download) {
-      response.setContentType("application/x-msdownload");
-      response.setHeader("Content-disposition", "attachment; filename=result");
-      IOUtils.copy((InputStream) result.getObj(), response.getOutputStream());
+      serveDownload(result, response);
       return null;
     }
     return result;
+  }
+
+  private void serveDownload(Object obj, HttpServletResponse response) throws Exception {
+    response.setContentType("application/x-msdownload");
+    response.setHeader("Content-disposition", "attachment; filename=result");
+    IOUtils.copy((InputStream) obj, response.getOutputStream());
   }
 
 }
