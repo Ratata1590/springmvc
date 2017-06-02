@@ -73,6 +73,7 @@ public class MavenRepoEndpointController {
   public static final String defaultType = "default";
   public static final String defaultUrl = "http://repo1.maven.org/maven2/";
   public static final String defaultProxyProtocol = "http";
+  public static final String defaultMAVEN_META_FILENAME = "maven-metadata-local.xml";
 
   private RepositorySystem repositorySystem;
   private LocalRepository localRepo;
@@ -121,7 +122,7 @@ public class MavenRepoEndpointController {
       @RequestHeader(required = true) String artifactId) throws Exception {
     File metaFile = new File(localRepo.getBasedir().getPath().concat(File.separator).concat(groupId)
         .concat(File.separator).concat(artifactId).concat(File.separator)
-        .concat("maven-metadata-local.xml"));
+        .concat(defaultMAVEN_META_FILENAME));
     return new String(Files.readAllBytes(Paths.get(metaFile.getPath())));
   }
 
