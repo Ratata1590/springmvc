@@ -1,8 +1,6 @@
 package com.ratata.dynamicCodeRest.controller;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.dynamicCodeRest.dynamicObject.ObjectContainer;
 import com.ratata.dynamicCodeRest.utils.ThreadUtils;
@@ -54,29 +51,6 @@ public class GenToolDynamicCode {
       }
     }
     return result.toString();
-  }
-
-  /**
-   * junit,junit,3.8.1,junit-3.8.1.jar
-   * org,springframework,spring-webmvc,4.0.1.RELEASE,spring-webmvc-4.0.1.RELEASE.jar
-   * org,springframework,spring-beans,4.0.1.RELEASE,spring-beans-4.0.1.RELEASE.jar
-   * org,springframework,spring-context,4.0.1.RELEASE,spring-context-4.0.1.RELEASE.jar
-   * org,springframework,spring-core,4.0.1.RELEASE,spring-core-4.0.1.RELEASE.jar
-   **/
-  @RequestMapping(value = "/convertJarListToJson", method = RequestMethod.POST)
-  public Object convertJarListToJson(@RequestBody String jarList) throws Exception {
-    ArrayNode result = mapper.createArrayNode();
-    String[] lines = jarList.split("\r\n");
-    for (String line : lines) {
-      ObjectNode item = mapper.createObjectNode();
-      String[] lineItems = line.split(",");
-      List<String> groupId = Arrays.asList(Arrays.copyOfRange(lineItems, 0, lineItems.length - 3));
-      item.put(MavenRepoEndpointController.keyGroupId, String.join(".", groupId));
-      item.put(MavenRepoEndpointController.keyArtifactId, lineItems[lineItems.length - 3]);
-      item.put(MavenRepoEndpointController.keyVersion, lineItems[lineItems.length - 2]);
-      result.add(item);
-    }
-    return result;
   }
 
   @RequestMapping(value = "/getAllThead", method = RequestMethod.GET)
