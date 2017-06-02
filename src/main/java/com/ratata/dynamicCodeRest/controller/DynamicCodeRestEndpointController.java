@@ -74,6 +74,9 @@ public class DynamicCodeRestEndpointController {
       @RequestHeader(required = true) String methodName,
       @RequestHeader(required = false, defaultValue = "false") Boolean download,
       HttpServletResponse response, @RequestBody Object... param) throws Exception {
+    if (!classList.containsKey(className)) {
+      throw new Exception("class " + className + " not found");
+    }
     Object result = DynamicObject.callClassMethod(classList.get(className), methodName, param);
     if (download) {
       serveDownload(result, response);
@@ -98,6 +101,9 @@ public class DynamicCodeRestEndpointController {
 
   @RequestMapping(value = "/newObj", method = RequestMethod.GET)
   public String newObj(@RequestHeader String className) throws Exception {
+    if (!classList.containsKey(className)) {
+      throw new Exception("class " + className + " not found");
+    }
     Object ob = classList.get(className).getConstructor().newInstance();
     String instanceId = className + DynamicObject.SEPARATOR + ob.hashCode();
     objList.put(instanceId, new DynamicObject(ob, instanceId));
@@ -123,6 +129,9 @@ public class DynamicCodeRestEndpointController {
       @RequestHeader(required = true) String methodName,
       @RequestHeader(required = false, defaultValue = "false") Boolean download,
       HttpServletResponse response, @RequestBody Object... param) throws Exception {
+    if (!objList.containsKey(instanceId)) {
+      throw new Exception("object " + instanceId + " not found");
+    }
     DynamicObject obj = objList.get(instanceId);
     Object result = obj.callObjMethod(methodName, param);
     if (download) {
