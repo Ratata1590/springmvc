@@ -3,11 +3,10 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.ratata</groupId>
-	<artifactId>demoSpringMvc4</artifactId>
+	<artifactId>dynamicCodeRest</artifactId>
 	<packaging>war</packaging>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>Spring 4 MVC demo</name>
-	<url>http://maven.apache.org</url>
+	<version>0.0.1</version>
+	<name>dynamicCodeRest</name>
 
 	<properties>
 		<spring.version>4.0.1.RELEASE</spring.version>
@@ -17,15 +16,6 @@
 	</properties>
 
 	<dependencies>
-
-		<!-- junit -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
-
 		<!-- Spring dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -33,27 +23,16 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-orm</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-			<version>${spring.version}</version>
-		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-jpa -->
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
 			<version>1.7.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
 		</dependency>
 
 		<!-- Hibernate -->
@@ -133,8 +112,6 @@
 			<version>1.1.0</version>
 		</dependency>
 
-
-
 	</dependencies>
 	<build>
 		<plugins>
@@ -166,10 +143,10 @@
 			<!-- For Maven Tomcat Plugin -->
 			<plugin>
 				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
+				<artifactId>tomcat8-maven-plugin</artifactId>
 				<version>2.2</version>
 				<configuration>
-					<path>/Spring4MvcDemo</path>
+					<path>/</path>
 				</configuration>
 			</plugin>
 
