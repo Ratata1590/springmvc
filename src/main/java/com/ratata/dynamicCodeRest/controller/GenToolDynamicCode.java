@@ -14,7 +14,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import com.ratata.dynamicCodeRest.dynamicObject.ObjectContainer;
 import com.ratata.dynamicCodeRest.utils.ThreadUtils;
 
@@ -55,13 +54,6 @@ public class GenToolDynamicCode {
       }
     }
     return result.toString();
-  }
-
-  private final XmlMapper xmlMapper = new XmlMapper();
-
-  @RequestMapping(value = "/convertMavenToJson", method = RequestMethod.POST)
-  public Object convertMavenToJson(@RequestBody String mavenDependencies) throws Exception {
-    return xmlMapper.readTree(mavenDependencies);
   }
 
   /**
