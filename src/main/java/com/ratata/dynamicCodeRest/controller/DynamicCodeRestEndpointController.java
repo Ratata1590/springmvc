@@ -3,6 +3,7 @@ package com.ratata.dynamicCodeRest.controller;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,15 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.util.Streams;
 import org.mdkt.compiler.InMemoryJavaCompiler;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ratata.dynamicCodeRest.dynamicObject.CleanUp;
+import com.ratata.dynamicCodeRest.dynamicObject.CleanUpThread;
 import com.ratata.dynamicCodeRest.dynamicObject.DynamicObject;
+import com.ratata.dynamicCodeRest.dynamicObject.FutureResult;
+import com.ratata.dynamicCodeRest.dynamicObject.FutureResultClass;
+import com.ratata.dynamicCodeRest.dynamicObject.FutureResultObject;
 import com.ratata.dynamicCodeRest.utils.DynamicCodeUtil;
 import com.ratata.dynamicCodeRest.utils.ShareResourceFromSpringInterface;
 
@@ -28,9 +31,6 @@ import com.ratata.dynamicCodeRest.utils.ShareResourceFromSpringInterface;
 public class DynamicCodeRestEndpointController {
 	@Autowired
 	private ShareResourceFromSpringInterface shareResourceFromSpring;
-
-	@Autowired
-	private ApplicationContext appContext;
 
 	@PostConstruct
 	private void initResource() {
@@ -42,6 +42,8 @@ public class DynamicCodeRestEndpointController {
 	public static Map<String, Class<?>> classList = new ConcurrentHashMap<String, Class<?>>();
 
 	public static Map<String, DynamicObject> objList = new ConcurrentHashMap<String, DynamicObject>();
+
+	public static Map<String, FutureResult> futureResult = new ConcurrentHashMap<String, FutureResult>();
 
 	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
 	public void newClass(@RequestBody String classbody, @RequestHeader String className,
@@ -75,16 +77,24 @@ public class DynamicCodeRestEndpointController {
 	public Object callClassMethod(@RequestHeader(required = true) String className,
 			@RequestHeader(required = true) String methodName,
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
-			@RequestHeader(required = false, defaultValue = "0") Integer timeOut, HttpServletResponse response,
+			@RequestHeader(required = false, defaultValue = "0") Integer timeOut,
+			@RequestHeader(required = false, defaultValue = "false") Boolean async, HttpServletResponse response,
 			@RequestBody Object... param) throws Exception {
 		if (!classList.containsKey(className)) {
 			throw new Exception("class " + className + " not found");
 		}
+		if (async) {
+			FutureResultClass future = new FutureResultClass();
+			future.setThreadInfo(className, methodName, param, timeOut);
+			Thread.sleep(100);
+			return future.getName();
+		}
 		if (timeOut != 0) {
-			CleanUp timeOutThread = (CleanUp) appContext.getBean(CleanUp.class);
+			CleanUpThread timeOutThread = new CleanUpThread();
 			timeOutThread.setThreadInfo(Thread.currentThread(), timeOut);
 		}
 		Object result = DynamicObject.callClassMethod(classList.get(className), methodName, param);
+
 		if (download) {
 			serveDownload(result, response);
 			return null;
@@ -134,16 +144,23 @@ public class DynamicCodeRestEndpointController {
 	public Object callObjMethod(@RequestHeader(required = true) String instanceId,
 			@RequestHeader(required = true) String methodName,
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
-			@RequestHeader(required = false, defaultValue = "0") Integer timeOut, HttpServletResponse response,
+			@RequestHeader(required = false, defaultValue = "0") Integer timeOut,
+			@RequestHeader(required = false, defaultValue = "false") Boolean async, HttpServletResponse response,
 			@RequestBody Object... param) throws Exception {
 		if (!objList.containsKey(instanceId)) {
 			throw new Exception("object " + instanceId + " not found");
 		}
+		DynamicObject obj = objList.get(instanceId);
+		if (async) {
+			FutureResultObject future = new FutureResultObject();
+			future.setThreadInfo(obj, methodName, param, timeOut);
+			Thread.sleep(100);
+			return future.getName();
+		}
 		if (timeOut != 0) {
-			CleanUp timeOutThread = (CleanUp) appContext.getBean(CleanUp.class);
+			CleanUpThread timeOutThread = new CleanUpThread();
 			timeOutThread.setThreadInfo(Thread.currentThread(), timeOut);
 		}
-		DynamicObject obj = objList.get(instanceId);
 		Object result = obj.callObjMethod(methodName, param);
 		if (download) {
 			serveDownload(result, response);
@@ -158,4 +175,47 @@ public class DynamicCodeRestEndpointController {
 		Streams.copy((InputStream) obj, response.getOutputStream(), true);
 	}
 
+	@RequestMapping(value = "/futureReturnList", method = RequestMethod.GET)
+	public Object futureReturnList() throws Exception {
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		for (String key : futureResult.keySet()) {
+			resultMap.put(key, futureResult.get(key).getInfo());
+		}
+		return resultMap;
+	}
+
+	@RequestMapping(value = "/futureReturnGetLog", method = RequestMethod.GET)
+	public String futureReturnGetLog(@RequestHeader(required = true) String instanceId) throws Exception {
+		if (!futureResult.containsKey(instanceId)) {
+			throw new Exception("object " + instanceId + " not found");
+		}
+		return futureResult.get(instanceId).getLog();
+	}
+
+	@RequestMapping(value = "/futureReturnGetInfo", method = RequestMethod.GET)
+	public Object futureReturnGetInfo(@RequestHeader(required = true) String instanceId) throws Exception {
+		if (!futureResult.containsKey(instanceId)) {
+			throw new Exception("object " + instanceId + " not found");
+		}
+		return futureResult.get(instanceId).getInfo();
+	}
+
+	@RequestMapping(value = "/futureReturnGetResult", method = RequestMethod.GET)
+	public Object futureReturnGetResult(@RequestHeader(required = true) String instanceId,
+			@RequestHeader(required = false, defaultValue = "false") Boolean download,
+			@RequestHeader(required = false, defaultValue = "false") Boolean keep, HttpServletResponse response)
+			throws Exception {
+		if (!futureResult.containsKey(instanceId)) {
+			throw new Exception("object " + instanceId + " not found");
+		}
+		if (download) {
+			serveDownload(futureResult.get(instanceId).getResult(), response);
+			return null;
+		}
+		Object result = futureResult.get(instanceId).getResult();
+		if (!keep) {
+			futureResult.remove(instanceId);
+		}
+		return result;
+	}
 }

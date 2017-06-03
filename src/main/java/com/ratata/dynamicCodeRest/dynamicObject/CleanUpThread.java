@@ -2,12 +2,7 @@ package com.ratata.dynamicCodeRest.dynamicObject;
 
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-@Component
-@Scope("prototype")
-public class CleanUpThread extends Thread implements CleanUp {
+public class CleanUpThread extends Thread {
 	private Thread thread;
 	private Integer timeOut;
 
@@ -15,10 +10,15 @@ public class CleanUpThread extends Thread implements CleanUp {
 	@Override
 	public void run() {
 		try {
-			TimeUnit.SECONDS.sleep(timeOut);
+			while (timeOut > 0) {
+				TimeUnit.SECONDS.sleep(1);
+				timeOut--;
+			}
 			thread.interrupt();
-			TimeUnit.SECONDS.sleep(10);
-			thread.stop();
+			TimeUnit.SECONDS.sleep(2);
+			if (!thread.isInterrupted()) {
+				thread.stop();
+			}
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
