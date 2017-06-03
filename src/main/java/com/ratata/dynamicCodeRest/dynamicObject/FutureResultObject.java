@@ -15,6 +15,8 @@ public class FutureResultObject extends Thread implements FutureResult {
 	private Object[] param;
 	private Object result;
 
+	private boolean done = false;
+
 	private Thread thread;
 	private Integer timeOut;
 	// logging
@@ -54,6 +56,7 @@ public class FutureResultObject extends Thread implements FutureResult {
 		} catch (Exception e) {
 			e.printStackTrace(log);
 		}
+		done = true;
 	}
 
 	public void setThreadInfo(DynamicObject obj, String methodName, Object[] param, Integer timeOut) {
@@ -78,6 +81,7 @@ public class FutureResultObject extends Thread implements FutureResult {
 		info.put("param", param);
 		info.put("timeOut", timeOut);
 		info.put("log", getLog());
+		info.put("done", done);
 		return info;
 	}
 
