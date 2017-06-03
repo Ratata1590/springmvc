@@ -77,7 +77,7 @@ public class DynamicCodeRestEndpointController {
 	public Object callClassMethod(@RequestHeader(required = true) String className,
 			@RequestHeader(required = true) String methodName,
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
-			@RequestHeader(required = false, defaultValue = "0") Integer timeOut,
+			@RequestHeader(required = false, defaultValue = "10") Integer timeOut,
 			@RequestHeader(required = false, defaultValue = "false") Boolean async, HttpServletResponse response,
 			@RequestBody Object... param) throws Exception {
 		if (!classList.containsKey(className)) {
@@ -144,7 +144,7 @@ public class DynamicCodeRestEndpointController {
 	public Object callObjMethod(@RequestHeader(required = true) String instanceId,
 			@RequestHeader(required = true) String methodName,
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
-			@RequestHeader(required = false, defaultValue = "0") Integer timeOut,
+			@RequestHeader(required = false, defaultValue = "10") Integer timeOut,
 			@RequestHeader(required = false, defaultValue = "false") Boolean async, HttpServletResponse response,
 			@RequestBody Object... param) throws Exception {
 		if (!objList.containsKey(instanceId)) {
