@@ -5,7 +5,6 @@ import com.ratata.dynamicCodeRest.utils.DynamicCodeUtil;
 public class DynamicObject {
 
   public static final String SEPARATOR = ":";
-  public static final String CLASS_SEPARATOR = "$";
   private Object obj;
 
   private String objName;

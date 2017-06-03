@@ -1,65 +1,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa" xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
 http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
-http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
 http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
 ">
 
 	<!-- Add resources to context -->
 	<mvc:annotation-driven />
-	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="524288000" />
 	</bean>
 	<!-- Scan for controllers -->
 	<context:component-scan base-package="com.ratata" />
-
-	<!-- Use in-memory embedded H2 database -->
-	<jdbc:embedded-database id="dataSource" type="H2">
-	</jdbc:embedded-database>
-
-	<!-- Database managed by Hibernate -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="UsersPU" />
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan">
-			<list>
-				<value>com.ratata.model</value>
-				<value>com.ratata.nativeQueryRest.saveDB.entity</value>
-			</list>
-		</property>
-		<property name="persistenceProvider">
-			<bean class="org.hibernate.jpa.HibernatePersistenceProvider" />
-		</property>
-		<property name="jpaProperties">
-			<map>
-				<entry key="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-				<entry key="hibernate.hbm2ddl.auto" value="create" />
-				<entry key="hibernate.hbm2ddl.import_files" value="import_data.sql" />
-				<entry key="hibernate.show_sql" value="true" />
-			</map>
-		</property>
-	</bean>
-
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-	<jpa:repositories base-package="com.ratata.nativeQueryRest.saveDB.repo" />
-
 	<task:annotation-driven executor="myExecutor"
 		scheduler="myScheduler" />
 	<task:executor id="myExecutor" pool-size="5" />
 	<task:scheduler id="myScheduler" pool-size="10" />
-	<tx:annotation-driven transaction-manager="transactionManager" />
 
 </beans>
