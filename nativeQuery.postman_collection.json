@@ -142,7 +142,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "package com.ratata.model;\r\n\r\nimport java.io.ByteArrayOutputStream;\r\nimport java.io.PrintStream;\r\nimport java.lang.reflect.Method;\r\nimport java.nio.charset.StandardCharsets;\r\n\r\npublic class Test {\r\n\r\n  // logging\r\n  private ByteArrayOutputStream baos = new ByteArrayOutputStream();\r\n  private PrintStream log = new PrintStream(baos);\r\n\r\n  public String getLog() {\r\n    return new String(baos.toByteArray(), StandardCharsets.UTF_8);\r\n  }\r\n\r\n  public void clearLog() {\r\n    baos.reset();\r\n  }\r\n\r\n  // util method\r\n  public static Method $M_getClass;\r\n\r\n  public static Object getClass(Object theClass) throws Exception {\r\n    return $M_getClass.invoke(null, theClass);\r\n  }\r\n\r\n  public static Method $M_getBean;\r\n\r\n  public static Object getBean(Object theClass) throws Exception {\r\n    return $M_getBean.invoke(null, theClass);\r\n  }\r\n\r\n  public static Method $M_newObj;\r\n\r\n  public static Object newObj(Object theClass, Object... param) throws Exception {\r\n    return $M_newObj.invoke(null, theClass, param);\r\n  }\r\n\r\n  public static Method $M_getStaticProp;\r\n\r\n  public static Object getStaticProp(Object theClass, String propName) throws Exception {\r\n    return $M_getStaticProp.invoke(null, theClass, propName);\r\n  }\r\n\r\n  public static Method $M_setStaticProp;\r\n\r\n  public static Object setStaticProp(Object theClass, String propName, Object value)\r\n      throws Exception {\r\n    return $M_setStaticProp.invoke(null, theClass, propName, value);\r\n  }\r\n\r\n  public static Method $M_getObjProp;\r\n\r\n  public static Object getObjProp(Object obj, String propName) throws Exception {\r\n    return $M_getObjProp.invoke(null, obj, propName);\r\n  }\r\n\r\n  public static Method $M_setObjProp;\r\n\r\n  public static Object setObjProp(Object obj, String propName, Object value) throws Exception {\r\n    return $M_setObjProp.invoke(null, obj, propName, value);\r\n  }\r\n\r\n  public static Method $M_callStaticMethod;\r\n\r\n  public static Object callStaticMethod(Object theClass, String methodName, Object... param)\r\n      throws Exception {\r\n    return $M_callStaticMethod.invoke(null, theClass, methodName, param);\r\n  }\r\n\r\n  public static Method $M_callObjMethod;\r\n\r\n  public static Object callObjMethod(Object obj, String methodName, Object... param)\r\n      throws Exception {\r\n    return $M_callObjMethod.invoke(null, obj, methodName, param);\r\n  }\r\n\r\n  // import class\r\n  // public static Object $C_ObjectMapper = \"com.fasterxml.jackson.databind.ObjectMapper\";\r\n  // public static Object $C_JsonNode = \"com.fasterxml.jackson.databind.JsonNode\";\r\n  // public static Object $C_ArrayNode = \"com.fasterxml.jackson.databind.node.ArrayNode\";\r\n  // public static Object $C_Mapper = \"com.ratata.nativeQueryRest.utils.Mapper\";\r\n  // public static Object $C_NativeQueryParam = \"com.ratata.nativeQueryRest.pojo.NativeQueryParam\";\r\n  // public static Object $C_CoreDAO = \"com.ratata.nativeQueryRest.dao.CoreDAO\";\r\n\r\n  // public static Object $C_Hehe = \"hello:threadExample.Hehe\";\r\n\r\n  // public static Object $Sp_CoreDAO = \"com.ratata.nativeQueryRest.dao.CoreDAO\";\r\n  // main code\r\n\r\n  public void hello() throws Exception {\r\n    // Object om = getStaticProp($C_Mapper, \"mapper\");\r\n    // Object jsonNode = newObj($C_ObjectMapper);\r\n    // log.println(jsonNode.getClass().getTypeName());\r\n  }\r\n\r\n  public static Object haha() throws Exception {\r\n    // Object query = newObj($C_NativeQueryParam);\r\n    // callObjMethod(query, \"setQuery\", \"select * from User\");\r\n    // return callObjMethod(getBean($C_CoreDAO), \"nativeQuery\", query);\r\n    return null;\r\n  }\r\n}\r\n"
+							"raw": "package com.ratata.model;\r\n\r\nimport java.io.ByteArrayOutputStream;\r\nimport java.io.PrintStream;\r\nimport java.lang.reflect.Method;\r\nimport java.nio.charset.StandardCharsets;\r\n\r\npublic class Test {\r\n\r\n  // logging\r\n  private ByteArrayOutputStream baos = new ByteArrayOutputStream();\r\n  private PrintStream log = new PrintStream(baos);\r\n\r\n  public String getLog() {\r\n    return new String(baos.toByteArray(), StandardCharsets.UTF_8);\r\n  }\r\n\r\n  public void clearLog() {\r\n    baos.reset();\r\n  }\r\n\r\n  // util method\r\n  public static Method $M_getClass;\r\n\r\n  public static Object getClass(Object theClass) throws Exception {\r\n    return $M_getClass.invoke(null, theClass);\r\n  }\r\n\r\n  public static Method $M_getBean;\r\n\r\n  public static Object getBean(Object theClass) throws Exception {\r\n    return $M_getBean.invoke(null, theClass);\r\n  }\r\n\r\n  public static Method $M_newObj;\r\n\r\n  public static Object newObj(Object theClass, Object... param) throws Exception {\r\n    return $M_newObj.invoke(null, theClass, param);\r\n  }\r\n\r\n  public static Method $M_getStaticProp;\r\n\r\n  public static Object getStaticProp(Object theClass, String propName) throws Exception {\r\n    return $M_getStaticProp.invoke(null, theClass, propName);\r\n  }\r\n\r\n  public static Method $M_setStaticProp;\r\n\r\n  public static Object setStaticProp(Object theClass, String propName, Object value)\r\n      throws Exception {\r\n    return $M_setStaticProp.invoke(null, theClass, propName, value);\r\n  }\r\n\r\n  public static Method $M_getObjProp;\r\n\r\n  public static Object getObjProp(Object obj, String propName) throws Exception {\r\n    return $M_getObjProp.invoke(null, obj, propName);\r\n  }\r\n\r\n  public static Method $M_setObjProp;\r\n\r\n  public static Object setObjProp(Object obj, String propName, Object value) throws Exception {\r\n    return $M_setObjProp.invoke(null, obj, propName, value);\r\n  }\r\n\r\n  public static Method $M_callStaticMethod;\r\n\r\n  public static Object callStaticMethod(Object theClass, String methodName, Object... param)\r\n      throws Exception {\r\n    return $M_callStaticMethod.invoke(null, theClass, methodName, param);\r\n  }\r\n\r\n  public static Method $M_callObjMethod;\r\n\r\n  public static Object callObjMethod(Object obj, String methodName, Object... param)\r\n      throws Exception {\r\n    return $M_callObjMethod.invoke(null, obj, methodName, param);\r\n  }\r\n\r\n  // import class\r\n  // public static Object $C_ObjectMapper = \"com.fasterxml.jackson.databind.ObjectMapper\";\r\n  // public static Object $C_JsonNode = \"com.fasterxml.jackson.databind.JsonNode\";\r\n  // public static Object $C_ArrayNode = \"com.fasterxml.jackson.databind.node.ArrayNode\";\r\n  // public static Object $C_Mapper = \"com.ratata.nativeQueryRest.utils.Mapper\";\r\n  // public static Object $C_NativeQueryParam = \"com.ratata.nativeQueryRest.pojo.NativeQueryParam\";\r\n  // public static Object $C_CoreDAO = \"com.ratata.nativeQueryRest.dao.CoreDAO\";\r\n\r\n  // public static Object $C_Hehe = \"hello:threadExample.Hehe\";\r\n\r\n  // public static Object $Sp_CoreDAO = \"com.ratata.nativeQueryRest.dao.CoreDAO\";\r\n  // main code\r\n\r\n  public void hello() throws Exception {\r\n    // Object om = getStaticProp($C_Mapper, \"mapper\");\r\n    // Object jsonNode = newObj($C_ObjectMapper);\r\n    // log.println(jsonNode.getClass().getTypeName());\r\n  }\r\n\r\n  public static void haha() throws Exception {\r\n    // Object query = newObj($C_NativeQueryParam);\r\n    // callObjMethod(query, \"setQuery\", \"select * from User\");\r\n    // return callObjMethod(getBean($C_CoreDAO), \"nativeQuery\", query);\r\n    while(true){\r\n    \tThread.sleep(1000);\r\n    \tSystem.out.println(\"hello\");\r\n    }\r\n  }\r\n}\r\n"
 						},
 						"description": ""
 					},
@@ -183,6 +183,11 @@
 						"method": "POST",
 						"header": [
 							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
 								"key": "className",
 								"value": "com.ratata.model.Test",
 								"description": ""
@@ -193,8 +198,13 @@
 								"description": ""
 							},
 							{
-								"key": "Content-Type",
-								"value": "application/json",
+								"key": "timeOut",
+								"value": "10",
+								"description": ""
+							},
+							{
+								"key": "async",
+								"value": "false",
 								"description": ""
 							}
 						],
@@ -258,6 +268,11 @@
 						"method": "POST",
 						"header": [
 							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
 								"key": "instanceId",
 								"value": "com.ratata.model.Test:1875418306",
 								"description": ""
@@ -268,13 +283,13 @@
 								"description": ""
 							},
 							{
-								"key": "Content-Type",
-								"value": "application/json",
+								"key": "timeOut",
+								"value": "10",
 								"description": ""
 							},
 							{
-								"key": "save",
-								"value": "true",
+								"key": "async",
+								"value": "false",
 								"description": ""
 							}
 						],
@@ -282,6 +297,78 @@
 							"mode": "raw",
 							"raw": "null"
 						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "futureReturnGetLog",
+					"request": {
+						"url": "http://localhost:8080/dynamicCodeRest/futureReturnGetLog",
+						"method": "GET",
+						"header": [
+							{
+								"key": "instanceId",
+								"value": "com.ratata.model.Test:haha:com.ratata.dynamicCodeRest.dynamicObject.FutureResultClass:1332739790",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "futureReturnList",
+					"request": {
+						"url": "http://localhost:8080/dynamicCodeRest/futureReturnList",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "futureReturnGetInfo",
+					"request": {
+						"url": "http://localhost:8080/dynamicCodeRest/futureReturnGetInfo",
+						"method": "GET",
+						"header": [
+							{
+								"key": "instanceId",
+								"value": "com.ratata.model.Test:haha:com.ratata.dynamicCodeRest.dynamicObject.FutureResultClass:1371713896",
+								"description": ""
+							}
+						],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "futureReturnGetResult",
+					"request": {
+						"url": "http://localhost:8080/dynamicCodeRest/futureReturnGetResult",
+						"method": "GET",
+						"header": [
+							{
+								"key": "instanceId",
+								"value": "com.ratata.model.Test:haha:com.ratata.dynamicCodeRest.dynamicObject.FutureResultClass:1332739790",
+								"description": ""
+							},
+							{
+								"key": "keep",
+								"value": "false",
+								"description": ""
+							},
+							{
+								"key": "download",
+								"value": "false",
+								"description": ""
+							}
+						],
+						"body": {},
 						"description": ""
 					},
 					"response": []
