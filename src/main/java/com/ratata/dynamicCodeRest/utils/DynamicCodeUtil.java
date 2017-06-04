@@ -5,6 +5,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
+import com.ratata.dynamicCodeRest.controller.DynamicCodeRestEndpointController;
 import com.ratata.dynamicCodeRest.controller.MavenRepoEndpointController;
 
 public class DynamicCodeUtil {
@@ -15,8 +16,9 @@ public class DynamicCodeUtil {
 	public static final String SPECIAL_AUTOWIRE_CHAR = "$Sp_";
 	public static final String CLASSLOADER_SEPARATOR = ":";
 
-	public static final List<String> UTILNAME_LIST = Arrays.asList(new String[] { "getClass", "getBean", "newObj",
-			"getStaticProp", "setStaticProp", "callStaticMethod", "getObjProp", "setObjProp", "callObjMethod" });
+	public static final List<String> UTILNAME_LIST = Arrays.asList(
+			new String[] { "clearDynObj", "getDynObj", "newDynObj", "getClass", "getBean", "newObj", "getStaticProp",
+					"setStaticProp", "callStaticMethod", "getObjProp", "setObjProp", "callObjMethod" });
 
 	public static Class<?>[] revolseObjectParamType(Object... param) {
 		Class<?>[] classTypeList = new Class<?>[param.length];
@@ -67,6 +69,18 @@ public class DynamicCodeUtil {
 			}
 			return MavenRepoEndpointController.classLoaderList.get(classLoaderName).loadClass(clsName);
 		}
+	}
+
+	public static String newDynObj(String dynClassName, Object... param) throws Exception {
+		return DynamicCodeRestEndpointController.newObj(dynClassName);
+	}
+
+	public static Object getDynObj(String instanceId) throws Exception {
+		return DynamicCodeRestEndpointController.objList.get(instanceId);
+	}
+
+	public static Object clearDynObj(String instanceId) throws Exception {
+		return DynamicCodeRestEndpointController.objList.remove(instanceId);
 	}
 
 	public static Object getBean(Object theClass) {

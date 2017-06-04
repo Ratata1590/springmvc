@@ -46,7 +46,7 @@ public class DynamicCodeRestEndpointController {
 	public static Map<String, FutureResult> futureResult = new ConcurrentHashMap<String, FutureResult>();
 
 	@RequestMapping(value = "/newClass", method = RequestMethod.POST)
-	public void newClass(@RequestBody String classbody, @RequestHeader String className,
+	public static void newClass(@RequestBody String classbody, @RequestHeader String className,
 			@RequestHeader(required = false, defaultValue = "true") Boolean saveSource) throws Exception {
 		Class<?> theClass = InMemoryJavaCompiler.compile(className, classbody);
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
@@ -62,7 +62,7 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/removeClass", method = RequestMethod.GET)
-	public void removeClass(@RequestHeader String className) throws Exception {
+	public static void removeClass(@RequestHeader String className) throws Exception {
 		classList.remove(className);
 		sourceCodeList.remove(className);
 		for (String obj : objList.keySet()) {
@@ -74,7 +74,7 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/callClassMethod", method = RequestMethod.POST)
-	public Object callClassMethod(@RequestHeader(required = true) String className,
+	public static Object callClassMethod(@RequestHeader(required = true) String className,
 			@RequestHeader(required = true) String methodName,
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
 			@RequestHeader(required = false, defaultValue = "10") Integer timeOut,
@@ -103,7 +103,7 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/classList", method = RequestMethod.GET)
-	public Object classList(@RequestHeader(required = false, defaultValue = "false") Boolean showSource)
+	public static Object classList(@RequestHeader(required = false, defaultValue = "false") Boolean showSource)
 			throws Exception {
 		ArrayList<Object> result = new ArrayList<Object>();
 		if (showSource) {
@@ -116,11 +116,11 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/newObj", method = RequestMethod.GET)
-	public String newObj(@RequestHeader String className) throws Exception {
+	public static String newObj(@RequestHeader String className, @RequestBody Object... param) throws Exception {
 		if (!classList.containsKey(className)) {
 			throw new Exception("class " + className + " not found");
 		}
-		Object ob = classList.get(className).getConstructor().newInstance();
+		Object ob = DynamicCodeUtil.newObj(classList.get(className), param);
 		String instanceId = className + DynamicObject.SEPARATOR + ob.hashCode();
 		objList.put(instanceId, new DynamicObject(ob, instanceId));
 		System.gc();
@@ -128,20 +128,20 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/removeObj", method = RequestMethod.GET)
-	public void removeObj(@RequestHeader(required = true) String instanceId) throws Exception {
+	public static void removeObj(@RequestHeader(required = true) String instanceId) throws Exception {
 		objList.remove(instanceId);
 		System.gc();
 	}
 
 	@RequestMapping(value = "/objList", method = RequestMethod.GET)
-	public Object objList() throws Exception {
+	public static Object objList() throws Exception {
 		String[] result = objList.keySet().toArray(new String[objList.keySet().size()]);
 		Arrays.sort(result);
 		return result;
 	}
 
 	@RequestMapping(value = "/callObjMethod", method = RequestMethod.POST)
-	public Object callObjMethod(@RequestHeader(required = true) String instanceId,
+	public static Object callObjMethod(@RequestHeader(required = true) String instanceId,
 			@RequestHeader(required = true) String methodName,
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
 			@RequestHeader(required = false, defaultValue = "10") Integer timeOut,
@@ -169,14 +169,14 @@ public class DynamicCodeRestEndpointController {
 		return result;
 	}
 
-	private void serveDownload(Object obj, HttpServletResponse response) throws Exception {
+	private static void serveDownload(Object obj, HttpServletResponse response) throws Exception {
 		response.setContentType("application/x-msdownload");
 		response.setHeader("Content-disposition", "attachment; filename=result");
 		Streams.copy((InputStream) obj, response.getOutputStream(), true);
 	}
 
 	@RequestMapping(value = "/futureReturnList", method = RequestMethod.GET)
-	public Object futureReturnList() throws Exception {
+	public static Object futureReturnList() throws Exception {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		for (String key : futureResult.keySet()) {
 			resultMap.put(key, futureResult.get(key).getInfo());
@@ -185,7 +185,7 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/futureReturnGetLog", method = RequestMethod.GET)
-	public String futureReturnGetLog(@RequestHeader(required = true) String instanceId) throws Exception {
+	public static String futureReturnGetLog(@RequestHeader(required = true) String instanceId) throws Exception {
 		if (!futureResult.containsKey(instanceId)) {
 			throw new Exception("object " + instanceId + " not found");
 		}
@@ -193,7 +193,7 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/futureReturnGetInfo", method = RequestMethod.GET)
-	public Object futureReturnGetInfo(@RequestHeader(required = true) String instanceId) throws Exception {
+	public static Object futureReturnGetInfo(@RequestHeader(required = true) String instanceId) throws Exception {
 		if (!futureResult.containsKey(instanceId)) {
 			throw new Exception("object " + instanceId + " not found");
 		}
@@ -201,7 +201,7 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/futureReturnGetResult", method = RequestMethod.GET)
-	public Object futureReturnGetResult(@RequestHeader(required = true) String instanceId,
+	public static Object futureReturnGetResult(@RequestHeader(required = true) String instanceId,
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
 			@RequestHeader(required = false, defaultValue = "false") Boolean keep, HttpServletResponse response)
 			throws Exception {

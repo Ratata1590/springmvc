@@ -72,14 +72,14 @@ public class MavenRepoEndpointController {
 	public static final String defaultProxyProtocol = "http";
 	public static final String defaultMAVEN_META_FILENAME = "maven-metadata-local.xml";
 
-	private RepositorySystem repositorySystem;
-	private LocalRepository localRepo;
-	private DefaultRepositorySystemSession systemSession;
+	private static RepositorySystem repositorySystem;
+	private static LocalRepository localRepo;
+	private static DefaultRepositorySystemSession systemSession;
 	public static final Map<String, JsonNode> configList = new HashMap<String, JsonNode>();
 	public static final Map<String, ClassLoader> classLoaderList = new HashMap<String, ClassLoader>();
 
 	@RequestMapping(value = "/uploadJarToRepo", method = RequestMethod.POST)
-	public void uploadJarToRepo(@RequestBody(required = true) MultipartFile file,
+	public static void uploadJarToRepo(@RequestBody(required = true) MultipartFile file,
 			@RequestHeader(required = true) String groupId, @RequestHeader(required = true) String artifactId,
 			@RequestHeader(required = true) String version) throws Exception {
 		FileUtils.deleteDirectory(new File(localRepo.getBasedir().getPath().concat(File.separator).concat(groupId)
@@ -94,7 +94,7 @@ public class MavenRepoEndpointController {
 	}
 
 	@RequestMapping(value = "/getLocalMetadata", method = RequestMethod.GET)
-	public Object getMetadata(@RequestHeader(required = true) String groupId,
+	public static Object getMetadata(@RequestHeader(required = true) String groupId,
 			@RequestHeader(required = true) String artifactId) throws Exception {
 		File metaFile = new File(localRepo.getBasedir().getPath().concat(File.separator).concat(groupId)
 				.concat(File.separator).concat(artifactId).concat(File.separator).concat(defaultMAVEN_META_FILENAME));
@@ -102,7 +102,7 @@ public class MavenRepoEndpointController {
 	}
 
 	@RequestMapping(value = "/createClassLoader", method = RequestMethod.POST)
-	public void createClassLoader(@RequestHeader(required = true) String classLoaderName,
+	public static void createClassLoader(@RequestHeader(required = true) String classLoaderName,
 			@RequestBody JsonNode mavenDependencies) throws Exception {
 		if (classLoaderName.contains(parent_SEP)) {
 			throw new Exception("invalid classLoaderName");
@@ -127,7 +127,7 @@ public class MavenRepoEndpointController {
 		System.gc();
 	}
 
-	private ClassLoader resolveParentClassloader(String parentName) {
+	private static ClassLoader resolveParentClassloader(String parentName) {
 		if (parentName.equals(defaultSystemName)) {
 			return Thread.currentThread().getContextClassLoader();
 		}
@@ -135,7 +135,7 @@ public class MavenRepoEndpointController {
 	}
 
 	@RequestMapping(value = "/removeClassLoader", method = RequestMethod.GET)
-	public void removeClassLoader(@RequestHeader String classLoaderName) throws Exception {
+	public static void removeClassLoader(@RequestHeader String classLoaderName) throws Exception {
 		for (String cl : classLoaderList.keySet()) {
 			String[] tree = cl.split(parent_SEP);
 			for (String name : tree) {
@@ -150,7 +150,7 @@ public class MavenRepoEndpointController {
 	}
 
 	@RequestMapping(value = "/getClassLoaderList", method = RequestMethod.GET)
-	public Object getClassLoaderList() throws Exception {
+	public static Object getClassLoaderList() throws Exception {
 		return configList;
 	}
 
@@ -167,7 +167,7 @@ public class MavenRepoEndpointController {
 		systemSession.setLocalRepositoryManager(repositorySystem.newLocalRepositoryManager(systemSession, localRepo));
 	}
 
-	private URL[] mavenDependenciesToArtifactRequest(JsonNode data) throws Exception {
+	private static URL[] mavenDependenciesToArtifactRequest(JsonNode data) throws Exception {
 		List<URL> result = new ArrayList<URL>();
 		if (data.isArray()) {
 			for (JsonNode node : data) {
@@ -179,7 +179,7 @@ public class MavenRepoEndpointController {
 		return result.toArray(new URL[result.size()]);
 	}
 
-	private List<URL> resolveSingleRepo(JsonNode node) throws Exception {
+	private static List<URL> resolveSingleRepo(JsonNode node) throws Exception {
 		List<URL> result = new ArrayList<URL>();
 		String id = defaultId, type = defaultType, url = defaultUrl;
 		id = node.get(keyId) != null ? node.get(keyId).asText() : id;
