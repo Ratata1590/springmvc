@@ -15,7 +15,6 @@ public class CleanUpThread extends Thread {
 				timeOut--;
 			}
 			thread.interrupt();
-			TimeUnit.SECONDS.sleep(2);
 			if (!thread.isInterrupted()) {
 				thread.stop();
 			}
