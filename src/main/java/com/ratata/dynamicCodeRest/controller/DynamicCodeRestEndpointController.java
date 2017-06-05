@@ -213,7 +213,7 @@ public class DynamicCodeRestEndpointController {
 			return null;
 		}
 		Object result = futureResult.get(instanceId).getResult();
-		if (!keep) {
+		if (!keep && futureResult.get(instanceId).isDone()) {
 			futureResult.remove(instanceId);
 		}
 		return result;

@@ -1,9 +1,11 @@
 package com.ratata.dynamicCodeRest.dynamicObject;
 
 public interface FutureResult {
-	public Object getResult();
+  public boolean isDone();
 
-	public String getLog();
+  public Object getResult();
 
-	public Object getInfo();
+  public String getLog();
+
+  public Object getInfo();
 }
