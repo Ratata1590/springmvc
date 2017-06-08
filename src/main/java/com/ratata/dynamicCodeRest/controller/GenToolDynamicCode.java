@@ -1,13 +1,12 @@
 package com.ratata.dynamicCodeRest.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.fileupload.util.Streams;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +17,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.ratata.dynamicCodeRest.dynamicObject.ObjectContainer;
+import com.ratata.dynamicCodeRest.utils.MultipartFileSender;
 import com.ratata.dynamicCodeRest.utils.ThreadUtils;
 
 @RestController
@@ -75,7 +75,8 @@ public class GenToolDynamicCode {
 	}
 
 	@RequestMapping(value = "/downloadFile", method = RequestMethod.GET)
-	public Object downloadFile(@RequestParam String path, HttpServletResponse response) throws Exception {
-		return Streams.copy(new FileInputStream(new File(path)), response.getOutputStream(), true);
+	public void downloadFile(@RequestParam String path, HttpServletResponse response,HttpServletRequest request) throws Exception {
+	  MultipartFileSender.fromFile(new File(path)).with(request).with(response).serveResource();
+		//Streams.copy(new FileInputStream(new File(path)), response.getOutputStream(), true);
 	}
 }
