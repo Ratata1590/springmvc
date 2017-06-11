@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,14 +25,15 @@ public class SocketRestEndpointController {
 	@RequestMapping(value = "/socketHandler", method = RequestMethod.POST)
 	public static void socketHandler(@RequestBody byte[] data, @RequestHeader(required = true) String sockRestId)
 			throws Exception {
+		Socket socket = sessionList.get(sockRestId);
 		if (data.length != 0) {
 			try {
-				OutputStream out = sessionList.get(sockRestId).getOutputStream();
+				OutputStream out = socket.getOutputStream();
 				out.write(data);
 				out.flush();
 			} catch (Exception e) {
 				try {
-					sessionList.get(sockRestId).close();
+					socket.close();
 				} catch (Exception e2) {
 				}
 				sessionList.remove(sockRestId);
@@ -61,18 +63,19 @@ public class SocketRestEndpointController {
 	}
 
 	@RequestMapping(value = "/socketControl", method = RequestMethod.POST)
-	public static void socketConnect(@RequestHeader(required = true) String sessionId,
+	public static String socketConnect(@RequestHeader(required = false) String sessionId,
 			@RequestHeader(required = true) String action, @RequestHeader(required = false) String host,
 			@RequestHeader(required = false) Integer port) throws Exception {
 		switch (action) {
 		case "connect":
-			if (sessionList.containsKey(sessionId)) {
-				throw new Exception("sessionId is being used!");
+			String tmpsessionId = getSaltString();
+			while (sessionList.containsKey(tmpsessionId)) {
+				tmpsessionId = getSaltString();
 			}
 			Socket sock = openSocket(host, port);
-			sessionList.put(sessionId, sock);
-			configList.put(sessionId, host + ":" + port);
-			break;
+			sessionList.put(tmpsessionId, sock);
+			configList.put(tmpsessionId, host + ":" + port);
+			return tmpsessionId;
 		case "diconnect":
 			try {
 				sessionList.get(sessionId).close();
@@ -80,8 +83,9 @@ public class SocketRestEndpointController {
 			}
 			sessionList.remove(sessionId);
 			configList.remove(sessionId);
-			break;
+			return null;
 		}
+		return null;
 	}
 
 	@RequestMapping(value = "/socketList", method = RequestMethod.GET)
@@ -114,5 +118,18 @@ public class SocketRestEndpointController {
 			ste.printStackTrace();
 			throw ste;
 		}
+	}
+
+	public static String getSaltString() {
+		String SALTCHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+		StringBuilder salt = new StringBuilder();
+		Random rnd = new Random();
+		while (salt.length() < 18) { // length of the random string.
+			int index = (int) (rnd.nextFloat() * SALTCHARS.length());
+			salt.append(SALTCHARS.charAt(index));
+		}
+		String saltStr = salt.toString();
+		return saltStr;
+
 	}
 }
