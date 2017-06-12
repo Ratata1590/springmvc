@@ -128,6 +128,5 @@ public class SocketRestEndpointController {
     }
     String saltStr = salt.toString();
     return saltStr;
-
   }
 }
