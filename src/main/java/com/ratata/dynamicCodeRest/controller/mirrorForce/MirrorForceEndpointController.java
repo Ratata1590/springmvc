@@ -1,4 +1,4 @@
-package com.ratata.dynamicCodeRest.controller;
+package com.ratata.dynamicCodeRest.controller.mirrorForce;
 
 import java.io.PipedInputStream;
 import java.io.PipedOutputStream;

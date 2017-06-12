@@ -1,4 +1,4 @@
-package com.ratata.dynamicCodeRest.controller;
+package com.ratata.dynamicCodeRest.controller.mirrorForce;
 
 import java.util.LinkedList;
 import java.util.List;
