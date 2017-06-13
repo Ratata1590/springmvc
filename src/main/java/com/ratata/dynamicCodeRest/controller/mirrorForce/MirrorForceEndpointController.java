@@ -27,7 +27,6 @@ public class MirrorForceEndpointController {
   @RequestMapping(value = "/socketHandler", method = RequestMethod.POST)
   public static void socketHandler(@RequestBody byte[] data,
       @RequestHeader(required = true) String sockRestId) throws Exception {
-    System.out.println("socketHandlerPost");
     PipedOutputStream out = outputStreamList.get(sockRestId);
     if (data.length != 0) {
       try {
@@ -42,15 +41,17 @@ public class MirrorForceEndpointController {
         throw new Exception("socket closed");
       }
     }
-    System.out.println("socketHandlerPostFinished");
   }
 
   @RequestMapping(value = "/socketHandler", method = RequestMethod.GET)
   public static Object socketHandler(@RequestHeader(required = true) String sockRestId)
       throws Exception {
-    System.out.println("socketHandlerGet");
     PipedInputStream in = inputStreamList.get(sockRestId);
     int byteRead = in.available();
+    if (byteRead == 0) {
+      Thread.sleep(1000);
+      return null;
+    }
     byte[] resultBuff = new byte[byteRead];
     try {
       in.read(resultBuff);
@@ -62,7 +63,6 @@ public class MirrorForceEndpointController {
       inputStreamList.remove(sockRestId);
       throw new Exception("socket closed");
     }
-    System.out.println("socketHandlerGetFinish");
     return resultBuff;
   }
 
