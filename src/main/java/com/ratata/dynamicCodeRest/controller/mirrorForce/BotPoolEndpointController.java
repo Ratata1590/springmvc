@@ -1,7 +1,6 @@
 package com.ratata.dynamicCodeRest.controller.mirrorForce;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -14,18 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 public class BotPoolEndpointController {
 	private static Map<String, LinkedList<String>> botConnectionPool = new ConcurrentHashMap<String, LinkedList<String>>();
 
-	@RequestMapping(value = "/botInit", method = RequestMethod.POST)
-	public static List<String> botInit(@RequestHeader String botName, @RequestHeader int poolSize) {
-		LinkedList<String> thePool = new LinkedList<String>();
-		for (int i = 0; i < poolSize; i++) {
-			thePool.push(MirrorForceEndpointController.mirrorControlCreate());
-		}
-		if (botConnectionPool.containsKey(botName)) {
-			botCleanPool(botName);
-		}
-		botConnectionPool.put(botName, thePool);
-		return thePool;
-	}
+	// @RequestMapping(value = "/botInit", method = RequestMethod.POST)
+	// public static List<String> botInit(@RequestHeader String botName,
+	// @RequestHeader int poolSize) {
+	// LinkedList<String> thePool = new LinkedList<String>();
+	// for (int i = 0; i < poolSize; i++) {
+	// thePool.push(MirrorForceEndpointController.mirrorControlCreate());
+	// }
+	// if (botConnectionPool.containsKey(botName)) {
+	// botCleanPool(botName);
+	// }
+	// botConnectionPool.put(botName, thePool);
+	// return thePool;
+	// }
 
 	@RequestMapping(value = "/botCleanPool", method = RequestMethod.POST)
 	public static void botCleanPool(@RequestHeader String botName) {
@@ -40,6 +40,9 @@ public class BotPoolEndpointController {
 	@RequestMapping(value = "/botAddConnection", method = RequestMethod.POST)
 	public static String botAddConnection(@RequestHeader String botName) {
 		String conn = MirrorForceEndpointController.mirrorControlCreate();
+		if (!botConnectionPool.containsKey(botName)) {
+			botConnectionPool.put(botName, new LinkedList<String>());
+		}
 		botConnectionPool.get(botName).push(conn);
 		return conn;
 	}
