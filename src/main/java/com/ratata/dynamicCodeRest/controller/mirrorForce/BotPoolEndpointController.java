@@ -50,6 +50,7 @@ public class BotPoolEndpointController {
 
 	@RequestMapping(value = "/botAddConnection", method = RequestMethod.POST)
 	public static String botAddConnection(@RequestHeader String botName) {
+		botInit(botName);
 		String conn = MirrorForceEndpointController.mirrorControlCreate();
 		botConnectionPool.get(botName).add(conn);
 		return conn;
@@ -57,6 +58,8 @@ public class BotPoolEndpointController {
 
 	@RequestMapping(value = "/botGetConnection", method = RequestMethod.POST)
 	public static String botGetConnection(@RequestHeader String botName) throws Exception {
-		return botConnectionPool.get(botName).poll();
+		String botNode = botConnectionPool.get(botName).poll();
+		String respNode = MirrorForceEndpointController.mirrorControlCreate();
+		return botNode + ":" + respNode;
 	}
 }
