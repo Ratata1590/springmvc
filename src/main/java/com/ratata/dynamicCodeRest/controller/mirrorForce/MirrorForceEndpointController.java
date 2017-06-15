@@ -41,7 +41,7 @@ public class MirrorForceEndpointController {
 		return tmpsessionId;
 	}
 
-	@RequestMapping(value = "/socketControl/remove", method = RequestMethod.POST)
+	@RequestMapping(value = "/socketControl/disconnect", method = RequestMethod.POST)
 	public static void mirrorControlRemove(@RequestHeader String sessionId) {
 		queueList.remove(sessionId);
 	}
