@@ -23,14 +23,12 @@ public class MirrorForceEndpointController {
 			throws Exception {
 		if (data.length != 0) {
 			queueList.get(sockRestId).add(data);
-			System.out.println("up:"+sockRestId+":"+data);
 		}
 	}
 
 	@RequestMapping(value = "/socketHandler", method = RequestMethod.GET)
 	public static Object socketHandler(@RequestHeader(required = true) String sockRestId) throws Exception {
 		byte[] data = queueList.get(sockRestId).poll();
-		System.out.println("down:"+sockRestId+":"+data);
 		return data;
 	}
 
