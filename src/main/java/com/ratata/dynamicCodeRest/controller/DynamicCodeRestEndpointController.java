@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ratata.dynamicCodeRest.dynamicObject.CleanUpThread;
 import com.ratata.dynamicCodeRest.dynamicObject.DynamicObject;
 import com.ratata.dynamicCodeRest.dynamicObject.FutureResult;
@@ -79,13 +81,18 @@ public class DynamicCodeRestEndpointController {
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
 			@RequestHeader(required = false, defaultValue = "10") Integer timeOut,
 			@RequestHeader(required = false, defaultValue = "false") Boolean async, HttpServletResponse response,
-			@RequestBody Object... param) throws Exception {
+			@RequestBody Map<String, List<Object>> param) throws Exception {
 		if (!classList.containsKey(className)) {
 			throw new Exception("class " + className + " not found");
 		}
+		if (param.get("paramType").size() != param.get("paramData").size()) {
+			throw new Exception("invalid type data pair");
+		}
+		Class<?>[] paramType = stringToClass(param.get("paramType"));
+		Object[] paramData = resolveParam(paramType, param.get("paramData"));
 		if (async) {
 			FutureResultClass future = new FutureResultClass();
-			future.setThreadInfo(className, methodName, param, timeOut);
+			future.setThreadInfo(className, methodName, paramType, paramData, timeOut);
 			Thread.sleep(100);
 			return future.getName();
 		}
@@ -93,7 +100,7 @@ public class DynamicCodeRestEndpointController {
 			CleanUpThread timeOutThread = new CleanUpThread();
 			timeOutThread.setThreadInfo(Thread.currentThread(), timeOut);
 		}
-		Object result = DynamicObject.callClassMethod(classList.get(className), methodName, param);
+		Object result = DynamicObject.callClassMethod(classList.get(className), methodName, paramType, paramData);
 
 		if (download) {
 			serveDownload(result, response);
@@ -116,11 +123,17 @@ public class DynamicCodeRestEndpointController {
 	}
 
 	@RequestMapping(value = "/newObj", method = RequestMethod.GET)
-	public static String newObj(@RequestHeader String className, @RequestBody Object... param) throws Exception {
+	public static String newObj(@RequestHeader String className, @RequestBody Map<String, List<Object>> param)
+			throws Exception {
 		if (!classList.containsKey(className)) {
 			throw new Exception("class " + className + " not found");
 		}
-		Object ob = DynamicCodeUtil.newObj(classList.get(className), param);
+		if (param.get("paramType").size() != param.get("paramData").size()) {
+			throw new Exception("invalid type data pair");
+		}
+		Class<?>[] paramType = stringToClass(param.get("paramType"));
+		Object[] paramData = resolveParam(paramType, param.get("paramData"));
+		Object ob = DynamicCodeUtil.newObj(classList.get(className), paramType, paramData);
 		String instanceId = className + DynamicObject.SEPARATOR + ob.hashCode();
 		objList.put(instanceId, new DynamicObject(ob, instanceId));
 		System.gc();
@@ -146,14 +159,19 @@ public class DynamicCodeRestEndpointController {
 			@RequestHeader(required = false, defaultValue = "false") Boolean download,
 			@RequestHeader(required = false, defaultValue = "10") Integer timeOut,
 			@RequestHeader(required = false, defaultValue = "false") Boolean async, HttpServletResponse response,
-			@RequestBody Object... param) throws Exception {
+			@RequestBody Map<String, List<Object>> param) throws Exception {
 		if (!objList.containsKey(instanceId)) {
 			throw new Exception("object " + instanceId + " not found");
 		}
+		if (param.get("paramType").size() != param.get("paramData").size()) {
+			throw new Exception("invalid type data pair");
+		}
+		Class<?>[] paramType = stringToClass(param.get("paramType"));
+		Object[] paramData = resolveParam(paramType, param.get("paramData"));
 		DynamicObject obj = objList.get(instanceId);
 		if (async) {
 			FutureResultObject future = new FutureResultObject();
-			future.setThreadInfo(obj, methodName, param, timeOut);
+			future.setThreadInfo(obj, methodName, paramType, paramData, timeOut);
 			Thread.sleep(100);
 			return future.getName();
 		}
@@ -161,7 +179,7 @@ public class DynamicCodeRestEndpointController {
 			CleanUpThread timeOutThread = new CleanUpThread();
 			timeOutThread.setThreadInfo(Thread.currentThread(), timeOut);
 		}
-		Object result = obj.callObjMethod(methodName, param);
+		Object result = obj.callObjMethod(methodName, paramType, paramData);
 		if (download) {
 			serveDownload(result, response);
 			return null;
@@ -215,6 +233,23 @@ public class DynamicCodeRestEndpointController {
 		Object result = futureResult.get(instanceId).getResult();
 		if (!keep && futureResult.get(instanceId).isDone()) {
 			futureResult.remove(instanceId);
+		}
+		return result;
+	}
+
+	private static Class<?>[] stringToClass(List<Object> data) throws Exception {
+		Class<?>[] result = new Class<?>[data.size()];
+		for (int i = 0; i < data.size(); i++) {
+			result[i] = Thread.currentThread().getContextClassLoader().loadClass((String) data.get(i));
+		}
+		return result;
+	}
+
+	private static Object[] resolveParam(Class<?>[] dataType, List<Object> data) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		Object[] result = new Object[dataType.length];
+		for (int i = 0; i < dataType.length; i++) {
+			result[i] = mapper.convertValue(data.get(i), dataType[i]);
 		}
 		return result;
 	}

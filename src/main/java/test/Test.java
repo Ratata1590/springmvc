@@ -52,8 +52,8 @@ public class Test {
 
 	public static Method $M_newObj;
 
-	public static Object newObj(Object theClass, Object... param) throws Exception {
-		return $M_newObj.invoke(null, theClass, param);
+	public static Object newObj(Object theClass, Class<?>[] paramType, Object[] paramData) throws Exception {
+		return $M_newObj.invoke(null, theClass, paramType, paramData);
 	}
 
 	public static Method $M_getStaticProp;
@@ -82,14 +82,16 @@ public class Test {
 
 	public static Method $M_callStaticMethod;
 
-	public static Object callStaticMethod(Object theClass, String methodName, Object... param) throws Exception {
-		return $M_callStaticMethod.invoke(null, theClass, methodName, param);
+	public static Object callStaticMethod(Object theClass, String methodName, Class<?>[] paramType, Object[] paramData)
+			throws Exception {
+		return $M_callStaticMethod.invoke(null, theClass, methodName, paramType, paramData);
 	}
 
 	public static Method $M_callObjMethod;
 
-	public static Object callObjMethod(Object obj, String methodName, Object... param) throws Exception {
-		return $M_callObjMethod.invoke(null, obj, methodName, param);
+	public static Object callObjMethod(Object obj, String methodName, Class<?>[] paramType, Object[] paramData)
+			throws Exception {
+		return $M_callObjMethod.invoke(null, obj, methodName, paramType, paramData);
 	}
 
 	// import class
@@ -106,25 +108,13 @@ public class Test {
 	// public static Object $C_CoreDAO =
 	// "com.ratata.nativeQueryRest.dao.CoreDAO";
 
-	// public static Object $C_Hehe = "hello:threadExample.Hehe";
+	public static Object $C_Hello = "hello:testProject.Hello";
 
 	// public static Object $Sp_CoreDAO =
 	// "com.ratata.nativeQueryRest.dao.CoreDAO";
 	// main code
 
-	public void hello() throws Exception {
-		// Object om = getStaticProp($C_Mapper, "mapper");
-		// Object jsonNode = newObj($C_ObjectMapper);
-		// log.println(jsonNode.getClass().getTypeName());
-	}
-
-	public static void haha() throws Exception {
-		// Object query = newObj($C_NativeQueryParam);
-		// callObjMethod(query, "setQuery", "select * from User");
-		// return callObjMethod(getBean($C_CoreDAO), "nativeQuery", query);
-		while (true) {
-			Thread.sleep(1000);
-			System.out.println("hello");
-		}
+	public static Object hello(String ss) throws Exception {
+		return callStaticMethod($C_Hello, "hello", null, null);
 	}
 }

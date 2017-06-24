@@ -2,8 +2,11 @@ package com.ratata.dynamicCodeRest.utils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.ratata.dynamicCodeRest.controller.DynamicCodeRestEndpointController;
 import com.ratata.dynamicCodeRest.controller.MavenRepoEndpointController;
@@ -19,14 +22,6 @@ public class DynamicCodeUtil {
 	public static final List<String> UTILNAME_LIST = Arrays.asList(
 			new String[] { "clearDynObj", "getDynObj", "newDynObj", "getClass", "getBean", "newObj", "getStaticProp",
 					"setStaticProp", "callStaticMethod", "getObjProp", "setObjProp", "callObjMethod" });
-
-	public static Class<?>[] revolseObjectParamType(Object... param) {
-		Class<?>[] classTypeList = new Class<?>[param.length];
-		for (int i = 0; i < param.length; i++) {
-			classTypeList[i] = param[i].getClass();
-		}
-		return classTypeList;
-	}
 
 	public static void loadAllClass(Class<?> theClass, ClassLoader classLoader) throws Exception {
 		Field[] fields = theClass.getDeclaredFields();
@@ -72,7 +67,14 @@ public class DynamicCodeUtil {
 	}
 
 	public static String newDynObj(String dynClassName, Object... param) throws Exception {
-		return DynamicCodeRestEndpointController.newObj(dynClassName);
+		Map<String, List<Object>> paramToPass = new HashMap<String, List<Object>>();
+		List<Object> paramType = new ArrayList<Object>();
+		for (Object obj : param) {
+			paramType.add(obj.getClass());
+		}
+		paramToPass.put("paramType", paramType);
+		paramToPass.put("paramData", Arrays.asList(param));
+		return DynamicCodeRestEndpointController.newObj(dynClassName, paramToPass);
 	}
 
 	public static Object getDynObj(String instanceId) throws Exception {
@@ -87,11 +89,11 @@ public class DynamicCodeUtil {
 		return ShareResourceFromSpring.shareAppContext.getBean((Class<?>) theClass);
 	}
 
-	public static Object newObj(Object theClass, Object... param) throws Exception {
-		if (param == null) {
+	public static Object newObj(Object theClass, Class<?>[] paramType, Object[] paramData) throws Exception {
+		if (paramType == null || paramType.length == 0) {
 			return ((Class<?>) theClass).getConstructor().newInstance();
 		}
-		return ((Class<?>) theClass).getConstructor(revolseObjectParamType(param)).newInstance(param);
+		return ((Class<?>) theClass).getConstructor(paramType).newInstance(paramData);
 	}
 
 	public static Object getStaticProp(Object theClass, String propName) throws Exception {
@@ -110,18 +112,20 @@ public class DynamicCodeUtil {
 		obj.getClass().getDeclaredField(propName).set(obj, value);
 	}
 
-	public static Object callStaticMethod(Object theClass, String methodName, Object... param) throws Exception {
-		if (param == null) {
+	public static Object callStaticMethod(Object theClass, String methodName, Class<?>[] paramType, Object[] paramData)
+			throws Exception {
+		if (paramType == null || paramType.length == 0) {
 			return ((Class<?>) theClass).getMethod(methodName).invoke(null);
 		}
-		return ((Class<?>) theClass).getMethod(methodName, revolseObjectParamType(param)).invoke(null, param);
+		return ((Class<?>) theClass).getMethod(methodName, paramType).invoke(null, paramData);
 	}
 
-	public static Object callObjMethod(Object obj, String methodName, Object... param) throws Exception {
-		if (param == null) {
+	public static Object callObjMethod(Object obj, String methodName, Class<?>[] paramType, Object[] paramData)
+			throws Exception {
+		if (paramType == null || paramType.length == 0) {
 			return obj.getClass().getMethod(methodName).invoke(obj);
 		}
-		return obj.getClass().getMethod(methodName, revolseObjectParamType(param)).invoke(obj, param);
+		return obj.getClass().getMethod(methodName, paramType).invoke(obj, paramData);
 	}
 
 }

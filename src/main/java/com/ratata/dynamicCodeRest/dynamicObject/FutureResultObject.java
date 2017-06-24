@@ -12,7 +12,8 @@ public class FutureResultObject extends Thread implements FutureResult {
 
 	private DynamicObject obj;
 	private String methodName;
-	private Object[] param;
+	private Class<?>[] paramType;
+	private Object[] paramData;
 	private Object result;
 
 	private boolean done = false;
@@ -39,8 +40,12 @@ public class FutureResultObject extends Thread implements FutureResult {
 		return methodName;
 	}
 
-	public Object[] getParam() {
-		return param;
+	public Class<?>[] getParamType() {
+		return paramType;
+	}
+
+	public Object[] getParamData() {
+		return paramData;
 	}
 
 	public Integer getTimeOut() {
@@ -56,17 +61,19 @@ public class FutureResultObject extends Thread implements FutureResult {
 		}
 		DynamicCodeRestEndpointController.futureResult.put(this.getName(), this);
 		try {
-			result = obj.callObjMethod(methodName, param);
+			result = obj.callObjMethod(methodName, paramType, paramData);
 		} catch (Exception e) {
 			e.printStackTrace(log);
 		}
 		done = true;
 	}
 
-	public void setThreadInfo(DynamicObject obj, String methodName, Object[] param, Integer timeOut) {
+	public void setThreadInfo(DynamicObject obj, String methodName, Class<?>[] paramType, Object[] paramData,
+			Integer timeOut) {
 		this.obj = obj;
 		this.methodName = methodName;
-		this.param = param;
+		this.paramType = paramType;
+		this.paramData = paramData;
 		this.timeOut = timeOut;
 		setName(this.getObj().concat(":").concat(this.methodName).concat(":").concat(this.getClass().getTypeName())
 				.concat(":").concat(String.valueOf(this.hashCode())));
@@ -82,7 +89,8 @@ public class FutureResultObject extends Thread implements FutureResult {
 		Map<String, Object> info = new HashMap<String, Object>();
 		info.put("objName", getObj());
 		info.put("methodName", methodName);
-		info.put("param", param);
+		info.put("paramType", paramType);
+		info.put("paramData", paramData);
 		info.put("timeOut", timeOut);
 		info.put("log", getLog());
 		info.put("done", done);

@@ -14,12 +14,13 @@ public class DynamicObject {
 		this.objName = objName;
 	}
 
-	public final Object callObjMethod(String methodName, Object... param) throws Exception {
-		return DynamicCodeUtil.callObjMethod(obj, methodName, param);
+	public final Object callObjMethod(String methodName, Class<?>[] paramType, Object[] paramData) throws Exception {
+		return DynamicCodeUtil.callObjMethod(obj, methodName, paramType, paramData);
 	}
 
-	public static final Object callClassMethod(Class<?> clazz, String methodName, Object... param) throws Exception {
-		return DynamicCodeUtil.callStaticMethod(clazz, methodName, param);
+	public static final Object callClassMethod(Class<?> clazz, String methodName, Class<?>[] paramType,
+			Object[] paramData) throws Exception {
+		return DynamicCodeUtil.callStaticMethod(clazz, methodName, paramType, paramData);
 	}
 
 	public String getObjName() {
