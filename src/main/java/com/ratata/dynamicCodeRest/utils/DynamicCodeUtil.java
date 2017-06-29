@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import com.ratata.dynamicCodeRest.controller.DynamicCodeRestEndpointController;
-import com.ratata.dynamicCodeRest.controller.MavenRepoEndpointController;
 
 public class DynamicCodeUtil {
 	public static final String SPECIAL_CHAR = "$";
@@ -59,10 +58,10 @@ public class DynamicCodeUtil {
 			String[] pckName = className.split(CLASSLOADER_SEPARATOR);
 			String classLoaderName = pckName[0];
 			String clsName = pckName[1];
-			if (!MavenRepoEndpointController.classLoaderList.containsKey(classLoaderName)) {
+			if (!DynamicCodeRestEndpointController.classLoaderList.containsKey(classLoaderName)) {
 				throw new Exception("classLoaderName " + classLoaderName + " not found");
 			}
-			return MavenRepoEndpointController.classLoaderList.get(classLoaderName).loadClass(clsName);
+			return DynamicCodeRestEndpointController.classLoaderList.get(classLoaderName).loadClass(clsName);
 		}
 	}
 
