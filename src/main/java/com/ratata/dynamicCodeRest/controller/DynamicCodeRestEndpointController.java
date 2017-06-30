@@ -12,7 +12,6 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.util.Streams;
-import org.mdkt.compiler.InMemoryJavaCompiler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -27,6 +26,7 @@ import com.ratata.dynamicCodeRest.dynamicObject.DynamicObject;
 import com.ratata.dynamicCodeRest.dynamicObject.FutureResult;
 import com.ratata.dynamicCodeRest.dynamicObject.FutureResultClass;
 import com.ratata.dynamicCodeRest.dynamicObject.FutureResultObject;
+import com.ratata.dynamicCodeRest.inmemCompiler.InMemoryJavaCompiler;
 import com.ratata.dynamicCodeRest.utils.DynamicCodeUtil;
 import com.ratata.dynamicCodeRest.utils.ShareResourceFromSpringInterface;
 
