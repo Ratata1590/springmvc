@@ -184,7 +184,8 @@ public class ResourceController {
 		// AntPathMatcher apm = new AntPathMatcher();
 		// String finalPath = apm.extractPathWithinPattern(bestMatchPattern,
 		// path);
-		String finalPath = path.substring(bestMatchPattern.length() - 2);
+		String expression = bestMatchPattern.split("/")[2];
+		String finalPath = path.substring(bestMatchPattern.length() - expression.length());
 		return finalPath;
 	}
 
