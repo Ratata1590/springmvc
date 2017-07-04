@@ -1,6 +1,7 @@
 package com.ratata.nativeQueryRest.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
@@ -22,11 +23,17 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+
 @RestController
 public class ResourceController {
 
 	public static ConcurrentHashMap<String, byte[]> resources = new ConcurrentHashMap<String, byte[]>();
 	public static TreeMap<String, String> resourcesList = new TreeMap<String, String>();
+
+	private static ObjectMapper mapper = new ObjectMapper();
 
 	@RequestMapping(value = "/dynamicFrontEnd/**", method = RequestMethod.POST)
 	public static void postResource(HttpServletRequest request, @RequestBody byte[] body) throws Exception {
@@ -71,8 +78,39 @@ public class ResourceController {
 	}
 
 	@RequestMapping(value = "/dynamicFrontEndFileTree", method = RequestMethod.GET)
-	public static Object dynamicFronEndFileTree() {
+	public static Object dynamicFronEndFileTree(
+			@RequestHeader(required = false, defaultValue = "false") Boolean jsonOutput) {
+		if (jsonOutput) {
+			return listFileToJson(resourcesList);
+		}
 		return resourcesList;
+	}
+
+	private static JsonNode listFileToJson(TreeMap<String, String> resourcesList) {
+		Iterator<String> keyset = resourcesList.keySet().iterator();
+		ObjectNode result = mapper.createObjectNode();
+		while (keyset.hasNext()) {
+			String key = keyset.next();
+			String[] path = key.split("/");
+			ObjectNode node = result;
+			for (int i = 0; i < path.length; i++) {
+				if (i == path.length - 1) {
+					ObjectNode dataNode = mapper.createObjectNode();
+					dataNode.put("<size>", resourcesList.get(key));
+					node.set(path[i], dataNode);
+					continue;
+				}
+				if (!node.has(path[i])) {
+					ObjectNode newNode = mapper.createObjectNode();
+					node.set(path[i], newNode);
+					node = newNode;
+					continue;
+				} else {
+					node = (ObjectNode) node.get(path[i]);
+				}
+			}
+		}
+		return result;
 	}
 
 	@RequestMapping(value = "/dynamicFrontEndGetInfo", method = RequestMethod.GET)
