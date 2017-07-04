@@ -67,7 +67,7 @@ public class MavenRepoEndpointController {
   @SuppressWarnings("resource")
   private void initRepositorySession() throws Exception {
     URLClassLoader classLoader = new URLClassLoader(
-        new URL[] {(new File(getClass().getResource("mavenUtil.jar").getFile())).toURI().toURL()},
+        new URL[] {(new File(getClass().getClassLoader().getResource("mavenUtil.jar").getFile())).toURI().toURL()},
         Thread.currentThread().getContextClassLoader());
     mavenUtilClass = classLoader.loadClass("ratata.maven.MavenRepoUtil");
     mavenUtilClass.getMethod("initRepositorySession").invoke(null);
