@@ -12,8 +12,7 @@ import java.util.zip.ZipOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
-import org.springframework.util.AntPathMatcher;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,16 +76,29 @@ public class ResourceController {
 		}
 	}
 
+	@RequestMapping(value = "/dynamicFrontEndDeleteFileFrom/**", method = RequestMethod.DELETE)
+	public static void deleteResources(HttpServletRequest request) throws Exception {
+		String key = getResourcePathFromRequest(request);
+		for (String keyItem : resources.keySet()) {
+			if (keyItem.startsWith(key)) {
+				resources.remove(keyItem);
+				resourcesList.remove(keyItem);
+			}
+		}
+	}
+
 	@RequestMapping(value = "/dynamicFrontEndFileTree", method = RequestMethod.GET)
 	public static Object dynamicFronEndFileTree(
-			@RequestHeader(required = false, defaultValue = "false") Boolean jsonOutput) {
+			@RequestHeader(required = false, defaultValue = "false") Boolean jsonOutput,
+			@RequestHeader(required = false, defaultValue = "false") Boolean showGoto,
+			@RequestHeader(required = false, defaultValue = "/") String basePath) {
 		if (jsonOutput) {
-			return listFileToJson(resourcesList);
+			return listFileToJson(resourcesList, basePath, showGoto);
 		}
 		return resourcesList;
 	}
 
-	private static JsonNode listFileToJson(TreeMap<String, String> resourcesList) {
+	private static JsonNode listFileToJson(TreeMap<String, String> resourcesList, String basePath, Boolean showGoto) {
 		Iterator<String> keyset = resourcesList.keySet().iterator();
 		ObjectNode result = mapper.createObjectNode();
 		while (keyset.hasNext()) {
@@ -97,6 +109,9 @@ public class ResourceController {
 				if (i == path.length - 1) {
 					ObjectNode dataNode = mapper.createObjectNode();
 					dataNode.put("<size>", resourcesList.get(key));
+					if (showGoto) {
+						dataNode.put("<goto>", basePath + key);
+					}
 					node.set(path[i], dataNode);
 					continue;
 				}
@@ -131,7 +146,7 @@ public class ResourceController {
 		ZipEntry zipEntry = zipInputStream.getNextEntry();
 		while (zipEntry != null) {
 			String fileName = zipEntry.getName();
-			byte[] file = IOUtils.toByteArray(zipInputStream);
+			byte[] file = StreamUtils.copyToByteArray(zipInputStream);
 			resources.put(fileName, file);
 			resourcesList.put(fileName, String.valueOf(file.length));
 			zipEntry = zipInputStream.getNextEntry();
@@ -166,12 +181,15 @@ public class ResourceController {
 	private static String getResourcePathFromRequest(HttpServletRequest request) {
 		String path = (String) request.getAttribute(HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE);
 		String bestMatchPattern = (String) request.getAttribute(HandlerMapping.BEST_MATCHING_PATTERN_ATTRIBUTE);
-		AntPathMatcher apm = new AntPathMatcher();
-		String finalPath = apm.extractPathWithinPattern(bestMatchPattern, path);
+		// AntPathMatcher apm = new AntPathMatcher();
+		// String finalPath = apm.extractPathWithinPattern(bestMatchPattern,
+		// path);
+		String finalPath = path.substring(bestMatchPattern.length() - 2);
 		return finalPath;
 	}
 
 	private static void checkResource(String key) throws Exception {
+		System.out.println(key);
 		if (!resources.containsKey(key)) {
 			throw new Exception("resource not found");
 		}
