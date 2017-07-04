@@ -19,59 +19,54 @@ import com.fasterxml.jackson.databind.JsonNode;
 @RestController
 public class MavenRepoEndpointController {
 
-  public static Class<?> mavenUtilClass;
+	public static Class<?> mavenUtilClass;
 
-  @RequestMapping(value = "/uploadJarToRepo", method = RequestMethod.POST)
-  public static void uploadJarToRepo(@RequestBody(required = true) MultipartFile file,
-      @RequestHeader(required = true) String groupId,
-      @RequestHeader(required = true) String artifactId,
-      @RequestHeader(required = true) String version) throws Exception {
-    File tempFile = File.createTempFile(file.getOriginalFilename(), "");
-    file.transferTo(tempFile);
-    mavenUtilClass
-        .getMethod("uploadJarToRepo", File.class, String.class, String.class, String.class)
-        .invoke(null, tempFile, groupId, artifactId, version);
-  }
+	@RequestMapping(value = "/uploadJarToRepo", method = RequestMethod.POST)
+	public static void uploadJarToRepo(@RequestBody(required = true) MultipartFile file,
+			@RequestHeader(required = true) String groupId, @RequestHeader(required = true) String artifactId,
+			@RequestHeader(required = true) String version) throws Exception {
+		File tempFile = File.createTempFile(file.getOriginalFilename(), "");
+		file.transferTo(tempFile);
+		mavenUtilClass.getMethod("uploadJarToRepo", File.class, String.class, String.class, String.class).invoke(null,
+				tempFile, groupId, artifactId, version);
+	}
 
-  @RequestMapping(value = "/getLocalMetadata", method = RequestMethod.GET)
-  public static Object getMetadata(@RequestHeader(required = true) String groupId,
-      @RequestHeader(required = true) String artifactId) throws Exception {
-    return mavenUtilClass.getMethod("getMetadata", String.class, String.class).invoke(null, groupId,
-        artifactId);
-  }
+	@RequestMapping(value = "/getLocalMetadata", method = RequestMethod.GET)
+	public static Object getMetadata(@RequestHeader(required = true) String groupId,
+			@RequestHeader(required = true) String artifactId) throws Exception {
+		return mavenUtilClass.getMethod("getMetadata", String.class, String.class).invoke(null, groupId, artifactId);
+	}
 
-  @RequestMapping(value = "/createClassLoader", method = RequestMethod.POST)
-  public static void createClassLoader(@RequestHeader(required = true) String classLoaderName,
-      @RequestBody JsonNode mavenDependencies) throws Exception {
+	@RequestMapping(value = "/createClassLoader", method = RequestMethod.POST)
+	public static void createClassLoader(@RequestHeader(required = true) String classLoaderName,
+			@RequestBody JsonNode mavenDependencies) throws Exception {
 
-    mavenUtilClass
-        .getMethod("createClassLoader", String.class, JsonNode.class, Map.class, Map.class).invoke(
-            null, classLoaderName, mavenDependencies, DynamicCodeRestEndpointController.configList,
-            DynamicCodeRestEndpointController.classLoaderList);
-  }
+		mavenUtilClass.getMethod("createClassLoader", String.class, JsonNode.class, Map.class, Map.class).invoke(null,
+				classLoaderName, mavenDependencies, DynamicCodeRestEndpointController.configList,
+				DynamicCodeRestEndpointController.classLoaderList);
+	}
 
-  @RequestMapping(value = "/removeClassLoader", method = RequestMethod.GET)
-  public static void removeClassLoader(@RequestHeader String classLoaderName) throws Exception {
-    mavenUtilClass.getMethod("removeClassLoader", String.class, Map.class).invoke(null,
-        classLoaderName, DynamicCodeRestEndpointController.configList,
-        DynamicCodeRestEndpointController.classLoaderList);
-    System.gc();
-  }
+	@RequestMapping(value = "/removeClassLoader", method = RequestMethod.GET)
+	public static void removeClassLoader(@RequestHeader String classLoaderName) throws Exception {
+		mavenUtilClass.getMethod("removeClassLoader", String.class, Map.class).invoke(null, classLoaderName,
+				DynamicCodeRestEndpointController.configList, DynamicCodeRestEndpointController.classLoaderList);
+		System.gc();
+	}
 
-  @RequestMapping(value = "/getClassLoaderList", method = RequestMethod.GET)
-  public static Object getClassLoaderList() throws Exception {
-    return DynamicCodeRestEndpointController.configList;
-  }
+	@RequestMapping(value = "/getClassLoaderList", method = RequestMethod.GET)
+	public static Object getClassLoaderList() throws Exception {
+		return DynamicCodeRestEndpointController.configList;
+	}
 
-  @PostConstruct
-  @SuppressWarnings("resource")
-  private void initRepositorySession() throws Exception {
-    URLClassLoader classLoader = new URLClassLoader(
-        new URL[] {(new File(getClass().getClassLoader().getResource("mavenUtil.jar").getFile())).toURI().toURL()},
-        Thread.currentThread().getContextClassLoader());
-    mavenUtilClass = classLoader.loadClass("ratata.maven.MavenRepoUtil");
-    mavenUtilClass.getMethod("initRepositorySession").invoke(null);
-    // classLoader.close();
-  }
+	@PostConstruct
+	@SuppressWarnings("resource")
+	private void initRepositorySession() throws Exception {
+		URLClassLoader classLoader = new URLClassLoader(new URL[] {
+				(new File(getClass().getClassLoader().getResource("mavenUtil.jar").getFile())).toURI().toURL() },
+				Thread.currentThread().getContextClassLoader());
+		mavenUtilClass = classLoader.loadClass("ratata.maven.MavenRepoUtil");
+		mavenUtilClass.getMethod("initRepositorySession").invoke(null);
+		// classLoader.close();
+	}
 
 }
